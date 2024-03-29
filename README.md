@@ -1,3 +1,5 @@
+![workflow](https://github.com/Spring-io-2024-modulith-workshop/conference-kata-implementation-modulith/actions/workflows/maven.yml/badge.svg)
+
 ![Spring IO](https://2024.springio.net/images/logo-spring-io-mono.svg)
 
 # Spring IO 2024
