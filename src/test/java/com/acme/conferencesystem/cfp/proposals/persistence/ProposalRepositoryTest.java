@@ -1,15 +1,14 @@
 package com.acme.conferencesystem.cfp.proposals.persistence;
 
+import com.acme.conferencesystem.AbstractIntegrationTest;
 import org.instancio.Instancio;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.data.jdbc.DataJdbcTest;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.instancio.Select.field;
 
-@DataJdbcTest
-public class ProposalRepositoryTest {
+public class ProposalRepositoryTest extends AbstractIntegrationTest {
 
     @Autowired
     ProposalRepository repository;
