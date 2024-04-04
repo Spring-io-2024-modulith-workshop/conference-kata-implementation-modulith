@@ -1,17 +1,10 @@
 package com.acme.conferencesystem.cfp.proposals.http;
 
+import com.acme.conferencesystem.AbstractIntegrationTest;
 import com.acme.conferencesystem.cfp.proposals.business.Proposal;
-import com.acme.conferencesystem.cfp.proposals.business.ProposalService;
-import io.restassured.RestAssured;
 import io.restassured.http.ContentType;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.mockito.BDDMockito;
-import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.boot.test.mock.mockito.MockBean;
-import org.springframework.boot.test.web.server.LocalServerPort;
 
-import java.util.Collections;
 import java.util.UUID;
 
 import static io.restassured.RestAssured.get;
@@ -19,28 +12,14 @@ import static io.restassured.RestAssured.given;
 import static org.hamcrest.Matchers.equalTo;
 import static org.hamcrest.Matchers.hasSize;
 
-@SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
-class ProposalControllerEndToEndTest {
-
-    @LocalServerPort
-    private int port;
-
-    @MockBean
-    private ProposalService proposalService;
-
-    @BeforeEach
-    void setUp() {
-        RestAssured.port = port;
-    }
+class ProposalControllerIntegrationTest extends AbstractIntegrationTest {
 
     @Test
     void endToEndTest() {
         Proposal proposal = new Proposal(UUID.randomUUID(), "Test Proposal", "This is a test proposal.", "John Doe");
-        BDDMockito.given(proposalService.getAllProposals()).willReturn(Collections.singletonList(proposal));
-        BDDMockito.given(proposalService.getProposalById(proposal.id())).willReturn(java.util.Optional.of(proposal));
 
         // Submit proposal
-        given()
+        given(requestSpecification)
                 .contentType(ContentType.JSON)
                 .body(proposal)
                 .when()
@@ -67,4 +46,5 @@ class ProposalControllerEndToEndTest {
                 .body("description", equalTo("This is a test proposal."))
                 .body("speaker", equalTo("John Doe"));
     }
+
 }

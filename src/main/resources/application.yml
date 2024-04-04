@@ -1,0 +1,14 @@
+spring:
+  application:
+    name: conference-system
+  datasource:
+    generate-unique-name: false
+    name: conferencesystem
+  sql:
+    init:
+      mode: never
+logging:
+  level:
+    org:
+      springframework:
+        security: DEBUG

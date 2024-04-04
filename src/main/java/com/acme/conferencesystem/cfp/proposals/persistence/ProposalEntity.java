@@ -6,6 +6,6 @@ import org.springframework.data.relational.core.mapping.Table;
 
 import java.util.UUID;
 
-@Table("PROPOSAL")
+@Table("proposals")
 public record ProposalEntity(@Id UUID id, String title, String description, String speaker) {
 }
