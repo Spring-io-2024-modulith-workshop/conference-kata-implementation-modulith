@@ -4,9 +4,11 @@ import com.acme.conferencesystem.cfp.proposals.persistence.ProposalEntity;
 import com.acme.conferencesystem.cfp.proposals.persistence.ProposalRepository;
 import org.instancio.Instancio;
 import org.junit.jupiter.api.Test;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.boot.test.mock.mockito.MockBean;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
+import org.mockito.Spy;
+import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.util.List;
 import java.util.Optional;
@@ -15,17 +17,17 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.BDDMockito.given;
 import static org.mockito.BDDMockito.then;
 
-@SpringBootTest
+@ExtendWith(MockitoExtension.class)
 class ProposalServiceTest {
 
-    @Autowired
+    @InjectMocks
     ProposalService service;
 
-    @MockBean
+    @Mock
     ProposalRepository repository;
 
-    @Autowired
-    ProposalMapper mapper;
+    @Spy
+    ProposalMapper mapper = new ProposalMapperImpl();
 
     @Test
     void get_all_proposals() {

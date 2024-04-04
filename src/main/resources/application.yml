@@ -1,0 +1,15 @@
+spring:
+  application:
+    name: conference-system
+    datasource:
+      url: jdbc:postgresql://localhost:5432/conferencesystem
+      username: conferencesystem
+      password: conferencesystem
+  sql:
+    init:
+      mode: never
+logging:
+  level:
+    org:
+      springframework:
+        security: INFO
