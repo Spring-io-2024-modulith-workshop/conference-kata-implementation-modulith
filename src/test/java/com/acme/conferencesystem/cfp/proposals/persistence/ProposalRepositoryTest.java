@@ -8,7 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.instancio.Select.field;
 
-public class ProposalRepositoryTest extends AbstractIntegrationTest {
+class ProposalRepositoryTest extends AbstractIntegrationTest {
 
     @Autowired
     ProposalRepository repository;

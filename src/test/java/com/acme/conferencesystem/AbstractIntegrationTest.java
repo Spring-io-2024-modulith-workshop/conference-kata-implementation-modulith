@@ -9,8 +9,8 @@ import org.springframework.boot.test.web.server.LocalServerPort;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
 
-@SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT, properties = {}, classes = ContainerConfig.class)
-public class AbstractIntegrationTest {
+@SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT, classes = ContainerConfig.class)
+public abstract class AbstractIntegrationTest {
 
     protected RequestSpecification requestSpecification;
 
