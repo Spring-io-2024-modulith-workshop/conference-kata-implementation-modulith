@@ -1,9 +1,10 @@
 spring:
   application:
     name: conference-system
-  datasource:
-    generate-unique-name: false
-    name: conferencesystem
+    datasource:
+      url: jdbc:postgresql://localhost:5432/conferencesystem
+      username: conferencesystem
+      password: conferencesystem
   sql:
     init:
       mode: never
@@ -11,4 +12,4 @@ logging:
   level:
     org:
       springframework:
-        security: DEBUG
+        security: INFO
