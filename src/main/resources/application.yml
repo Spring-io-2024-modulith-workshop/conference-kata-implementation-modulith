@@ -1,13 +1,17 @@
 spring:
+
   application:
     name: conference-system
-    datasource:
-      url: jdbc:postgresql://localhost:5432/conferencesystem
-      username: conferencesystem
-      password: conferencesystem
+
   sql:
     init:
-      mode: never
+      mode: always
+      schema-locations: classpath:sql/schema/*sql
+  datasource:
+    url: jdbc:postgresql://localhost:5432/conferencesystem
+    username: conferencesystem
+    password: conferencesystem
+
 logging:
   level:
     org:
