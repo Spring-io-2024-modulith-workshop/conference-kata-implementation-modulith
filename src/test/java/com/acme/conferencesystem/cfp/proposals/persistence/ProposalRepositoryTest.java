@@ -1,15 +1,19 @@
 package com.acme.conferencesystem.cfp.proposals.persistence;
 
-import com.acme.conferencesystem.AbstractIntegrationTest;
+import com.acme.conferencesystem.ContainerConfig;
 import org.instancio.Instancio;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Import;
+import org.springframework.modulith.test.ApplicationModuleTest;
 import org.springframework.transaction.annotation.Transactional;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.instancio.Select.field;
 
-public class ProposalRepositoryTest extends AbstractIntegrationTest {
+@ApplicationModuleTest
+@Import(ContainerConfig.class)
+public class ProposalRepositoryTest {
 
     @Autowired
     ProposalRepository repository;

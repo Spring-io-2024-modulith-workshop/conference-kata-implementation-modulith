@@ -1,15 +1,19 @@
 package com.acme.conferencesystem.users.persistence;
 
-import com.acme.conferencesystem.AbstractIntegrationTest;
+import com.acme.conferencesystem.ContainerConfig;
 import org.instancio.Instancio;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Import;
+import org.springframework.modulith.test.ApplicationModuleTest;
 import org.springframework.transaction.annotation.Transactional;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.instancio.Select.field;
 
-class UsersRepositoryTest extends AbstractIntegrationTest {
+@ApplicationModuleTest
+@Import(ContainerConfig.class)
+class UsersRepositoryTest {
 
     @Autowired
     UsersRepository repository;

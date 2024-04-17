@@ -9,6 +9,11 @@ class ArchitectureTests {
     ApplicationModules modules = ApplicationModules.of(Application.class);
 
     @Test
+    void printModuleArrangement() {
+        modules.forEach(System.out::println);
+    }
+
+    @Test
     void verifyModularStructure() {
         modules.verify();
     }
