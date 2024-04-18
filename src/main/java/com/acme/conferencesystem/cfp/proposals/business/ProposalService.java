@@ -11,6 +11,7 @@ import java.util.UUID;
 
 @Service
 public class ProposalService {
+
     private final ProposalRepository repository;
     private final ProposalMapper mapper;
 

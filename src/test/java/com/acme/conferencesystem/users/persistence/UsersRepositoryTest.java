@@ -1,4 +1,4 @@
-package com.acme.conferencesystem.cfp.proposals.persistence;
+package com.acme.conferencesystem.users.persistence;
 
 import com.acme.conferencesystem.ContainerConfig;
 import org.instancio.Instancio;
@@ -13,17 +13,17 @@ import static org.instancio.Select.field;
 
 @ApplicationModuleTest
 @Import(ContainerConfig.class)
-public class ProposalRepositoryTest {
+class UsersRepositoryTest {
 
     @Autowired
-    ProposalRepository repository;
+    UsersRepository repository;
 
     @Test
     @Transactional
     void save() {
-        var entity = Instancio.of(ProposalEntity.class).ignore(field(ProposalEntity::id)).create();
+        var entity = Instancio.of(UserEntity.class).ignore(field(UserEntity::id)).create();
 
-        ProposalEntity persisted = repository.save(entity);
+        UserEntity persisted = repository.save(entity);
 
         assertThat(persisted.id()).isNotNull();
         assertThat(persisted)
