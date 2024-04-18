@@ -1,13 +1,13 @@
 package com.acme.conferencesystem.cfp.proposals.business;
 
+import com.acme.conferencesystem.cfp.proposals.persistence.ProposalEntity;
 import com.acme.conferencesystem.cfp.proposals.persistence.ProposalRepository;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
-import java.util.stream.Collectors;
-import java.util.stream.StreamSupport;
 
 @Service
 public class ProposalService {
@@ -20,9 +20,12 @@ public class ProposalService {
     }
 
     public List<Proposal> getAllProposals() {
-        return StreamSupport.stream(repository.findAll().spliterator(), false)
-                .map(mapper::entityToProposal)
-                .collect(Collectors.toList());
+        List<Proposal> list = new ArrayList<>();
+        for (ProposalEntity proposalEntity : repository.findAll()) {
+            Proposal proposal = mapper.entityToProposal(proposalEntity);
+            list.add(proposal);
+        }
+        return list;
     }
 
     public Proposal submitProposal(Proposal proposal) {
