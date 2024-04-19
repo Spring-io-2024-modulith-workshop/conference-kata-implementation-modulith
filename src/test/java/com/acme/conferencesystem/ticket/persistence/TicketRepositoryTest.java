@@ -1,6 +1,5 @@
 package com.acme.conferencesystem.ticket.persistence;
 
-import com.acme.conferencesystem.AbstractIntegrationTest;
 import com.acme.conferencesystem.ContainerConfig;
 import org.instancio.Instancio;
 import org.instancio.Select;
@@ -13,7 +12,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 @ApplicationModuleTest
 @Import(ContainerConfig.class)
-class TicketRepositoryTest extends AbstractIntegrationTest {
+class TicketRepositoryTest {
 
     @Autowired
     TicketRepository ticketRepository;
