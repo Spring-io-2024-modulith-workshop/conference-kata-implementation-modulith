@@ -4,6 +4,7 @@ import com.acme.conferencesystem.ticket.persistence.TicketEntity;
 import com.acme.conferencesystem.ticket.persistence.TicketRepository;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
@@ -33,13 +34,13 @@ public class TicketService {
     }
 
     public Ticket buyTicket(Ticket ticket) {
-        TicketEntity ticketEntity = new TicketEntity(ticket.id(), CONFIRMED, ticket.date());
+        TicketEntity ticketEntity = new TicketEntity(ticket.id(), CONFIRMED, LocalDate.now());
         ticketRepository.save(ticketEntity);
         return ticketMapper.ticket(ticketEntity);
     }
 
     public Ticket bookTicket(Ticket ticket) {
-        TicketEntity ticketEntity = new TicketEntity(ticket.id(), RESERVED, ticket.date());
+        TicketEntity ticketEntity = new TicketEntity(ticket.id(), RESERVED, LocalDate.now());
         ticketRepository.save(ticketEntity);
         return ticketMapper.ticket(ticketEntity);
     }
@@ -47,7 +48,7 @@ public class TicketService {
     public void cancelTicket(Ticket ticket) {
         ticketRepository.findById(ticket.id())
                 .ifPresent(ticketEntity -> {
-                    var cancelledTicket = new TicketEntity(ticketEntity.id(), CANCELLED, ticketEntity.date());
+                    var cancelledTicket = new TicketEntity(ticketEntity.id(), CANCELLED, LocalDate.now());
                     ticketRepository.save(cancelledTicket);
                 });
     }
@@ -55,7 +56,7 @@ public class TicketService {
     public void confirmTicket(Ticket ticket) {
         ticketRepository.findById(ticket.id())
                 .ifPresent(ticketEntity -> {
-                    var cancelledTicket = new TicketEntity(ticketEntity.id(), CONFIRMED, ticketEntity.date());
+                    var cancelledTicket = new TicketEntity(ticketEntity.id(), CONFIRMED, LocalDate.now());
                     ticketRepository.save(cancelledTicket);
                 });
     }
