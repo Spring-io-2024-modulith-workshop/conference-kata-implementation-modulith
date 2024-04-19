@@ -15,6 +15,7 @@ public class ContainerConfig {
     @RestartScope
     public PostgreSQLContainer<?> postgreSQLContainer() {
         return new PostgreSQLContainer<>("postgres:16-alpine")
+                .withCopyToContainer(MountableFile.forClasspathResource("sql/schema/tickets.sql"), "/docker-entrypoint-initdb.d/tickets.sql")
                 .withCopyToContainer(MountableFile.forClasspathResource("sql/schema/proposals.sql"), "/docker-entrypoint-initdb.d/proposals.sql")
                 .withCopyToContainer(MountableFile.forClasspathResource("sql/schema/users.sql"), "/docker-entrypoint-initdb.d/users.sql");
     }
