@@ -9,6 +9,7 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Spy;
 import org.mockito.junit.jupiter.MockitoExtension;
+import org.springframework.context.ApplicationEventPublisher;
 
 import java.util.List;
 import java.util.Optional;
@@ -28,6 +29,10 @@ class ProposalServiceTest {
 
     @Spy
     ProposalMapper mapper = new ProposalMapperImpl();
+
+    @Mock
+    ApplicationEventPublisher eventPublisher;
+
 
     @Test
     void get_all_proposals() {

@@ -44,6 +44,10 @@
             <artifactId>jakarta.validation-api</artifactId>
             <version>${jakarta.validation-api.version}</version>
         </dependency>
+        <dependency>
+            <groupId>org.springframework.modulith</groupId>
+            <artifactId>spring-modulith-events-api</artifactId>
+        </dependency>
         <!-- Persistence -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
