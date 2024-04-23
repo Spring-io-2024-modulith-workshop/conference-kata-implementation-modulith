@@ -13,7 +13,6 @@ public class UserValidationEvent extends ApplicationEvent {
         this.userId = userId;
     }
 
-
     public UUID getUserId() {
         return userId;
     }
