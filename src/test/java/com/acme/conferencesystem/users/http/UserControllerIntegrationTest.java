@@ -16,7 +16,7 @@ import static org.hamcrest.Matchers.hasSize;
 
 @ApplicationModuleTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 @Import(ContainerConfig.class)
-class UserControllerTest extends AbstractIntegrationTest {
+class UserControllerIntegrationTest extends AbstractIntegrationTest {
 
     public static final String JOHN_DOE = "John Doe";
     public static final String EMAIL = "john@example.com";

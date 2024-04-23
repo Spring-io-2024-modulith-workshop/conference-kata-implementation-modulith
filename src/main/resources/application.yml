@@ -8,12 +8,12 @@ spring:
       mode: always
       schema-locations: classpath:sql/schema/*sql
   datasource:
-    url: jdbc:postgresql://localhost:5432/conferencesystem
-    username: conferencesystem
-    password: conferencesystem
+    url: jdbc:postgresql://localhost:5432/test
+    username: test
+    password: test
 
 logging:
   level:
     org:
       springframework:
-        security: INFO
+        security: DEBUG
