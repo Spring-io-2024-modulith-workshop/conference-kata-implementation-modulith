@@ -53,9 +53,8 @@ public class UserService {
 
     private void validateUser(UUID userId) {
         if (!isUserValid(userId)) {
-            String userNotValidExceptionMessage = STR."User with ID \{userId}, not valid.";
-            log.error(userNotValidExceptionMessage);
-            throw new IllegalArgumentException(userNotValidExceptionMessage);
+            log.error("User with ID {}, is not valid.", userId);
+            throw new IllegalArgumentException("User with ID %s, is not valid".formatted(userId));
         }
     }
 
