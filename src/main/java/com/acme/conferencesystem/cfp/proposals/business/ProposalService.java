@@ -33,7 +33,7 @@ public class ProposalService {
 
     @Transactional
     public Proposal submitProposal(Proposal proposal) {
-        eventPublisher.publishEvent(new UserValidationEvent(proposal.speakerId()));
+        eventPublisher.publishEvent(new UserValidationEvent(this, proposal.speakerId()));
 
         var proposalEntity = mapper.proposalToEntity(proposal);
         var submittedProposalEntity = repository.save(proposalEntity);
