@@ -4,6 +4,7 @@ import com.acme.conferencesystem.AbstractIntegrationTest;
 import com.acme.conferencesystem.ContainerConfig;
 import com.acme.conferencesystem.ticket.business.Ticket;
 import com.acme.conferencesystem.ticket.business.TicketCategory;
+import com.acme.conferencesystem.ticket.business.TicketStatus;
 import io.restassured.http.ContentType;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -23,7 +24,8 @@ class TicketControllerIntegrationTest extends AbstractIntegrationTest {
     void endToEndTest() {
 
         Ticket ticket = new Ticket(
-                UUID.randomUUID(), TicketCategory.PENDING, LocalDate.now()
+                UUID.randomUUID(), TicketCategory.BLIND, LocalDate.now(), 100D,
+                TicketStatus.PENDING
         );
 
         var newTicketId = given(requestSpecification)

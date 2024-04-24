@@ -10,9 +10,9 @@ import java.util.Optional;
 import java.util.UUID;
 import java.util.stream.StreamSupport;
 
-import static com.acme.conferencesystem.ticket.business.TicketCategory.CANCELLED;
-import static com.acme.conferencesystem.ticket.business.TicketCategory.CONFIRMED;
-import static com.acme.conferencesystem.ticket.business.TicketCategory.RESERVED;
+import static com.acme.conferencesystem.ticket.business.TicketStatus.CANCELLED;
+import static com.acme.conferencesystem.ticket.business.TicketStatus.CONFIRMED;
+import static com.acme.conferencesystem.ticket.business.TicketStatus.RESERVED;
 
 @Service
 public class TicketService {
@@ -34,29 +34,29 @@ public class TicketService {
     }
 
     public Ticket buyTicket(Ticket ticket) {
-        TicketEntity ticketEntity = new TicketEntity(ticket.id(), CONFIRMED, LocalDate.now());
+        TicketEntity ticketEntity = new TicketEntity(ticket.id(), ticket.category(), ticket.date(), ticket.price(), CONFIRMED);
         ticketRepository.save(ticketEntity);
         return ticketMapper.ticket(ticketEntity);
     }
 
     public Ticket bookTicket(Ticket ticket) {
-        TicketEntity ticketEntity = new TicketEntity(ticket.id(), RESERVED, LocalDate.now());
+        TicketEntity ticketEntity = new TicketEntity(ticket.id(), ticket.category(), ticket.date(), ticket.price(), RESERVED);
         ticketRepository.save(ticketEntity);
         return ticketMapper.ticket(ticketEntity);
     }
 
-    public void cancelTicket(Ticket ticket) {
-        ticketRepository.findById(ticket.id())
+    public void cancelTicket(UUID ticket) {
+        ticketRepository.findById(ticket)
                 .ifPresent(ticketEntity -> {
-                    var cancelledTicket = new TicketEntity(ticketEntity.id(), CANCELLED, LocalDate.now());
+                    var cancelledTicket = new TicketEntity(ticketEntity.id(), ticketEntity.category(), LocalDate.now(), ticketEntity.price(), CANCELLED);
                     ticketRepository.save(cancelledTicket);
                 });
     }
 
-    public void confirmTicket(Ticket ticket) {
-        ticketRepository.findById(ticket.id())
+    public void confirmTicket(UUID ticket) {
+        ticketRepository.findById(ticket)
                 .ifPresent(ticketEntity -> {
-                    var cancelledTicket = new TicketEntity(ticketEntity.id(), CONFIRMED, LocalDate.now());
+                    var cancelledTicket = new TicketEntity(ticketEntity.id(), ticketEntity.category(), LocalDate.now(), ticketEntity.price(), CONFIRMED);
                     ticketRepository.save(cancelledTicket);
                 });
     }

@@ -15,6 +15,8 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import java.util.List;
 import java.util.Optional;
 
+import static com.acme.conferencesystem.ticket.business.TicketStatus.CONFIRMED;
+import static com.acme.conferencesystem.ticket.business.TicketStatus.RESERVED;
 import static org.mockito.BDDMockito.given;
 
 @ExtendWith(MockitoExtension.class)
@@ -43,10 +45,10 @@ class TicketServiceTest {
 
         Ticket ticketToBuy = Instancio.of(Ticket.class).create();
         Ticket ticket = ticketService.buyTicket(ticketToBuy);
-        Assertions.assertThat(ticket.category()).isEqualTo(TicketCategory.CONFIRMED);
+        Assertions.assertThat(ticket.status()).isEqualTo(CONFIRMED);
         Assertions.assertThat(ticket).isNotNull()
                 .usingRecursiveComparison()
-                .ignoringFields("category")
+                .ignoringFields("status")
                 .isEqualTo(ticketToBuy);
 
     }
@@ -55,10 +57,10 @@ class TicketServiceTest {
     void bookTicket() {
         Ticket ticketToBook = Instancio.of(Ticket.class).create();
         Ticket ticket = ticketService.bookTicket(ticketToBook);
-        Assertions.assertThat(ticket.category()).isEqualTo(TicketCategory.RESERVED);
+        Assertions.assertThat(ticket.status()).isEqualTo(RESERVED);
         Assertions.assertThat(ticket).isNotNull()
                 .usingRecursiveComparison()
-                .ignoringFields("category")
+                .ignoringFields("status")
                 .isEqualTo(ticketToBook);
     }
 
@@ -70,7 +72,7 @@ class TicketServiceTest {
         given(ticketRepository.findById(ticketToCancel.id())).willReturn(Optional.of(ticketEntity));
 
         ticketService.bookTicket(ticketToCancel);
-        ticketService.cancelTicket(ticketToCancel);
+        ticketService.cancelTicket(ticketToCancel.id());
         Optional<Ticket> byId = ticketService.getById(ticketToCancel.id());
 
         Assertions.assertThat(byId).isNotEmpty();
@@ -84,7 +86,7 @@ class TicketServiceTest {
         given(ticketRepository.findById(ticketToConfirm.id())).willReturn(Optional.of(ticketEntity));
 
         ticketService.bookTicket(ticketToConfirm);
-        ticketService.confirmTicket(ticketToConfirm);
+        ticketService.confirmTicket(ticketToConfirm.id());
         Optional<Ticket> byId = ticketService.getById(ticketToConfirm.id());
 
         Assertions.assertThat(byId).isNotEmpty();

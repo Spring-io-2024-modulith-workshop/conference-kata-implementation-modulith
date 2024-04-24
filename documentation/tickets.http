@@ -1,0 +1,15 @@
+GET http://localhost:8080/tickets
+Accept: application/json
+
+###
+
+PUT http://localhost:8080/tickets/buy
+Accept: application/json
+Content-Type: application/json
+
+{
+  "category": "BLIND",
+  "date": "2021-01-01",
+  "price": 100,
+  "status": "PENDING"
+}
