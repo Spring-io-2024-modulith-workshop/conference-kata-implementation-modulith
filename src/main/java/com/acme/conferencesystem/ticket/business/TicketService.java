@@ -34,7 +34,7 @@ public class TicketService {
     }
 
     public Ticket buyTicket(Ticket ticket) {
-        TicketEntity ticketEntity = new TicketEntity(ticket.id(), ticket.category(), ticket.date(), ticket.price(), CONFIRMED);
+        TicketEntity ticketEntity = new TicketEntity(ticket.id() == null ? UUID.randomUUID() : ticket.id(), ticket.category(), ticket.date(), ticket.price(), CONFIRMED);
         TicketEntity persisted = ticketRepository.save(ticketEntity);
         return ticketMapper.ticket(persisted);
     }

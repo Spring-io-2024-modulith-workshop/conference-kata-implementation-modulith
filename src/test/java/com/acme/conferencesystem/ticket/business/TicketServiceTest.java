@@ -2,7 +2,6 @@ package com.acme.conferencesystem.ticket.business;
 
 import com.acme.conferencesystem.ticket.persistence.TicketEntity;
 import com.acme.conferencesystem.ticket.persistence.TicketRepository;
-import org.assertj.core.api.Assertions;
 import org.instancio.Instancio;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -17,7 +16,12 @@ import java.util.Optional;
 
 import static com.acme.conferencesystem.ticket.business.TicketStatus.CONFIRMED;
 import static com.acme.conferencesystem.ticket.business.TicketStatus.RESERVED;
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.instancio.Select.field;
 import static org.mockito.BDDMockito.given;
+import static org.mockito.Mockito.atMostOnce;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
 
 @ExtendWith(MockitoExtension.class)
 class TicketServiceTest {
@@ -37,16 +41,30 @@ class TicketServiceTest {
         given(ticketRepository.findAll()).willReturn(ticketList);
 
         List<Ticket> allTickets = ticketService.getAllTickets();
-        Assertions.assertThat(allTickets).hasSize(3);
+        assertThat(allTickets).hasSize(3);
     }
 
     @Test
     void buyTicket() {
 
-        Ticket ticketToBuy = Instancio.of(Ticket.class).create();
-        Ticket ticket = ticketService.buyTicket(ticketToBuy);
-        Assertions.assertThat(ticket.status()).isEqualTo(CONFIRMED);
-        Assertions.assertThat(ticket).isNotNull()
+        var ticketToBuy = Instancio.of(Ticket.class).create();
+        var ticketEntity = Instancio.of(TicketEntity.class)
+                .set(field("status"), CONFIRMED)
+                .set(field("category"), ticketToBuy.category())
+                .set(field("id"), ticketToBuy.id())
+                .set(field("price"), ticketToBuy.price())
+                .set(field("date"), ticketToBuy.date())
+                .create();
+
+        when(ticketRepository.save(Mockito.any(TicketEntity.class)))
+                .thenReturn(ticketEntity);
+
+        var ticket = ticketService.buyTicket(ticketToBuy);
+
+        verify(ticketMapper, atMostOnce()).ticketEntity(ticketToBuy);
+
+        assertThat(ticket.status()).isEqualTo(CONFIRMED);
+        assertThat(ticket).isNotNull()
                 .usingRecursiveComparison()
                 .ignoringFields("status")
                 .isEqualTo(ticketToBuy);
@@ -56,9 +74,20 @@ class TicketServiceTest {
     @Test
     void bookTicket() {
         Ticket ticketToBook = Instancio.of(Ticket.class).create();
+        var ticketEntity = Instancio.of(TicketEntity.class)
+                .set(field("status"), RESERVED)
+                .set(field("category"), ticketToBook.category())
+                .set(field("id"), ticketToBook.id())
+                .set(field("price"), ticketToBook.price())
+                .set(field("date"), ticketToBook.date())
+                .create();
+
+        when(ticketRepository.save(Mockito.any(TicketEntity.class)))
+                .thenReturn(ticketEntity);
+
         Ticket ticket = ticketService.bookTicket(ticketToBook);
-        Assertions.assertThat(ticket.status()).isEqualTo(RESERVED);
-        Assertions.assertThat(ticket).isNotNull()
+        assertThat(ticket.status()).isEqualTo(RESERVED);
+        assertThat(ticket).isNotNull()
                 .usingRecursiveComparison()
                 .ignoringFields("status")
                 .isEqualTo(ticketToBook);
@@ -75,7 +104,7 @@ class TicketServiceTest {
         ticketService.cancelTicket(ticketToCancel.id());
         Optional<Ticket> byId = ticketService.getById(ticketToCancel.id());
 
-        Assertions.assertThat(byId).isNotEmpty();
+        assertThat(byId).isNotEmpty();
     }
 
     @Test
@@ -89,6 +118,6 @@ class TicketServiceTest {
         ticketService.confirmTicket(ticketToConfirm.id());
         Optional<Ticket> byId = ticketService.getById(ticketToConfirm.id());
 
-        Assertions.assertThat(byId).isNotEmpty();
+        assertThat(byId).isNotEmpty();
     }
 }
