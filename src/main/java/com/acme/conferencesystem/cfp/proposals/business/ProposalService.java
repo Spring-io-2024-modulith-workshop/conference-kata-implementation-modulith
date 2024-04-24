@@ -1,8 +1,11 @@
 package com.acme.conferencesystem.cfp.proposals.business;
 
+import com.acme.conferencesystem.UserValidationEvent;
 import com.acme.conferencesystem.cfp.proposals.persistence.ProposalEntity;
 import com.acme.conferencesystem.cfp.proposals.persistence.ProposalRepository;
+import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -14,10 +17,12 @@ public class ProposalService {
 
     private final ProposalRepository repository;
     private final ProposalMapper mapper;
+    private final ApplicationEventPublisher eventPublisher;
 
-    public ProposalService(ProposalRepository repository, ProposalMapper mapper) {
+    public ProposalService(ProposalRepository repository, ProposalMapper mapper, ApplicationEventPublisher eventPublisher) {
         this.repository = repository;
         this.mapper = mapper;
+        this.eventPublisher = eventPublisher;
     }
 
     public List<Proposal> getAllProposals() {
@@ -29,7 +34,10 @@ public class ProposalService {
         return list;
     }
 
+    @Transactional
     public Proposal submitProposal(Proposal proposal) {
+        eventPublisher.publishEvent(new UserValidationEvent(this, proposal.speakerId()));
+
         var proposalEntity = mapper.proposalToEntity(proposal);
         var submittedProposalEntity = repository.save(proposalEntity);
         return mapper.entityToProposal(submittedProposalEntity);

@@ -6,7 +6,7 @@
 curl -X POST "http://localhost:8080/proposals" -H "Content-Type: application/json" -d '{
     "title": "Test Proposal",
     "description": "This is a test proposal.",
-    "speaker": "John Doe"
+    "speakerId": "a82028f8-dea5-4bec-b436-407dfb87b211"
 }'
 ```
 
