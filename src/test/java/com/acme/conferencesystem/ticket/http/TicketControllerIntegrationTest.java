@@ -24,7 +24,10 @@ class TicketControllerIntegrationTest extends AbstractIntegrationTest {
     void endToEndTest() {
 
         Ticket ticket = new Ticket(
-                UUID.randomUUID(), TicketCategory.BLIND, LocalDate.now(), 100D,
+                UUID.randomUUID(),
+                TicketCategory.BLIND,
+                LocalDate.now(),
+                100D,
                 TicketStatus.PENDING
         );
 

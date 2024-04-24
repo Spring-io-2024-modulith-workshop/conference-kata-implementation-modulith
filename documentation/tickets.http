@@ -8,8 +8,8 @@ Accept: application/json
 Content-Type: application/json
 
 {
-  "category": "BLIND",
-  "date": "2021-01-01",
-  "price": 100,
+  "category": "REGULAR",
+  "date": "2024-04-24",
+  "price": 150,
   "status": "PENDING"
 }

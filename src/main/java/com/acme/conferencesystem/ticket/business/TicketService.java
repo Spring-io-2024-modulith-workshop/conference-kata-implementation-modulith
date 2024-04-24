@@ -35,14 +35,14 @@ public class TicketService {
 
     public Ticket buyTicket(Ticket ticket) {
         TicketEntity ticketEntity = new TicketEntity(ticket.id(), ticket.category(), ticket.date(), ticket.price(), CONFIRMED);
-        ticketRepository.save(ticketEntity);
-        return ticketMapper.ticket(ticketEntity);
+        TicketEntity persisted = ticketRepository.save(ticketEntity);
+        return ticketMapper.ticket(persisted);
     }
 
     public Ticket bookTicket(Ticket ticket) {
         TicketEntity ticketEntity = new TicketEntity(ticket.id(), ticket.category(), ticket.date(), ticket.price(), RESERVED);
-        ticketRepository.save(ticketEntity);
-        return ticketMapper.ticket(ticketEntity);
+        TicketEntity persisted = ticketRepository.save(ticketEntity);
+        return ticketMapper.ticket(persisted);
     }
 
     public void cancelTicket(UUID ticket) {
