@@ -1,8 +1,11 @@
 package com.acme.conferencesystem.users.business;
 
+import com.acme.conferencesystem.UserValidationEvent;
 import com.acme.conferencesystem.users.persistence.UserEntity;
 import com.acme.conferencesystem.users.persistence.UsersRepository;
+import org.assertj.core.api.Assertions;
 import org.instancio.Instancio;
+import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
@@ -61,5 +64,26 @@ class UserServiceTest {
         Optional<User> result = service.getUserById(id);
 
         assertThat(result).isPresent().contains(user);
+    }
+
+    @Nested
+    class Validate_user {
+
+        @Test
+        void throw_exception_if_user_is_not_found() {
+            var userValidationEvent = Instancio.create(UserValidationEvent.class);
+            given(repository.existsById(userValidationEvent.getUserId())).willReturn(false);
+
+            Assertions.assertThatThrownBy(() -> service.onValidateUserEvent(userValidationEvent));
+        }
+
+        @Test
+        void user_is_valid_if_user_is_found() {
+            var userValidationEvent = Instancio.create(UserValidationEvent.class);
+            given(repository.existsById(userValidationEvent.getUserId())).willReturn(true);
+
+            Assertions.assertThatNoException().isThrownBy(() -> service.onValidateUserEvent(userValidationEvent));
+        }
+        
     }
 }
