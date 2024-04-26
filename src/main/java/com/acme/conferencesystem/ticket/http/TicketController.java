@@ -50,12 +50,12 @@ public class TicketController {
     @PatchMapping("/{id}/cancel")
     public ResponseEntity<Void> cancelTicket(@PathVariable UUID id) {
         ticketService.cancelTicket(id);
-        return ResponseEntity.noContent().build();
+        return ResponseEntity.ok().build();
     }
 
     @PatchMapping("/{id}/confirm")
     public ResponseEntity<Void> confirmTicket(@PathVariable UUID id) {
         ticketService.confirmTicket(id);
-        return ResponseEntity.noContent().build();
+        return ResponseEntity.ok().build();
     }
 }
