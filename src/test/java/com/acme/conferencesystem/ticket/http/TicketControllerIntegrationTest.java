@@ -11,8 +11,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.context.annotation.Import;
 import org.springframework.modulith.test.ApplicationModuleTest;
 
-import java.time.LocalDate;
-import java.util.UUID;
+import java.time.LocalDateTime;
 
 import static io.restassured.RestAssured.given;
 
@@ -24,9 +23,9 @@ class TicketControllerIntegrationTest extends AbstractIntegrationTest {
     void endToEndTest() {
 
         Ticket ticket = new Ticket(
-                UUID.randomUUID(),
+                null,
                 TicketCategory.BLIND,
-                LocalDate.now(),
+                LocalDateTime.now(),
                 100D,
                 TicketStatus.PENDING
         );
@@ -35,7 +34,7 @@ class TicketControllerIntegrationTest extends AbstractIntegrationTest {
                 .contentType(ContentType.JSON)
                 .body(ticket)
                 .when()
-                .put("/tickets/buy")
+                .post("/tickets/buy")
                 .then()
                 .statusCode(201);
 

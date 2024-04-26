@@ -4,7 +4,7 @@ import com.acme.conferencesystem.ticket.persistence.TicketEntity;
 import com.acme.conferencesystem.ticket.persistence.TicketRepository;
 import org.springframework.stereotype.Service;
 
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
@@ -34,13 +34,13 @@ public class TicketService {
     }
 
     public Ticket buyTicket(Ticket ticket) {
-        TicketEntity ticketEntity = new TicketEntity(ticket.id() == null ? UUID.randomUUID() : ticket.id(), ticket.category(), ticket.date(), ticket.price(), CONFIRMED);
+        TicketEntity ticketEntity = new TicketEntity(null, ticket.category(), ticket.date(), ticket.price(), CONFIRMED);
         TicketEntity persisted = ticketRepository.save(ticketEntity);
         return ticketMapper.ticket(persisted);
     }
 
     public Ticket bookTicket(Ticket ticket) {
-        TicketEntity ticketEntity = new TicketEntity(ticket.id(), ticket.category(), ticket.date(), ticket.price(), RESERVED);
+        TicketEntity ticketEntity = new TicketEntity(null, ticket.category(), ticket.date(), ticket.price(), RESERVED);
         TicketEntity persisted = ticketRepository.save(ticketEntity);
         return ticketMapper.ticket(persisted);
     }
@@ -48,7 +48,7 @@ public class TicketService {
     public void cancelTicket(UUID ticket) {
         ticketRepository.findById(ticket)
                 .ifPresent(ticketEntity -> {
-                    var cancelledTicket = new TicketEntity(ticketEntity.id(), ticketEntity.category(), LocalDate.now(), ticketEntity.price(), CANCELLED);
+                    var cancelledTicket = new TicketEntity(ticketEntity.id(), ticketEntity.category(), LocalDateTime.now(), ticketEntity.price(), CANCELLED);
                     ticketRepository.save(cancelledTicket);
                 });
     }
@@ -56,7 +56,7 @@ public class TicketService {
     public void confirmTicket(UUID ticket) {
         ticketRepository.findById(ticket)
                 .ifPresent(ticketEntity -> {
-                    var cancelledTicket = new TicketEntity(ticketEntity.id(), ticketEntity.category(), LocalDate.now(), ticketEntity.price(), CONFIRMED);
+                    var cancelledTicket = new TicketEntity(ticketEntity.id(), ticketEntity.category(), LocalDateTime.now(), ticketEntity.price(), CONFIRMED);
                     ticketRepository.save(cancelledTicket);
                 });
     }

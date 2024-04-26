@@ -3,7 +3,7 @@ Accept: application/json
 
 ###
 
-PUT http://localhost:8080/tickets/buy
+POST http://localhost:8080/tickets/buy
 Accept: application/json
 Content-Type: application/json
 
