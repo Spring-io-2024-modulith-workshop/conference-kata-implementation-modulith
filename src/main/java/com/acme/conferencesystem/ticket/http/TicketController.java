@@ -30,6 +30,13 @@ public class TicketController {
         return ResponseEntity.ok(ticketService.getAllTickets());
     }
 
+    @GetMapping("/{id}")
+    public ResponseEntity<Ticket> getTicketById(@PathVariable UUID id) {
+        return ticketService.getById(id)
+                .map(ResponseEntity::ok)
+                .orElse(ResponseEntity.notFound().build());
+    }
+
     @PostMapping("/buy")
     public ResponseEntity<Ticket> buyTicket(@Valid @RequestBody Ticket ticket) {
         return ResponseEntity.status(201).body(ticketService.buyTicket(ticket));
