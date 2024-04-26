@@ -1,0 +1,41 @@
+GET http://localhost:8080/tickets
+Accept: application/json
+
+###
+
+GET http://localhost:8080/tickets/84b5b680-cefc-4e0a-bace-55c679066c23
+Accept: application/json
+
+###
+
+POST http://localhost:8080/tickets/buy
+Accept: application/json
+Content-Type: application/json
+
+{
+  "category": "REGULAR",
+  "date": "2024-04-24",
+  "price": 150,
+  "status": "PENDING"
+}
+
+###
+
+POST http://localhost:8080/tickets/book
+Content-Type: application/json
+
+{
+  "category": "BLIND",
+  "price": 200,
+  "status": "PENDING"
+}
+
+###
+PATCH http://localhost:8080/tickets/84b5b680-cefc-4e0a-bace-55c679066c23/cancel
+Content-Type: application/x-www-form-urlencoded
+Accept: application/json
+
+###
+PATCH http://localhost:8080/tickets/b605c861-4514-42ef-884d-0e136636586c/confirm
+Content-Type: application/x-www-form-urlencoded
+Accept: application/json

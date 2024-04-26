@@ -8,12 +8,12 @@ spring:
       mode: always
       schema-locations: classpath:sql/schema/*sql
   datasource:
-    url: jdbc:postgresql://localhost:5432/test
-    username: test
-    password: test
+    url: jdbc:postgresql://localhost:5432/postgres
+    username: postgres
+    password: password
 
 logging:
   level:
     org:
       springframework:
-        security: DEBUG
+        security: INFO

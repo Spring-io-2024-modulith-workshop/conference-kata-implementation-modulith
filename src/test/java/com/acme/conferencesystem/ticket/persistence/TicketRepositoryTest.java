@@ -1,32 +1,31 @@
-package com.acme.conferencesystem.cfp.proposals.persistence;
+package com.acme.conferencesystem.ticket.persistence;
 
 import com.acme.conferencesystem.ContainerConfig;
 import org.instancio.Instancio;
+import org.instancio.Select;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Import;
 import org.springframework.modulith.test.ApplicationModuleTest;
-import org.springframework.transaction.annotation.Transactional;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.instancio.Select.field;
 
 @ApplicationModuleTest
 @Import(ContainerConfig.class)
-class ProposalRepositoryTest {
+class TicketRepositoryTest {
 
     @Autowired
-    ProposalRepository repository;
+    TicketRepository ticketRepository;
 
     @Test
-    @Transactional
     void save() {
-        var entity = Instancio.of(ProposalEntity.class).ignore(field(ProposalEntity::id)).create();
+        var entity = Instancio.of(TicketEntity.class)
+                .ignore(Select.field(TicketEntity::id))
+                .create();
 
-        ProposalEntity persisted = repository.save(entity);
+        TicketEntity saved = ticketRepository.save(entity);
 
-        assertThat(persisted.id()).isNotNull();
-        assertThat(persisted)
+        assertThat(saved)
                 .isNotNull()
                 .usingRecursiveComparison()
                 .ignoringFields("id")
