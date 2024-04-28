@@ -1,7 +1,9 @@
-package com.acme.conferencesystem.cfp.proposals.business;
+package com.acme.conferencesystem.cfp_proposals.business;
 
-import com.acme.conferencesystem.cfp.proposals.persistence.ProposalEntity;
-import com.acme.conferencesystem.cfp.proposals.persistence.ProposalRepository;
+import com.acme.conferencesystem.cfp_proposals.persistence.ProposalEntity;
+import com.acme.conferencesystem.cfp_proposals.persistence.ProposalRepository;
+import com.acme.conferencesystem.users.UserInternalAPI;
+import org.assertj.core.api.ThrowableAssert.ThrowingCallable;
 import org.instancio.Instancio;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -9,17 +11,19 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Spy;
 import org.mockito.junit.jupiter.MockitoExtension;
-import org.springframework.context.ApplicationEventPublisher;
 
 import java.util.List;
 import java.util.Optional;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.mockito.BDDMockito.given;
-import static org.mockito.BDDMockito.then;
+import static org.assertj.core.api.Assertions.assertThatThrownBy;
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.BDDMockito.*;
 
 @ExtendWith(MockitoExtension.class)
 class ProposalServiceTest {
+
+    private static final boolean NOT_VALID_USER = false;
 
     @InjectMocks
     ProposalService service;
@@ -31,7 +35,7 @@ class ProposalServiceTest {
     ProposalMapper mapper = new ProposalMapperImpl();
 
     @Mock
-    ApplicationEventPublisher eventPublisher;
+    UserInternalAPI userInternalAPI;
 
 
     @Test
@@ -54,6 +58,19 @@ class ProposalServiceTest {
 
         then(repository).should().save(proposalEntity);
         assertThat(submittedProposal).isEqualTo(proposal);
+    }
+
+    @Test
+    void reject_proposals_when_invalid_speaker() {
+        var proposal = Instancio.create(Proposal.class);
+        willThrow(new RuntimeException())
+                .given(userInternalAPI).validateUser(proposal.speakerId());
+
+        ThrowingCallable submitProposalThrowsNotValidUser
+                = () -> service.submitProposal(proposal);
+        assertThatThrownBy(submitProposalThrowsNotValidUser);
+        
+        then(repository).should(never()).save(any());
     }
 
     @Test

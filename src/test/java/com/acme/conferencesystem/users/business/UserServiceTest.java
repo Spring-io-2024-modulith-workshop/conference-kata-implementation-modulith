@@ -1,6 +1,5 @@
 package com.acme.conferencesystem.users.business;
 
-import com.acme.conferencesystem.UserValidationEvent;
 import com.acme.conferencesystem.users.persistence.UserEntity;
 import com.acme.conferencesystem.users.persistence.UsersRepository;
 import org.assertj.core.api.Assertions;
@@ -15,6 +14,7 @@ import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.UUID;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.BDDMockito.given;
@@ -69,21 +69,23 @@ class UserServiceTest {
     @Nested
     class Validate_user {
 
+        private static final UUID userId = UUID.randomUUID();
+        private static final boolean USER_IS_VALID = true;
+        private static final boolean USER_IS_NOT_VALID = false;
+
         @Test
         void throw_exception_if_user_is_not_found() {
-            var userValidationEvent = Instancio.create(UserValidationEvent.class);
-            given(repository.existsById(userValidationEvent.getUserId())).willReturn(false);
+            given(repository.existsById(userId)).willReturn(USER_IS_NOT_VALID);
 
-            Assertions.assertThatThrownBy(() -> service.onValidateUserEvent(userValidationEvent));
+            Assertions.assertThatThrownBy(() -> service.validateUser(userId));
         }
 
         @Test
         void user_is_valid_if_user_is_found() {
-            var userValidationEvent = Instancio.create(UserValidationEvent.class);
-            given(repository.existsById(userValidationEvent.getUserId())).willReturn(true);
+            given(repository.existsById(userId)).willReturn(USER_IS_VALID);
 
-            Assertions.assertThatNoException().isThrownBy(() -> service.onValidateUserEvent(userValidationEvent));
+            Assertions.assertThatNoException().isThrownBy(() -> service.validateUser(userId));
         }
-        
+
     }
 }

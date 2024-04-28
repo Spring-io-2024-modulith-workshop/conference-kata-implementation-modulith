@@ -1,11 +1,12 @@
-package com.acme.conferencesystem.cfp.proposals.http;
+package com.acme.conferencesystem.cfp_proposals.http;
 
-import com.acme.conferencesystem.cfp.proposals.business.Proposal;
-import com.acme.conferencesystem.cfp.proposals.business.ProposalService;
+import com.acme.conferencesystem.cfp_proposals.business.Proposal;
+import com.acme.conferencesystem.cfp_proposals.business.ProposalService;
 import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.server.ResponseStatusException;
 
 import java.util.List;
 import java.util.UUID;
@@ -28,8 +29,12 @@ public class ProposalController {
 
     @PostMapping
     public ResponseEntity<Proposal> submitProposal(@Valid @RequestBody Proposal proposal) {
-        Proposal submittedProposal = proposalService.submitProposal(proposal);
-        return new ResponseEntity<>(submittedProposal, HttpStatus.CREATED);
+        try {
+            Proposal submittedProposal = proposalService.submitProposal(proposal);
+            return new ResponseEntity<>(submittedProposal, HttpStatus.CREATED);
+        } catch (IllegalArgumentException e) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, e.getMessage());
+        }
     }
 
     @GetMapping("/{id}")

@@ -16,4 +16,8 @@ logging:
   level:
     org:
       springframework:
-        security: INFO
+        security: debug
+        
+server:
+  error:
+    include-message: always

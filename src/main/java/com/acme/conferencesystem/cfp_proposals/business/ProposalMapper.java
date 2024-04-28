@@ -1,6 +1,6 @@
-package com.acme.conferencesystem.cfp.proposals.business;
+package com.acme.conferencesystem.cfp_proposals.business;
 
-import com.acme.conferencesystem.cfp.proposals.persistence.ProposalEntity;
+import com.acme.conferencesystem.cfp_proposals.persistence.ProposalEntity;
 import org.mapstruct.Mapper;
 
 @Mapper(componentModel = "spring")

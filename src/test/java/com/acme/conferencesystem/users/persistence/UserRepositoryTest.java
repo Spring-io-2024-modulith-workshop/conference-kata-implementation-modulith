@@ -13,7 +13,7 @@ import static org.instancio.Select.field;
 
 @ApplicationModuleTest
 @Import(ContainerConfig.class)
-class UsersRepositoryTest {
+class UserRepositoryTest {
 
     @Autowired
     UsersRepository repository;
