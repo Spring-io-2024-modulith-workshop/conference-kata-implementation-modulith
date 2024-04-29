@@ -1,4 +1,4 @@
-package com.acme.conferencesystem.cfp.proposals.persistence;
+package com.acme.conferencesystem.cfp_proposals.persistence;
 
 import com.acme.conferencesystem.ContainerConfig;
 import org.instancio.Instancio;
@@ -11,7 +11,7 @@ import org.springframework.transaction.annotation.Transactional;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.instancio.Select.field;
 
-@ApplicationModuleTest
+@ApplicationModuleTest(mode = ApplicationModuleTest.BootstrapMode.DIRECT_DEPENDENCIES)
 @Import(ContainerConfig.class)
 class ProposalRepositoryTest {
 

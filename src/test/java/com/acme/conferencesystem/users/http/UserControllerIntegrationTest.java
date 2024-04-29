@@ -4,8 +4,11 @@ import com.acme.conferencesystem.AbstractIntegrationTest;
 import com.acme.conferencesystem.ContainerConfig;
 import com.acme.conferencesystem.users.business.User;
 import com.acme.conferencesystem.users.business.UserRole;
+import com.acme.conferencesystem.users.persistence.UsersRepository;
 import io.restassured.http.ContentType;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.context.annotation.Import;
 import org.springframework.modulith.test.ApplicationModuleTest;
@@ -21,6 +24,14 @@ class UserControllerIntegrationTest extends AbstractIntegrationTest {
     public static final String JOHN_DOE = "John Doe";
     public static final String EMAIL = "john@example.com";
     public static final String PHONE = "(555) 555-5551";
+    
+    @Autowired
+    UsersRepository repository;
+
+    @BeforeEach
+    void cleanDatabase() {
+        repository.deleteAll();
+    }
 
     @Test
     void endToEndTest() {

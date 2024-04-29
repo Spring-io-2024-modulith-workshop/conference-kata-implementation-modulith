@@ -1,4 +1,4 @@
-package com.acme.conferencesystem.cfp.proposals.persistence;
+package com.acme.conferencesystem.cfp_proposals.persistence;
 
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;

@@ -1,9 +1,8 @@
-package com.acme.conferencesystem.cfp.proposals.business;
+package com.acme.conferencesystem.cfp_proposals.business;
 
-import com.acme.conferencesystem.UserValidationEvent;
-import com.acme.conferencesystem.cfp.proposals.persistence.ProposalEntity;
-import com.acme.conferencesystem.cfp.proposals.persistence.ProposalRepository;
-import org.springframework.context.ApplicationEventPublisher;
+import com.acme.conferencesystem.cfp_proposals.persistence.ProposalEntity;
+import com.acme.conferencesystem.cfp_proposals.persistence.ProposalRepository;
+import com.acme.conferencesystem.users.UserInternalAPI;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -17,12 +16,12 @@ public class ProposalService {
 
     private final ProposalRepository repository;
     private final ProposalMapper mapper;
-    private final ApplicationEventPublisher eventPublisher;
+    private final UserInternalAPI userInternalAPI;
 
-    public ProposalService(ProposalRepository repository, ProposalMapper mapper, ApplicationEventPublisher eventPublisher) {
+    public ProposalService(ProposalRepository repository, ProposalMapper mapper, UserInternalAPI userInternalAPI) {
         this.repository = repository;
         this.mapper = mapper;
-        this.eventPublisher = eventPublisher;
+        this.userInternalAPI = userInternalAPI;
     }
 
     public List<Proposal> getAllProposals() {
@@ -36,7 +35,7 @@ public class ProposalService {
 
     @Transactional
     public Proposal submitProposal(Proposal proposal) {
-        eventPublisher.publishEvent(new UserValidationEvent(this, proposal.speakerId()));
+        userInternalAPI.validateUser(proposal.speakerId());
 
         var proposalEntity = mapper.proposalToEntity(proposal);
         var submittedProposalEntity = repository.save(proposalEntity);

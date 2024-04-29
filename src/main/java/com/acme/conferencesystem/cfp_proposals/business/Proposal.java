@@ -1,4 +1,4 @@
-package com.acme.conferencesystem.cfp.proposals.business;
+package com.acme.conferencesystem.cfp_proposals.business;
 
 import java.util.UUID;
 

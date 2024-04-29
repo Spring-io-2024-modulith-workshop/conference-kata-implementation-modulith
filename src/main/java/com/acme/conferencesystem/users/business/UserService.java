@@ -1,10 +1,9 @@
 package com.acme.conferencesystem.users.business;
 
-import com.acme.conferencesystem.UserValidationEvent;
+import com.acme.conferencesystem.users.UserInternalAPI;
 import com.acme.conferencesystem.users.persistence.UsersRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.modulith.events.ApplicationModuleListener;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -14,7 +13,7 @@ import java.util.stream.Collectors;
 import java.util.stream.StreamSupport;
 
 @Service
-public class UserService {
+public class UserService implements UserInternalAPI {
 
     private static final Logger log = LoggerFactory.getLogger(UserService.class);
 
@@ -42,16 +41,8 @@ public class UserService {
         return repository.findById(id)
                 .map(mapper::entityToUser);
     }
-
-    @ApplicationModuleListener
-    void onValidateUserEvent(UserValidationEvent event) {
-        UUID userId = event.getUserId();
-        log.info("Received UserValidationEvent for user with ID: {} ", userId);
-
-        validateUser(userId);
-    }
-
-    private void validateUser(UUID userId) {
+    
+    public void validateUser(UUID userId) {
         if (!isUserValid(userId)) {
             log.error("User with ID {}, is not valid.", userId);
             throw new IllegalArgumentException("User with ID %s, is not valid".formatted(userId));
