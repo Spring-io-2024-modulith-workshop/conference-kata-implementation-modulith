@@ -14,8 +14,7 @@ import org.springframework.modulith.test.ApplicationModuleTest;
 import java.time.LocalDateTime;
 
 import static io.restassured.RestAssured.given;
-import static org.hamcrest.Matchers.equalTo;
-import static org.hamcrest.Matchers.is;
+import static org.hamcrest.Matchers.*;
 
 @ApplicationModuleTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 @Import(ContainerConfig.class)
@@ -47,7 +46,8 @@ class TicketControllerIntegrationTest extends AbstractIntegrationTest {
                 .get("/tickets")
                 .then()
                 .statusCode(200)
-                .body("size()", is(1));
+                .body("size()", is(1))
+                .body("id", hasItem(newTicketId));
 
         //Get a ticket by id
         given(requestSpecification)

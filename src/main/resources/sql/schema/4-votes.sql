@@ -4,7 +4,7 @@ CREATE TABLE IF NOT EXISTS votes
     proposal_id        UUID NOT NULL REFERENCES proposals (id),
     user_id            UUID NOT NULL REFERENCES users (id),
     creation_date_time TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    vote               INT       DEFAULT 0
+    rating               INT       DEFAULT 0
 );
 
 alter table votes
