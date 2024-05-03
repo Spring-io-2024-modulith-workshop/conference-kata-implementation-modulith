@@ -49,6 +49,7 @@ public class ProposalService implements ProposalInternalAPI {
                 .map(mapper::entityToProposal);
     }
 
+    @Override
     public void validateProposalIsAccepted(UUID proposalId) {
         Proposal proposal = getProposalById(proposalId)
                 .orElseThrow(() -> new IllegalArgumentException("Proposal %s not found".formatted(proposalId)));
@@ -58,6 +59,7 @@ public class ProposalService implements ProposalInternalAPI {
         }
     }
 
+    @Override
     public void validateProposalIsNew(UUID proposalId) {
         Proposal proposal = getProposalById(proposalId)
                 .orElseThrow(() -> new IllegalArgumentException("Proposal %s not found".formatted(proposalId)));

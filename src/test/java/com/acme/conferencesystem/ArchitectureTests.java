@@ -22,7 +22,9 @@ class ArchitectureTests {
     void writeDocumentation() {
         new Documenter(modules).writeDocumentation();
 
-        //new Documenter(modules).writeModulesAsPlantUml().writeIndividualModulesAsPlantUml().writeModuleCanvases();
+        new Documenter(modules)
+                .writeDocumentation()
+                .writeIndividualModulesAsPlantUml();
     }
 
 }
