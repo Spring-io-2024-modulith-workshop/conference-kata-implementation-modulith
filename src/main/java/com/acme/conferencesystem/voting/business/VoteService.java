@@ -28,8 +28,8 @@ public class VoteService {
     }
 
     public Vote voteProposal(Vote vote) {
-        Optional<Proposal> proposalById = proposalService.getProposalById(vote.proposal().id());
-        Optional<User> userById = userService.getUserById(vote.user().id());
+        Optional<Proposal> proposalById = proposalService.getProposalById(vote.proposalId());
+        Optional<User> userById = userService.getUserById(vote.userId());
 
         if (userById.isPresent() && !userById.get().role().equals(UserRole.ORGANIZER)) {
             throw new IllegalArgumentException("Only organizers can vote for proposals");
@@ -43,7 +43,7 @@ public class VoteService {
     }
 
     public Vote voteTalk(Vote vote) {
-        Optional<Proposal> proposalById = proposalService.getProposalById(vote.proposal().id());
+        Optional<Proposal> proposalById = proposalService.getProposalById(vote.proposalId());
         if (proposalById.isPresent() && !proposalById.get().status().equals(ProposalStatus.ACCEPTED)) {
             throw new IllegalArgumentException("Only accepted proposals can be voted for");
         }

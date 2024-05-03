@@ -52,7 +52,7 @@ class VoteServiceTest {
                 .set(Select.field("role"), UserRole.ORGANIZER)
                 .create();
         Vote vote = Instancio.of(Vote.class)
-                .set(Select.field("proposal"), proposal)
+                .set(Select.field("proposalId"), proposal.id())
                 .create();
         VoteEntity voteEntity = voteMapper.toEntity(vote);
 
@@ -79,7 +79,7 @@ class VoteServiceTest {
                 .set(Select.field("role"), UserRole.ATTENDEE)
                 .create();
         Vote vote = Instancio.of(Vote.class)
-                .set(Select.field("proposal"), proposal)
+                .set(Select.field("proposalId"), proposal.id())
                 .create();
 
         given(proposalService.getProposalById(any(UUID.class)))
@@ -101,7 +101,7 @@ class VoteServiceTest {
                 .set(Select.field("role"), UserRole.ORGANIZER)
                 .create();
         Vote vote = Instancio.of(Vote.class)
-                .set(Select.field("proposal"), proposal)
+                .set(Select.field("proposalId"), proposal.id())
                 .create();
 
         given(proposalService.getProposalById(any(UUID.class)))
@@ -120,7 +120,7 @@ class VoteServiceTest {
                 .set(Select.field("status"), ProposalStatus.ACCEPTED)
                 .create();
         Vote vote = Instancio.of(Vote.class)
-                .set(Select.field("proposal"), proposal)
+                .set(Select.field("proposalId"), proposal.id())
                 .create();
         VoteEntity voteEntity = voteMapper.toEntity(vote);
 
@@ -139,12 +139,20 @@ class VoteServiceTest {
                 .set(Select.field("status"), ProposalStatus.REJECTED)
                 .create();
         Vote vote = Instancio.of(Vote.class)
-                .set(Select.field("proposal"), proposal)
+                .set(Select.field("proposalId"), proposal.id())
                 .create();
 
         given(proposalService.getProposalById(any(UUID.class)))
                 .willReturn(Optional.of(proposal));
 
         assertThatIllegalArgumentException().isThrownBy(() -> voteService.voteTalk(vote));
+    }
+
+    @Test
+    void should_map_correctly_between_vote_and_vote_entity() {
+        Vote vote = Instancio.of(Vote.class).create();
+        VoteEntity voteEntity = voteMapper.toEntity(vote);
+
+        assertThat(voteEntity.proposalId()).isEqualTo(vote.proposalId());
     }
 }

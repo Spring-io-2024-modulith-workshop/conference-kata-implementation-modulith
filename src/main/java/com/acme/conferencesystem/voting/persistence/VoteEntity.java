@@ -11,8 +11,8 @@ import java.util.UUID;
 @Table("votes")
 public record VoteEntity(
         @Id UUID id,
-        @Column("proposal_id") UUID proposal_id,
-        @Column("user_id") UUID user_id,
+        @Column("proposalId") UUID proposalId,
+        @Column("userId") UUID userId,
         Integer rating,
         @CreatedDate LocalDateTime creationDateTime) {
 }
