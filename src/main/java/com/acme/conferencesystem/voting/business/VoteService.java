@@ -25,14 +25,14 @@ public class VoteService {
 
     public Vote voteProposal(@NotNull Vote vote) {
         userInternalAPI.validateUserIsOrganizer(vote.userId());
-        proposalInternalAPI.validateProposalIsAccepted(vote.proposalId());
+        proposalInternalAPI.validateProposalIsNew(vote.proposalId());
 
         var voteEntity = voteRepository.save(voteMapper.toEntity(vote));
         return voteMapper.toVote(voteEntity);
     }
 
     public Vote voteTalk(@NotNull Vote vote) {
-        proposalInternalAPI.validateProposalIsNew(vote.proposalId());
+        proposalInternalAPI.validateProposalIsAccepted(vote.proposalId());
 
         var voteEntity = voteRepository.save(voteMapper.toEntity(vote));
         return voteMapper.toVote(voteEntity);

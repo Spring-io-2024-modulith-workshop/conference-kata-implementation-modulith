@@ -87,7 +87,7 @@ class VoteServiceTest {
 
         doThrow(new IllegalArgumentException("Proposal is not allowed to be voted"))
                 .when(proposalInternalAPI)
-                .validateProposalIsAccepted(vote.proposalId());
+                .validateProposalIsNew(vote.proposalId());
 
         assertThatIllegalArgumentException().isThrownBy(() -> voteService.voteProposal(vote));
     }
@@ -119,7 +119,7 @@ class VoteServiceTest {
                 .create();
 
         doThrow(new IllegalArgumentException("Proposal is not allowed to be voted"))
-                .when(proposalInternalAPI).validateProposalIsNew(vote.proposalId());
+                .when(proposalInternalAPI).validateProposalIsAccepted(vote.proposalId());
 
         assertThatIllegalArgumentException().isThrownBy(() -> voteService.voteTalk(vote));
     }
