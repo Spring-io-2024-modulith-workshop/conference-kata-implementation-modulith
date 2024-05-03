@@ -9,7 +9,6 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
-import java.util.stream.Collectors;
 import java.util.stream.StreamSupport;
 
 @Service
@@ -28,7 +27,7 @@ public class UserService implements UserInternalAPI {
     public List<User> getAllUsers() {
         return StreamSupport.stream(repository.findAll().spliterator(), false)
                 .map(mapper::entityToUser)
-                .collect(Collectors.toList());
+                .toList();
     }
 
     public User registerUser(User puser) {
@@ -41,7 +40,7 @@ public class UserService implements UserInternalAPI {
         return repository.findById(id)
                 .map(mapper::entityToUser);
     }
-    
+
     public void validateUser(UUID userId) {
         if (!isUserValid(userId)) {
             log.error("User with ID {}, is not valid.", userId);
@@ -52,5 +51,14 @@ public class UserService implements UserInternalAPI {
     private boolean isUserValid(UUID userId) {
         return repository.existsById(userId);
     }
+
+    public void validateUserIsOrganizer(UUID userId) {
+        User userById = getUserById(userId)
+                .orElseThrow(() -> new IllegalArgumentException("User with ID %s, does not exist".formatted(userId)));
+        if (userById.role() != UserRole.ORGANIZER) {
+            throw new IllegalArgumentException("User with ID %s, is not an organizer".formatted(userId));
+        }
+    }
+
 
 }

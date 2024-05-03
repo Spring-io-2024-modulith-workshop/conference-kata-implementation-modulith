@@ -1,5 +1,6 @@
 package com.acme.conferencesystem.cfp_proposals.business;
 
+import com.acme.conferencesystem.cfp_proposals.ProposalInternalAPI;
 import com.acme.conferencesystem.cfp_proposals.persistence.ProposalEntity;
 import com.acme.conferencesystem.cfp_proposals.persistence.ProposalRepository;
 import com.acme.conferencesystem.users.UserInternalAPI;
@@ -12,7 +13,7 @@ import java.util.Optional;
 import java.util.UUID;
 
 @Service
-public class ProposalService {
+public class ProposalService implements ProposalInternalAPI {
 
     private final ProposalRepository repository;
     private final ProposalMapper mapper;
@@ -42,9 +43,28 @@ public class ProposalService {
         return mapper.entityToProposal(submittedProposalEntity);
     }
 
+    @Override
     public Optional<Proposal> getProposalById(UUID id) {
         return repository.findById(id)
                 .map(mapper::entityToProposal);
+    }
+
+    public void validateProposalIsAccepted(UUID proposalId) {
+        Proposal proposal = getProposalById(proposalId)
+                .orElseThrow(() -> new IllegalArgumentException("Proposal %s not found".formatted(proposalId)));
+
+        if (proposal.status() != ProposalStatus.ACCEPTED) {
+            throw new IllegalArgumentException("Proposal %s is not accepted".formatted(proposalId));
+        }
+    }
+
+    public void validateProposalIsNew(UUID proposalId) {
+        Proposal proposal = getProposalById(proposalId)
+                .orElseThrow(() -> new IllegalArgumentException("Proposal %s not found".formatted(proposalId)));
+
+        if (proposal.status() != ProposalStatus.NEW) {
+            throw new IllegalArgumentException("Proposal %s is not accepted".formatted(proposalId));
+        }
     }
 
 }
