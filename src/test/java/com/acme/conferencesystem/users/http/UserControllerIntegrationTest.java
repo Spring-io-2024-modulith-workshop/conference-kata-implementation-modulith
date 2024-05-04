@@ -17,7 +17,6 @@ import java.util.List;
 
 import static io.restassured.RestAssured.given;
 import static org.hamcrest.Matchers.equalTo;
-import static org.hamcrest.Matchers.hasItem;
 import static org.hamcrest.Matchers.instanceOf;
 
 @ApplicationModuleTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
@@ -58,7 +57,7 @@ class UserControllerIntegrationTest extends AbstractIntegrationTest {
                 .then()
                 .statusCode(200)
                 .body("$", instanceOf(List.class))
-                .body("[0].id", hasItem(newUserId))
+                .body("[0].id", equalTo(newUserId))
                 .body("[0].name", equalTo(JOHN_DOE))
                 .body("[0].email", equalTo(EMAIL))
                 .body("[0].phone", equalTo(PHONE))
