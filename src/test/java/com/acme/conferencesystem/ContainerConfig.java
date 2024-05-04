@@ -15,10 +15,10 @@ public class ContainerConfig {
     @RestartScope
     public PostgreSQLContainer<?> postgreSQLContainer() {
         return new PostgreSQLContainer<>("postgres:16-alpine")
-                .withCopyToContainer(MountableFile.forClasspathResource("sql/schema/1-proposals.sql"), "/docker-entrypoint-initdb.d/1-proposals.sql")
-                .withCopyToContainer(MountableFile.forClasspathResource("sql/schema/2-users.sql"), "/docker-entrypoint-initdb.d/2-users.sql")
-                .withCopyToContainer(MountableFile.forClasspathResource("sql/schema/3-tickets.sql"), "/docker-entrypoint-initdb.d/3-tickets.sql")
-                .withCopyToContainer(MountableFile.forClasspathResource("sql/schema/4-votes.sql"), "/docker-entrypoint-initdb.d/4-votes.sql")
+                .withCopyToContainer(MountableFile.forHostPath("db/migration/v1__create_proposals_table.sql", 777), "/docker-entrypoint-initdb.d/V1.sql")
+                .withCopyToContainer(MountableFile.forHostPath("db/migration/v2__create_users_table.sql", 777), "/docker-entrypoint-initdb.d/V2.sql")
+                .withCopyToContainer(MountableFile.forHostPath("db/migration/v3__create_tickets_table.sql", 777), "/docker-entrypoint-initdb.d/V3.sql")
+                .withCopyToContainer(MountableFile.forHostPath("db/migration/v4__create_votes_table.sql", 777), "/docker-entrypoint-initdb.d/V4.sql")
                 ;
     }
 

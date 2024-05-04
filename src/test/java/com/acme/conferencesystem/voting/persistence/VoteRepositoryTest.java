@@ -1,5 +1,6 @@
 package com.acme.conferencesystem.voting.persistence;
 
+import com.acme.conferencesystem.ContainerConfig;
 import com.acme.conferencesystem.cfp_proposals.persistence.ProposalEntity;
 import com.acme.conferencesystem.cfp_proposals.persistence.ProposalRepository;
 import com.acme.conferencesystem.users.persistence.UserEntity;
@@ -16,7 +17,7 @@ import org.springframework.transaction.annotation.Transactional;
 import static org.instancio.Select.field;
 
 @ApplicationModuleTest(mode = ApplicationModuleTest.BootstrapMode.DIRECT_DEPENDENCIES)
-@Import(ContainerVoteTestConfig.class)
+@Import(ContainerConfig.class)
 class VoteRepositoryTest {
 
     @Autowired
