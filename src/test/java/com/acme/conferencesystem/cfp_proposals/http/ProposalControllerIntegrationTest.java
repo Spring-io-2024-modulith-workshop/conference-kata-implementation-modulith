@@ -17,7 +17,6 @@ import java.util.UUID;
 
 import static io.restassured.RestAssured.given;
 import static org.hamcrest.Matchers.equalTo;
-import static org.hamcrest.Matchers.hasItem;
 import static org.hamcrest.Matchers.instanceOf;
 import static org.instancio.Select.field;
 
@@ -58,7 +57,7 @@ class ProposalControllerIntegrationTest extends AbstractIntegrationTest {
                 .then()
                 .statusCode(200)
                 .body("$", instanceOf(List.class))
-                .body("[0].id", hasItem(newProposalId))
+                .body("[0].id", equalTo(newProposalId))
                 .body("[0].title", equalTo(proposal.title()))
                 .body("[0].description", equalTo(proposal.description()))
                 .body("[0].speakerId", equalTo(proposal.speakerId().toString()));
