@@ -10,7 +10,9 @@ import org.springframework.context.annotation.Import;
 import org.springframework.modulith.test.ApplicationModuleTest;
 import org.springframework.transaction.annotation.Transactional;
 
-@ApplicationModuleTest
+import java.util.UUID;
+
+@ApplicationModuleTest(mode = ApplicationModuleTest.BootstrapMode.DIRECT_DEPENDENCIES)
 @Import(ContainerConfig.class)
 class VoteRepositoryTest {
 
@@ -22,6 +24,8 @@ class VoteRepositoryTest {
     void save() {
         var entity = Instancio.of(VoteEntity.class)
                 .ignore(Select.field(VoteEntity::id))
+                .set(Select.field(VoteEntity::proposalId), UUID.randomUUID())
+                .set(Select.field(VoteEntity::userId), UUID.randomUUID())
                 .create();
 
         var persisted = voteRepository.save(entity);

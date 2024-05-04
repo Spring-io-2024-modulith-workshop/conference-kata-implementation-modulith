@@ -15,6 +15,7 @@ import java.time.LocalDateTime;
 
 import static io.restassured.RestAssured.given;
 import static org.hamcrest.Matchers.equalTo;
+import static org.hamcrest.Matchers.hasItem;
 import static org.hamcrest.Matchers.is;
 
 @ApplicationModuleTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
@@ -47,7 +48,8 @@ class TicketControllerIntegrationTest extends AbstractIntegrationTest {
                 .get("/tickets")
                 .then()
                 .statusCode(200)
-                .body("size()", is(1));
+                .body("size()", is(1))
+                .body("id", hasItem(newTicketId));
 
         //Get a ticket by id
         given(requestSpecification)
