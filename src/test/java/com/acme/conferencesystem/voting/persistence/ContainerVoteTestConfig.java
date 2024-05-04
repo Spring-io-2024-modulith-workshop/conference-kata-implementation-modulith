@@ -17,7 +17,7 @@ public class ContainerVoteTestConfig {
                 .withCopyToContainer(MountableFile.forClasspathResource("sql/schema/3-tickets.sql", 777), "/docker-entrypoint-initdb.d/3-tickets.sql")
                 .withCopyToContainer(MountableFile.forClasspathResource("sql/schema/1-proposals.sql", 777), "/docker-entrypoint-initdb.d/1-proposals.sql")
                 .withCopyToContainer(MountableFile.forClasspathResource("sql/schema/4-votes.sql", 777), "/docker-entrypoint-initdb.d/4-votes.sql")
-                .withCopyToContainer(MountableFile.forClasspathResource("sql/schema/5-vote-proposal-scenario.sql", 777), "/docker-entrypoint-initdb.d/5-vote-proposal-scenario.sql")
+                //.withCopyToContainer(MountableFile.forClasspathResource("sql/schema/5-vote-proposal-scenario.sql", 777), "/docker-entrypoint-initdb.d/5-vote-proposal-scenario.sql")
                 ;
     }
 

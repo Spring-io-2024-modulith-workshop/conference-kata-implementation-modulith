@@ -1,33 +1,58 @@
 package com.acme.conferencesystem.voting.persistence;
 
+import com.acme.conferencesystem.cfp_proposals.persistence.ProposalEntity;
+import com.acme.conferencesystem.cfp_proposals.persistence.ProposalRepository;
+import com.acme.conferencesystem.users.persistence.UserEntity;
+import com.acme.conferencesystem.users.persistence.UsersRepository;
 import org.assertj.core.api.Assertions;
 import org.instancio.Instancio;
-import org.instancio.Select;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Import;
 import org.springframework.modulith.test.ApplicationModuleTest;
-import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.transaction.annotation.Transactional;
+
+import static org.instancio.Select.field;
 
 @ApplicationModuleTest(mode = ApplicationModuleTest.BootstrapMode.DIRECT_DEPENDENCIES)
 @Import(ContainerVoteTestConfig.class)
-@DirtiesContext(classMode = DirtiesContext.ClassMode.AFTER_CLASS)
 class VoteRepositoryTest {
 
-    public static final String SAMPLE_PROPOSAL = "2da9d8c5-b9ab-43b7-bb43-5b82ca8754d4";
-    public static final String SAMPLE_USER = "5768d8a7-bdb0-4022-9fb0-fa7c68491287";
+    @Autowired
+    UsersRepository usersRepository;
+
+    @Autowired
+    ProposalRepository proposalRepository;
+
     @Autowired
     VoteRepository voteRepository;
+    private ProposalEntity persistedProposal;
+    private UserEntity persistedUser;
+
+    @BeforeEach
+    void setUp() {
+
+        persistedUser = usersRepository.save(
+                Instancio.of(UserEntity.class)
+                        .ignore(field(UserEntity::id))
+                        .create());
+
+        persistedProposal = proposalRepository.save(
+                Instancio.of(ProposalEntity.class)
+                        .ignore(field(ProposalEntity::id))
+                        .set(field(ProposalEntity::speakerId), persistedUser.id())
+                        .create());
+    }
 
     @Test
     @Transactional
     void save() {
 
         var entity = Instancio.of(VoteEntity.class)
-                .ignore(Select.field(VoteEntity::id))
-                .set(Select.field(VoteEntity::proposalId), SAMPLE_PROPOSAL)
-                .set(Select.field(VoteEntity::userId), SAMPLE_USER)
+                .ignore(field(VoteEntity::id))
+                .set(field(VoteEntity::proposalId), persistedProposal.id())
+                .set(field(VoteEntity::userId), persistedUser.id())
                 .create();
 
         var persisted = voteRepository.save(entity);
