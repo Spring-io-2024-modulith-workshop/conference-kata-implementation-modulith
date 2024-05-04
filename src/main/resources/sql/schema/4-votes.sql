@@ -6,11 +6,3 @@ CREATE TABLE IF NOT EXISTS votes
     creation_date_time TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     rating INT DEFAULT 0
 );
-
-alter table votes
-    drop constraint if exists votes_pk;
-
-alter table votes
-    ADD CONSTRAINT votes_pk
-        unique (proposal_id, user_id);
-
