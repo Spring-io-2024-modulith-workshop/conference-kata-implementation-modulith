@@ -13,6 +13,9 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.context.annotation.Import;
 import org.springframework.modulith.test.ApplicationModuleTest;
 
+import java.util.UUID;
+
+import static com.acme.conferencesystem.cfp_proposals.business.ProposalStatus.NEW;
 import static io.restassured.RestAssured.given;
 import static org.instancio.Select.field;
 
@@ -46,8 +49,9 @@ class VoteControllerIntegrationTest extends AbstractIntegrationTest {
         // 2. create a proposal
         Proposal proposal = Instancio
                 .of(Proposal.class)
-                .set(field(Proposal::speakerId), newUserId)
                 .ignore(field(Proposal::id))
+                .set(field(Proposal::speakerId), UUID.fromString(newUserId.toString()))
+                .set(field(Proposal::status), NEW)
                 .create();
         var proposalPersistedId = given(requestSpecification)
                 .contentType(ContentType.JSON)
@@ -62,8 +66,9 @@ class VoteControllerIntegrationTest extends AbstractIntegrationTest {
 
         // 3. create a vote
         Vote vote = Instancio.of(Vote.class)
-                .set(field(Vote::userId), newUserId)
-                .set(field(Vote::proposalId), proposalPersistedId)
+                .ignore(field(Vote::id))
+                .set(field(Vote::userId), UUID.fromString(newUserId.toString()))
+                .set(field(Vote::proposalId), UUID.fromString(proposalPersistedId.toString()))
                 .create();
 
         given(requestSpecification)
