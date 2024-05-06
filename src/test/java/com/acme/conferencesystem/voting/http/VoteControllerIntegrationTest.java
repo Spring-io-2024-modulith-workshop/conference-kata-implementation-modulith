@@ -83,13 +83,7 @@ class VoteControllerIntegrationTest extends AbstractIntegrationTest {
 
     @Test
     void voteTalk() {
-        //todo
-        // 1. create an atendee
-        // 2. create a proposal
-        // 3. approve the proposal
-        // 4. create a vote
-        // 5. check that the vote is stored
-
+        //<editor-fold desc="Create attendee">
         User user = Instancio.of(User.class)
                 .ignore(field(User::id))
                 .set(field(User::role), UserRole.ATTENDEE)
@@ -104,8 +98,9 @@ class VoteControllerIntegrationTest extends AbstractIntegrationTest {
                 .statusCode(201)
                 .extract()
                 .path("id");
+        //</editor-fold>
 
-        // 2. create a proposal
+        //<editor-fold desc="Create proposal">
         Proposal proposal = Instancio
                 .of(Proposal.class)
                 .ignore(field(Proposal::id))
@@ -123,8 +118,14 @@ class VoteControllerIntegrationTest extends AbstractIntegrationTest {
                 .extract()
                 .path("id");
 
+        given(requestSpecification)
+                .contentType(ContentType.JSON)
+                .accept(ContentType.JSON).when().patch("proposals/{id}/approve", proposalPersistedId)
+                .then()
+                .statusCode(200);
+        //</editor-fold>
 
-        // 3. create a vote
+        //<editor-fold desc="Vote">
         Vote vote = Instancio.of(Vote.class)
                 .ignore(field(Vote::id))
                 .set(field(Vote::userId), UUID.fromString(newUserId.toString()))
@@ -136,8 +137,9 @@ class VoteControllerIntegrationTest extends AbstractIntegrationTest {
                 .accept(ContentType.JSON)
                 .body(vote)
                 .when()
-                .post("/voting/proposal")
+                .post("/voting/talk")
                 .then()
                 .statusCode(200);
+        //</editor-fold>
     }
 }
