@@ -14,9 +14,17 @@ import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.UUID;
 
+import static com.acme.conferencesystem.cfp_proposals.business.ProposalStatus.ACCEPTED;
+import static com.acme.conferencesystem.cfp_proposals.business.ProposalStatus.NEW;
+import static com.acme.conferencesystem.cfp_proposals.business.ProposalStatus.REJECTED;
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThatIllegalArgumentException;
+import static org.assertj.core.api.Assertions.assertThatNoException;
 import static org.assertj.core.api.Assertions.assertThatRuntimeException;
+import static org.instancio.Instancio.create;
+import static org.instancio.Select.field;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.BDDMockito.given;
 import static org.mockito.BDDMockito.never;
@@ -53,7 +61,7 @@ class ProposalServiceTest {
 
     @Test
     void submit_proposal() {
-        var proposal = Instancio.create(Proposal.class);
+        var proposal = create(Proposal.class);
         var proposalEntity = mapper.proposalToEntity(proposal);
         given(repository.save(proposalEntity)).willReturn(proposalEntity);
 
@@ -65,7 +73,7 @@ class ProposalServiceTest {
 
     @Test
     void reject_proposals_when_invalid_speaker() {
-        var proposal = Instancio.create(Proposal.class);
+        var proposal = create(Proposal.class);
 
         willThrow(new RuntimeException())
                 .given(userInternalAPI).validateUser(proposal.speakerId());
@@ -79,7 +87,7 @@ class ProposalServiceTest {
 
     @Test
     void get_proposal_by_id() {
-        var entity = Instancio.create(ProposalEntity.class);
+        var entity = create(ProposalEntity.class);
         var proposal = mapper.entityToProposal(entity);
         var id = entity.id();
         given(repository.findById(id)).willReturn(Optional.of(entity));
@@ -90,8 +98,56 @@ class ProposalServiceTest {
     }
 
     @Test
+    void validate_proposal_is_new() {
+        UUID id = UUID.randomUUID();
+        given(repository.findById(id))
+                .willReturn(Optional.of(Instancio.of(ProposalEntity.class)
+                        .set(field(ProposalEntity::status), NEW)
+                        .create()));
+
+        assertThatNoException()
+                .isThrownBy(() -> service.validateProposalIsNew(id));
+    }
+
+    @Test
+    void validate_proposal_is_new_throws_exception() {
+        UUID id = UUID.randomUUID();
+        given(repository.findById(id))
+                .willReturn(Optional.of(Instancio.of(ProposalEntity.class)
+                        .set(field(ProposalEntity::status), ACCEPTED)
+                        .create()));
+
+        assertThatIllegalArgumentException()
+                .isThrownBy(() -> service.validateProposalIsNew(id));
+    }
+
+    @Test
+    void validate_proposal_is_accepted() {
+        UUID id = UUID.randomUUID();
+        given(repository.findById(id))
+                .willReturn(Optional.of(Instancio.of(ProposalEntity.class)
+                        .set(field(ProposalEntity::status), ACCEPTED)
+                        .create()));
+
+        assertThatNoException()
+                .isThrownBy(() -> service.validateProposalIsAccepted(id));
+    }
+
+    @Test
+    void validate_proposal_is_accepted_throws_exception() {
+        UUID id = UUID.randomUUID();
+        given(repository.findById(id))
+                .willReturn(Optional.of(Instancio.of(ProposalEntity.class)
+                        .set(field(ProposalEntity::status), REJECTED)
+                        .create()));
+
+        assertThatIllegalArgumentException()
+                .isThrownBy(() -> service.validateProposalIsAccepted(id));
+    }
+
+    @Test
     void reject_proposal() {
-        var proposal = Instancio.create(Proposal.class);
+        var proposal = create(Proposal.class);
         var entity = mapper.proposalToEntity(proposal);
         given(repository.findById(entity.id())).willReturn(Optional.of(entity));
         given(repository.save(Mockito.any())).willReturn(entity);
@@ -103,7 +159,7 @@ class ProposalServiceTest {
 
     @Test
     void approve_proposal() {
-        var proposal = Instancio.create(Proposal.class);
+        var proposal = create(Proposal.class);
         var entity = mapper.proposalToEntity(proposal);
         given(repository.findById(entity.id())).willReturn(Optional.of(entity));
         given(repository.save(Mockito.any())).willReturn(entity);
