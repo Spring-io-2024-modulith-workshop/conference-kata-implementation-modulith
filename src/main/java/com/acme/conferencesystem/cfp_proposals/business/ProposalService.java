@@ -7,6 +7,7 @@ import com.acme.conferencesystem.users.UserInternalAPI;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -69,4 +70,31 @@ public class ProposalService implements ProposalInternalAPI {
         }
     }
 
+    public void approveProposal(UUID id) {
+        repository.findById(id).ifPresent(proposalEntity -> {
+            var approvedProposal = new ProposalEntity(
+                    proposalEntity.id(),
+                    proposalEntity.title(),
+                    proposalEntity.description(),
+                    proposalEntity.speakerId(),
+                    LocalDateTime.now(),
+                    ProposalStatus.ACCEPTED
+            );
+            repository.save(approvedProposal);
+        });
+    }
+
+    public void rejectProposal(UUID id) {
+        repository.findById(id).ifPresent(proposalEntity -> {
+            var approvedProposal = new ProposalEntity(
+                    proposalEntity.id(),
+                    proposalEntity.title(),
+                    proposalEntity.description(),
+                    proposalEntity.speakerId(),
+                    LocalDateTime.now(),
+                    ProposalStatus.REJECTED
+            );
+            repository.save(approvedProposal);
+        });
+    }
 }

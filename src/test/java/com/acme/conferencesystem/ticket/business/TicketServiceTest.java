@@ -7,7 +7,6 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import org.mockito.Mockito;
 import org.mockito.Spy;
 import org.mockito.junit.jupiter.MockitoExtension;
 
@@ -18,7 +17,9 @@ import static com.acme.conferencesystem.ticket.business.TicketStatus.CONFIRMED;
 import static com.acme.conferencesystem.ticket.business.TicketStatus.RESERVED;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.instancio.Select.field;
+import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.BDDMockito.given;
+import static org.mockito.Mockito.atMost;
 import static org.mockito.Mockito.atMostOnce;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
@@ -56,7 +57,7 @@ class TicketServiceTest {
                 .set(field("date"), ticketToBuy.date())
                 .create();
 
-        when(ticketRepository.save(Mockito.any(TicketEntity.class)))
+        when(ticketRepository.save(any(TicketEntity.class)))
                 .thenReturn(ticketEntity);
 
         var ticket = ticketService.buyTicket(ticketToBuy);
@@ -82,7 +83,7 @@ class TicketServiceTest {
                 .set(field("date"), ticketToBook.date())
                 .create();
 
-        when(ticketRepository.save(Mockito.any(TicketEntity.class)))
+        when(ticketRepository.save(any(TicketEntity.class)))
                 .thenReturn(ticketEntity);
 
         Ticket ticket = ticketService.bookTicket(ticketToBook);
@@ -97,7 +98,7 @@ class TicketServiceTest {
     void cancelTicket() {
         Ticket ticketToCancel = Instancio.of(Ticket.class).create();
         TicketEntity ticketEntity = ticketMapper.ticketEntity(ticketToCancel);
-        given(ticketRepository.save(Mockito.any(TicketEntity.class))).willReturn(ticketEntity);
+        given(ticketRepository.save(any(TicketEntity.class))).willReturn(ticketEntity);
         given(ticketRepository.findById(ticketToCancel.id())).willReturn(Optional.of(ticketEntity));
 
         ticketService.bookTicket(ticketToCancel);
@@ -105,13 +106,14 @@ class TicketServiceTest {
         Optional<Ticket> byId = ticketService.getById(ticketToCancel.id());
 
         assertThat(byId).isNotEmpty();
+        verify(ticketRepository, atMost(2)).save(any(TicketEntity.class));
     }
 
     @Test
     void confirmTicket() {
         Ticket ticketToConfirm = Instancio.of(Ticket.class).create();
         TicketEntity ticketEntity = ticketMapper.ticketEntity(ticketToConfirm);
-        given(ticketRepository.save(Mockito.any(TicketEntity.class))).willReturn(ticketEntity);
+        given(ticketRepository.save(any(TicketEntity.class))).willReturn(ticketEntity);
         given(ticketRepository.findById(ticketToConfirm.id())).willReturn(Optional.of(ticketEntity));
 
         ticketService.bookTicket(ticketToConfirm);

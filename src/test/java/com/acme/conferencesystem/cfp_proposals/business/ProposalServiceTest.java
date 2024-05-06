@@ -8,6 +8,7 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
+import org.mockito.Mockito;
 import org.mockito.Spy;
 import org.mockito.junit.jupiter.MockitoExtension;
 
@@ -21,6 +22,8 @@ import static org.mockito.BDDMockito.given;
 import static org.mockito.BDDMockito.never;
 import static org.mockito.BDDMockito.then;
 import static org.mockito.BDDMockito.willThrow;
+import static org.mockito.Mockito.atMostOnce;
+import static org.mockito.Mockito.verify;
 
 @ExtendWith(MockitoExtension.class)
 class ProposalServiceTest {
@@ -84,5 +87,28 @@ class ProposalServiceTest {
         Optional<Proposal> result = service.getProposalById(id);
 
         assertThat(result).isPresent().contains(proposal);
+    }
+
+    @Test
+    void reject_proposal() {
+        var proposal = Instancio.create(Proposal.class);
+        var entity = mapper.proposalToEntity(proposal);
+        given(repository.findById(entity.id())).willReturn(Optional.of(entity));
+        given(repository.save(Mockito.any())).willReturn(entity);
+
+        service.rejectProposal(proposal.id());
+        verify(repository, atMostOnce()).save(any(ProposalEntity.class));
+
+    }
+
+    @Test
+    void approve_proposal() {
+        var proposal = Instancio.create(Proposal.class);
+        var entity = mapper.proposalToEntity(proposal);
+        given(repository.findById(entity.id())).willReturn(Optional.of(entity));
+        given(repository.save(Mockito.any())).willReturn(entity);
+
+        service.approveProposal(proposal.id());
+        verify(repository, atMostOnce()).save(any(ProposalEntity.class));
     }
 }
