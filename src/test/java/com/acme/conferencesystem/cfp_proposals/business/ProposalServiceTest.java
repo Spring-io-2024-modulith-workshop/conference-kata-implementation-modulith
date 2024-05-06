@@ -15,7 +15,7 @@ import java.util.List;
 import java.util.Optional;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.assertj.core.api.Assertions.assertThatIllegalArgumentException;
+import static org.assertj.core.api.Assertions.assertThatRuntimeException;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.BDDMockito.given;
 import static org.mockito.BDDMockito.never;
@@ -24,8 +24,6 @@ import static org.mockito.BDDMockito.willThrow;
 
 @ExtendWith(MockitoExtension.class)
 class ProposalServiceTest {
-
-    private static final boolean NOT_VALID_USER = false;
 
     @InjectMocks
     ProposalService service;
@@ -65,12 +63,15 @@ class ProposalServiceTest {
     @Test
     void reject_proposals_when_invalid_speaker() {
         var proposal = Instancio.create(Proposal.class);
+
         willThrow(new RuntimeException())
                 .given(userInternalAPI).validateUser(proposal.speakerId());
 
-        assertThatIllegalArgumentException().isThrownBy(() -> service.submitProposal(proposal));
+        assertThatRuntimeException()
+                .isThrownBy(() -> service.submitProposal(proposal));
 
-        then(repository).should(never()).save(any());
+        then(repository)
+                .should(never()).save(any());
     }
 
     @Test

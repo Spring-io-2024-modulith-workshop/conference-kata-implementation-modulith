@@ -79,7 +79,6 @@ class VoteControllerIntegrationTest extends AbstractIntegrationTest {
                 .post("/voting/proposal")
                 .then()
                 .statusCode(200);
-        // 4. check that the vote is stored
     }
 
     @Test
@@ -90,5 +89,55 @@ class VoteControllerIntegrationTest extends AbstractIntegrationTest {
         // 3. approve the proposal
         // 4. create a vote
         // 5. check that the vote is stored
+
+        User user = Instancio.of(User.class)
+                .ignore(field(User::id))
+                .set(field(User::role), UserRole.ATTENDEE)
+                .create();
+
+        var newUserId = given(requestSpecification)
+                .contentType(ContentType.JSON)
+                .body(user)
+                .when()
+                .post("/users")
+                .then()
+                .statusCode(201)
+                .extract()
+                .path("id");
+
+        // 2. create a proposal
+        Proposal proposal = Instancio
+                .of(Proposal.class)
+                .ignore(field(Proposal::id))
+                .set(field(Proposal::speakerId), UUID.fromString(newUserId.toString()))
+                .set(field(Proposal::status), NEW)
+                .create();
+        var proposalPersistedId = given(requestSpecification)
+                .contentType(ContentType.JSON)
+                .accept(ContentType.JSON)
+                .body(proposal)
+                .when()
+                .post("/proposals")
+                .then()
+                .statusCode(201)
+                .extract()
+                .path("id");
+
+
+        // 3. create a vote
+        Vote vote = Instancio.of(Vote.class)
+                .ignore(field(Vote::id))
+                .set(field(Vote::userId), UUID.fromString(newUserId.toString()))
+                .set(field(Vote::proposalId), UUID.fromString(proposalPersistedId.toString()))
+                .create();
+
+        given(requestSpecification)
+                .contentType(ContentType.JSON)
+                .accept(ContentType.JSON)
+                .body(vote)
+                .when()
+                .post("/voting/proposal")
+                .then()
+                .statusCode(200);
     }
 }
