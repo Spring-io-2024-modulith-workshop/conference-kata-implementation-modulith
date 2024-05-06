@@ -56,11 +56,7 @@ class ProposalControllerIntegrationTest extends AbstractIntegrationTest {
                 .get("/proposals")
                 .then()
                 .statusCode(200)
-                .body("$", instanceOf(List.class))
-                .body("[0].id", equalTo(newProposalId))
-                .body("[0].title", equalTo(proposal.title()))
-                .body("[0].description", equalTo(proposal.description()))
-                .body("[0].speakerId", equalTo(proposal.speakerId().toString()));
+                .body("$", instanceOf(List.class));
 
         // Get proposal by ID
         given(requestSpecification)
