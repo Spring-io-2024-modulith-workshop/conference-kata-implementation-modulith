@@ -2,7 +2,6 @@ package com.acme.conferencesystem.users.business;
 
 import com.acme.conferencesystem.users.persistence.UserEntity;
 import com.acme.conferencesystem.users.persistence.UsersRepository;
-import org.assertj.core.api.Assertions;
 import org.instancio.Instancio;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
@@ -17,6 +16,8 @@ import java.util.Optional;
 import java.util.UUID;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThatIllegalArgumentException;
+import static org.assertj.core.api.Assertions.assertThatNoException;
 import static org.mockito.BDDMockito.given;
 import static org.mockito.BDDMockito.then;
 
@@ -76,15 +77,14 @@ class UserServiceTest {
         @Test
         void throw_exception_if_user_is_not_found() {
             given(repository.existsById(userId)).willReturn(USER_IS_NOT_VALID);
-
-            Assertions.assertThatThrownBy(() -> service.validateUser(userId));
+            assertThatIllegalArgumentException().isThrownBy(() -> service.validateUser(userId));
         }
 
         @Test
         void user_is_valid_if_user_is_found() {
             given(repository.existsById(userId)).willReturn(USER_IS_VALID);
 
-            Assertions.assertThatNoException().isThrownBy(() -> service.validateUser(userId));
+            assertThatNoException().isThrownBy(() -> service.validateUser(userId));
         }
 
     }
