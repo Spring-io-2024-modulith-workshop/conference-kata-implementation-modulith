@@ -176,16 +176,6 @@
           </execution>
         </executions>
       </plugin>
-      <!--<plugin>
-        <groupId>org.flywaydb</groupId>
-        <artifactId>flyway-maven-plugin</artifactId>
-        <version>9.5.1</version>
-        <configuration>
-          <url>jdbc:postgresql://localhost:5432/postgres</url>
-          <user>postgres</user>
-          <password>password</password>
-        </configuration>
-      </plugin>-->
     </plugins>
   </build>
 
