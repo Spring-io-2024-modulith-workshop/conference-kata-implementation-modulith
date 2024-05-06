@@ -3,7 +3,6 @@ package com.acme.conferencesystem.cfp_proposals.business;
 import com.acme.conferencesystem.cfp_proposals.persistence.ProposalEntity;
 import com.acme.conferencesystem.cfp_proposals.persistence.ProposalRepository;
 import com.acme.conferencesystem.users.UserInternalAPI;
-import org.assertj.core.api.ThrowableAssert.ThrowingCallable;
 import org.instancio.Instancio;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -16,9 +15,12 @@ import java.util.List;
 import java.util.Optional;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.assertj.core.api.Assertions.assertThatThrownBy;
+import static org.assertj.core.api.Assertions.assertThatIllegalArgumentException;
 import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.BDDMockito.*;
+import static org.mockito.BDDMockito.given;
+import static org.mockito.BDDMockito.never;
+import static org.mockito.BDDMockito.then;
+import static org.mockito.BDDMockito.willThrow;
 
 @ExtendWith(MockitoExtension.class)
 class ProposalServiceTest {
@@ -66,10 +68,8 @@ class ProposalServiceTest {
         willThrow(new RuntimeException())
                 .given(userInternalAPI).validateUser(proposal.speakerId());
 
-        ThrowingCallable submitProposalThrowsNotValidUser
-                = () -> service.submitProposal(proposal);
-        assertThatThrownBy(submitProposalThrowsNotValidUser);
-        
+        assertThatIllegalArgumentException().isThrownBy(() -> service.submitProposal(proposal));
+
         then(repository).should(never()).save(any());
     }
 
