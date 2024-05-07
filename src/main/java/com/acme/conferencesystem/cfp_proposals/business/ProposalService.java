@@ -1,18 +1,20 @@
 package com.acme.conferencesystem.cfp_proposals.business;
 
+import com.acme.conferencesystem.cfp_proposals.ProposalInternalAPI;
 import com.acme.conferencesystem.cfp_proposals.persistence.ProposalEntity;
 import com.acme.conferencesystem.cfp_proposals.persistence.ProposalRepository;
 import com.acme.conferencesystem.users.UserInternalAPI;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
 @Service
-public class ProposalService {
+public class ProposalService implements ProposalInternalAPI {
 
     private final ProposalRepository repository;
     private final ProposalMapper mapper;
@@ -42,9 +44,56 @@ public class ProposalService {
         return mapper.entityToProposal(submittedProposalEntity);
     }
 
+    @Override
     public Optional<Proposal> getProposalById(UUID id) {
         return repository.findById(id)
                 .map(mapper::entityToProposal);
     }
 
+    @Override
+    public void validateProposalIsAccepted(UUID proposalId) {
+        Proposal proposal = getProposalById(proposalId)
+                .orElseThrow(() -> new IllegalArgumentException("Proposal %s not found".formatted(proposalId)));
+
+        if (proposal.status() != ProposalStatus.ACCEPTED) {
+            throw new IllegalArgumentException("Proposal %s is not accepted".formatted(proposalId));
+        }
+    }
+
+    @Override
+    public void validateProposalIsNew(UUID proposalId) {
+        Proposal proposal = getProposalById(proposalId)
+                .orElseThrow(() -> new IllegalArgumentException("Proposal %s not found".formatted(proposalId)));
+
+        if (proposal.status() != ProposalStatus.NEW) {
+            throw new IllegalArgumentException("Proposal %s is not accepted".formatted(proposalId));
+        }
+    }
+
+    public void approveProposal(UUID id) {
+        repository.findById(id)
+                .map(proposalEntity -> new ProposalEntity(
+                        proposalEntity.id(),
+                        proposalEntity.title(),
+                        proposalEntity.description(),
+                        proposalEntity.speakerId(),
+                        LocalDateTime.now(),
+                        ProposalStatus.ACCEPTED
+                ))
+                .ifPresent(repository::save);
+    }
+
+    public void rejectProposal(UUID id) {
+        repository.findById(id).ifPresent(proposalEntity -> {
+            var approvedProposal = new ProposalEntity(
+                    proposalEntity.id(),
+                    proposalEntity.title(),
+                    proposalEntity.description(),
+                    proposalEntity.speakerId(),
+                    LocalDateTime.now(),
+                    ProposalStatus.REJECTED
+            );
+            repository.save(approvedProposal);
+        });
+    }
 }

@@ -3,27 +3,38 @@ package com.acme.conferencesystem.cfp_proposals.business;
 import com.acme.conferencesystem.cfp_proposals.persistence.ProposalEntity;
 import com.acme.conferencesystem.cfp_proposals.persistence.ProposalRepository;
 import com.acme.conferencesystem.users.UserInternalAPI;
-import org.assertj.core.api.ThrowableAssert.ThrowingCallable;
 import org.instancio.Instancio;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
+import org.mockito.Mockito;
 import org.mockito.Spy;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.UUID;
 
+import static com.acme.conferencesystem.cfp_proposals.business.ProposalStatus.ACCEPTED;
+import static com.acme.conferencesystem.cfp_proposals.business.ProposalStatus.NEW;
+import static com.acme.conferencesystem.cfp_proposals.business.ProposalStatus.REJECTED;
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.assertj.core.api.Assertions.assertThatThrownBy;
+import static org.assertj.core.api.Assertions.assertThatIllegalArgumentException;
+import static org.assertj.core.api.Assertions.assertThatNoException;
+import static org.assertj.core.api.Assertions.assertThatRuntimeException;
+import static org.instancio.Instancio.create;
+import static org.instancio.Select.field;
 import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.BDDMockito.*;
+import static org.mockito.BDDMockito.given;
+import static org.mockito.BDDMockito.never;
+import static org.mockito.BDDMockito.then;
+import static org.mockito.BDDMockito.willThrow;
+import static org.mockito.Mockito.atMostOnce;
+import static org.mockito.Mockito.verify;
 
 @ExtendWith(MockitoExtension.class)
 class ProposalServiceTest {
-
-    private static final boolean NOT_VALID_USER = false;
 
     @InjectMocks
     ProposalService service;
@@ -50,7 +61,7 @@ class ProposalServiceTest {
 
     @Test
     void submit_proposal() {
-        var proposal = Instancio.create(Proposal.class);
+        var proposal = create(Proposal.class);
         var proposalEntity = mapper.proposalToEntity(proposal);
         given(repository.save(proposalEntity)).willReturn(proposalEntity);
 
@@ -62,20 +73,21 @@ class ProposalServiceTest {
 
     @Test
     void reject_proposals_when_invalid_speaker() {
-        var proposal = Instancio.create(Proposal.class);
+        var proposal = create(Proposal.class);
+
         willThrow(new RuntimeException())
                 .given(userInternalAPI).validateUser(proposal.speakerId());
 
-        ThrowingCallable submitProposalThrowsNotValidUser
-                = () -> service.submitProposal(proposal);
-        assertThatThrownBy(submitProposalThrowsNotValidUser);
-        
-        then(repository).should(never()).save(any());
+        assertThatRuntimeException()
+                .isThrownBy(() -> service.submitProposal(proposal));
+
+        then(repository)
+                .should(never()).save(any());
     }
 
     @Test
     void get_proposal_by_id() {
-        var entity = Instancio.create(ProposalEntity.class);
+        var entity = create(ProposalEntity.class);
         var proposal = mapper.entityToProposal(entity);
         var id = entity.id();
         given(repository.findById(id)).willReturn(Optional.of(entity));
@@ -83,5 +95,76 @@ class ProposalServiceTest {
         Optional<Proposal> result = service.getProposalById(id);
 
         assertThat(result).isPresent().contains(proposal);
+    }
+
+    @Test
+    void validate_proposal_is_new() {
+        UUID id = UUID.randomUUID();
+        given(repository.findById(id))
+                .willReturn(Optional.of(Instancio.of(ProposalEntity.class)
+                        .set(field(ProposalEntity::status), NEW)
+                        .create()));
+
+        assertThatNoException()
+                .isThrownBy(() -> service.validateProposalIsNew(id));
+    }
+
+    @Test
+    void validate_proposal_is_new_throws_exception() {
+        UUID id = UUID.randomUUID();
+        given(repository.findById(id))
+                .willReturn(Optional.of(Instancio.of(ProposalEntity.class)
+                        .set(field(ProposalEntity::status), ACCEPTED)
+                        .create()));
+
+        assertThatIllegalArgumentException()
+                .isThrownBy(() -> service.validateProposalIsNew(id));
+    }
+
+    @Test
+    void validate_proposal_is_accepted() {
+        UUID id = UUID.randomUUID();
+        given(repository.findById(id))
+                .willReturn(Optional.of(Instancio.of(ProposalEntity.class)
+                        .set(field(ProposalEntity::status), ACCEPTED)
+                        .create()));
+
+        assertThatNoException()
+                .isThrownBy(() -> service.validateProposalIsAccepted(id));
+    }
+
+    @Test
+    void validate_proposal_is_accepted_throws_exception() {
+        UUID id = UUID.randomUUID();
+        given(repository.findById(id))
+                .willReturn(Optional.of(Instancio.of(ProposalEntity.class)
+                        .set(field(ProposalEntity::status), REJECTED)
+                        .create()));
+
+        assertThatIllegalArgumentException()
+                .isThrownBy(() -> service.validateProposalIsAccepted(id));
+    }
+
+    @Test
+    void reject_proposal() {
+        var proposal = create(Proposal.class);
+        var entity = mapper.proposalToEntity(proposal);
+        given(repository.findById(entity.id())).willReturn(Optional.of(entity));
+        given(repository.save(Mockito.any())).willReturn(entity);
+
+        service.rejectProposal(proposal.id());
+        verify(repository, atMostOnce()).save(any(ProposalEntity.class));
+
+    }
+
+    @Test
+    void approve_proposal() {
+        var proposal = create(Proposal.class);
+        var entity = mapper.proposalToEntity(proposal);
+        given(repository.findById(entity.id())).willReturn(Optional.of(entity));
+        given(repository.save(Mockito.any())).willReturn(entity);
+
+        service.approveProposal(proposal.id());
+        verify(repository, atMostOnce()).save(any(ProposalEntity.class));
     }
 }

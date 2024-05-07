@@ -8,6 +8,18 @@
 
 ### Anyul Rivas - Ingram Micro / Alejandro Martínez - FINEOS
 
-This interactive workshop comprehensively explores Spring Modulith, an innovative approach to modernizing traditional monolithic architectures. Participants will gain insights into the fundamentals of Spring Modulith, followed by a detailed, hands-on session focused on migrating a standard modular monolith application to a Spring Modulith structure. This session is ideal for software engineers and architects seeking practical experience enhancing system modularity and maintainability using Spring Modulith. Attendees will leave with a clear understanding of the process and benefits of this transition, equipped with the skills to implement similar upgrades in their projects.
+This interactive workshop comprehensively explores Spring Modulith,
+an innovative approach to modernizing traditional monolithic architectures.
+Participants will gain insights into the fundamentals of Spring Modulith,
+followed by a detailed,
+hands-on session
+focused on migrating a standard modular monolith application to a Spring
+Modulith structure.
+This session is ideal for software engineers and architects
+seeking practical experience
+to enhance system modularity and maintainability using Spring Modulith.
+Attendees will leave with a clear understanding of the process and benefits from
+this transition,
+equipped with the skills to implement similar upgrades in their projects.
 
 https://2024.springio.net/sessions/transitioning-from-monolithic-architecture-to-spring-modulith/

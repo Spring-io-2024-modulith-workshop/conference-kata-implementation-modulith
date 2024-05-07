@@ -1,6 +1,7 @@
 package com.acme.conferencesystem.cfp_proposals.persistence;
 
 
+import com.acme.conferencesystem.cfp_proposals.business.ProposalStatus;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.relational.core.mapping.Column;
@@ -15,6 +16,7 @@ public record ProposalEntity(
         String title,
         String description,
         @Column("speaker_id") UUID speakerId,
-        @CreatedDate LocalDateTime creationDateTime
+        @CreatedDate LocalDateTime creationDateTime,
+        ProposalStatus status
 ) {
 }

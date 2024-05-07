@@ -5,7 +5,13 @@ import com.acme.conferencesystem.cfp_proposals.business.ProposalService;
 import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PatchMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.server.ResponseStatusException;
 
 import java.util.List;
@@ -42,6 +48,18 @@ public class ProposalController {
         return proposalService.getProposalById(id)
                 .map(ResponseEntity::ok)
                 .orElse(ResponseEntity.notFound().build());
+    }
+
+    @PatchMapping("/{id}/approve")
+    public ResponseEntity<Void> approveProposal(@PathVariable UUID id) {
+        proposalService.approveProposal(id);
+        return ResponseEntity.ok().build();
+    }
+
+    @PatchMapping("/{id}/reject")
+    public ResponseEntity<Void> rejectProposal(@PathVariable UUID id) {
+        proposalService.rejectProposal(id);
+        return ResponseEntity.ok().build();
     }
 
 }

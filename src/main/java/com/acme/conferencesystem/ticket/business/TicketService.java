@@ -46,19 +46,17 @@ public class TicketService {
     }
 
     public void cancelTicket(UUID ticket) {
-        ticketRepository.findById(ticket)
-                .ifPresent(ticketEntity -> {
-                    var cancelledTicket = new TicketEntity(ticketEntity.id(), ticketEntity.category(), LocalDateTime.now(), ticketEntity.price(), CANCELLED);
-                    ticketRepository.save(cancelledTicket);
-                });
+        ticketRepository
+                .findById(ticket)
+                .map(ticketEntity -> new TicketEntity(ticketEntity.id(), ticketEntity.category(), LocalDateTime.now(), ticketEntity.price(), CANCELLED))
+                .ifPresent(ticketRepository::save);
     }
 
     public void confirmTicket(UUID ticket) {
-        ticketRepository.findById(ticket)
-                .ifPresent(ticketEntity -> {
-                    var cancelledTicket = new TicketEntity(ticketEntity.id(), ticketEntity.category(), LocalDateTime.now(), ticketEntity.price(), CONFIRMED);
-                    ticketRepository.save(cancelledTicket);
-                });
+        ticketRepository
+                .findById(ticket)
+                .map(ticketEntity -> new TicketEntity(ticketEntity.id(), ticketEntity.category(), LocalDateTime.now(), ticketEntity.price(), CONFIRMED))
+                .ifPresent(ticketRepository::save);
     }
 
     public Optional<Ticket> getById(UUID id) {

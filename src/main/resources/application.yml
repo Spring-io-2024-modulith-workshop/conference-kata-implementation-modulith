@@ -6,11 +6,12 @@ spring:
   sql:
     init:
       mode: always
-      schema-locations: classpath:sql/schema/*sql
   datasource:
     url: jdbc:postgresql://localhost:5432/postgres
     username: postgres
     password: password
+  flyway:
+    baseline-on-migrate: true
 
 logging:
   level:
