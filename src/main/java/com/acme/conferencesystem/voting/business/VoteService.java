@@ -3,8 +3,7 @@ package com.acme.conferencesystem.voting.business;
 import com.acme.conferencesystem.cfp_proposals.ProposalInternalAPI;
 import com.acme.conferencesystem.users.UserInternalAPI;
 import com.acme.conferencesystem.voting.persistence.VoteRepository;
-import org.jetbrains.annotations.NotNull;
-import org.springframework.beans.factory.annotation.Autowired;
+import jakarta.validation.constraints.NotNull;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -15,7 +14,6 @@ public class VoteService {
     private final UserInternalAPI userInternalAPI;
     private final VoteMapper voteMapper;
 
-    @Autowired
     public VoteService(VoteRepository voteRepository, VoteMapper voteMapper, ProposalInternalAPI proposalInternalAPI, UserInternalAPI userInternalAPI) {
         this.voteRepository = voteRepository;
         this.voteMapper = voteMapper;

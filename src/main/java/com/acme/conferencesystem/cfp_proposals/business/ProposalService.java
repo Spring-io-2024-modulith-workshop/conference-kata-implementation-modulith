@@ -71,17 +71,16 @@ public class ProposalService implements ProposalInternalAPI {
     }
 
     public void approveProposal(UUID id) {
-        repository.findById(id).ifPresent(proposalEntity -> {
-            var approvedProposal = new ProposalEntity(
-                    proposalEntity.id(),
-                    proposalEntity.title(),
-                    proposalEntity.description(),
-                    proposalEntity.speakerId(),
-                    LocalDateTime.now(),
-                    ProposalStatus.ACCEPTED
-            );
-            repository.save(approvedProposal);
-        });
+        repository.findById(id)
+                .map(proposalEntity -> new ProposalEntity(
+                        proposalEntity.id(),
+                        proposalEntity.title(),
+                        proposalEntity.description(),
+                        proposalEntity.speakerId(),
+                        LocalDateTime.now(),
+                        ProposalStatus.ACCEPTED
+                ))
+                .ifPresent(repository::save);
     }
 
     public void rejectProposal(UUID id) {

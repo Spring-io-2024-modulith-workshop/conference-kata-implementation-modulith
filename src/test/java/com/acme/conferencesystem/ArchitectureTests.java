@@ -20,8 +20,6 @@ class ArchitectureTests {
 
     @Test
     void writeDocumentation() {
-        new Documenter(modules).writeDocumentation();
-
         new Documenter(modules)
                 .writeDocumentation()
                 .writeIndividualModulesAsPlantUml();
