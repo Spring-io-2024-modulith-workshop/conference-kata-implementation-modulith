@@ -88,7 +88,6 @@ class ProposalServiceTest {
     @Test
     void get_proposal_by_id() {
         var entity = create(ProposalEntity.class);
-        var proposal = mapper.entityToProposal(entity);
         var id = entity.id();
         given(repository.findById(id)).willReturn(Optional.of(entity));
 
