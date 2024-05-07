@@ -4,13 +4,11 @@ import com.acme.conferencesystem.ticket.persistence.TicketEntity;
 import com.acme.conferencesystem.ticket.persistence.TicketRepository;
 import org.springframework.stereotype.Service;
 
-import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 import java.util.stream.StreamSupport;
 
-import static com.acme.conferencesystem.ticket.business.TicketStatus.CANCELLED;
 import static com.acme.conferencesystem.ticket.business.TicketStatus.CONFIRMED;
 import static com.acme.conferencesystem.ticket.business.TicketStatus.RESERVED;
 
@@ -48,14 +46,14 @@ public class TicketService {
     public void cancelTicket(UUID ticket) {
         ticketRepository
                 .findById(ticket)
-                .map(ticketEntity -> new TicketEntity(ticketEntity.id(), ticketEntity.category(), LocalDateTime.now(), ticketEntity.price(), CANCELLED))
+                .map(TicketEntity::ofCancelled)
                 .ifPresent(ticketRepository::save);
     }
 
     public void confirmTicket(UUID ticket) {
         ticketRepository
                 .findById(ticket)
-                .map(ticketEntity -> new TicketEntity(ticketEntity.id(), ticketEntity.category(), LocalDateTime.now(), ticketEntity.price(), CONFIRMED))
+                .map(TicketEntity::ofConfirmed)
                 .ifPresent(ticketRepository::save);
     }
 
