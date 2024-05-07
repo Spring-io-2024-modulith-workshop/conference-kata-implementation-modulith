@@ -45,21 +45,17 @@ public class ProposalController {
 
     @GetMapping("/{id}")
     public ResponseEntity<Proposal> getProposalById(@PathVariable UUID id) {
-        return proposalService.getProposalById(id)
-                .map(ResponseEntity::ok)
-                .orElse(ResponseEntity.notFound().build());
+        return ResponseEntity.ok(proposalService.getProposalById(id));
     }
 
     @PatchMapping("/{id}/approve")
-    public ResponseEntity<Void> approveProposal(@PathVariable UUID id) {
-        proposalService.approveProposal(id);
-        return ResponseEntity.ok().build();
+    public ResponseEntity<Proposal> approveProposal(@PathVariable UUID id) {
+        return ResponseEntity.ok(proposalService.approveProposal(id));
     }
 
     @PatchMapping("/{id}/reject")
-    public ResponseEntity<Void> rejectProposal(@PathVariable UUID id) {
-        proposalService.rejectProposal(id);
-        return ResponseEntity.ok().build();
+    public ResponseEntity<Proposal> rejectProposal(@PathVariable UUID id) {
+        return ResponseEntity.ok(proposalService.rejectProposal(id));
     }
 
 }

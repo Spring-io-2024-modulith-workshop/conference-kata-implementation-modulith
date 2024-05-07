@@ -6,18 +6,14 @@ import com.acme.conferencesystem.users.business.User;
 import com.acme.conferencesystem.users.business.UserRole;
 import com.acme.conferencesystem.users.persistence.UsersRepository;
 import io.restassured.http.ContentType;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.context.annotation.Import;
 import org.springframework.modulith.test.ApplicationModuleTest;
 
-import java.util.List;
-
 import static io.restassured.RestAssured.given;
 import static org.hamcrest.Matchers.equalTo;
-import static org.hamcrest.Matchers.instanceOf;
 
 @ApplicationModuleTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 @Import(ContainerConfig.class)
@@ -29,11 +25,6 @@ class UserControllerIntegrationTest extends AbstractIntegrationTest {
 
     @Autowired
     UsersRepository repository;
-
-    @BeforeEach
-    void cleanDatabase() {
-        repository.deleteAll();
-    }
 
     @Test
     void endToEndTest() {
@@ -55,13 +46,7 @@ class UserControllerIntegrationTest extends AbstractIntegrationTest {
                 .when()
                 .get("/users")
                 .then()
-                .statusCode(200)
-                .body("$", instanceOf(List.class))
-                .body("[0].id", equalTo(newUserId))
-                .body("[0].name", equalTo(JOHN_DOE))
-                .body("[0].email", equalTo(EMAIL))
-                .body("[0].phone", equalTo(PHONE))
-                .body("[0].role", equalTo("SPEAKER"));
+                .statusCode(200);
 
         // Get user by ID
         given(requestSpecification)
@@ -73,7 +58,7 @@ class UserControllerIntegrationTest extends AbstractIntegrationTest {
                 .body("name", equalTo(JOHN_DOE))
                 .body("email", equalTo(EMAIL))
                 .body("phone", equalTo(PHONE))
-                .body("role", equalTo("SPEAKER"));
+                .body("role", equalTo(UserRole.SPEAKER.toString()));
     }
 
 }

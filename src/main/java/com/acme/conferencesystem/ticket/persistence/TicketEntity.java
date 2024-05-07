@@ -9,6 +9,9 @@ import org.springframework.data.relational.core.mapping.Table;
 import java.time.LocalDateTime;
 import java.util.UUID;
 
+import static com.acme.conferencesystem.ticket.business.TicketStatus.CANCELLED;
+import static com.acme.conferencesystem.ticket.business.TicketStatus.CONFIRMED;
+
 @Table("tickets")
 public record TicketEntity(@Id UUID id,
                            TicketCategory category,
@@ -16,4 +19,12 @@ public record TicketEntity(@Id UUID id,
                            LocalDateTime date,
                            Double price,
                            TicketStatus status) {
+
+    public TicketEntity ofConfirmed() {
+        return new TicketEntity(id, category, date, price, CONFIRMED);
+    }
+
+    public TicketEntity ofCancelled() {
+        return new TicketEntity(id, category, date, price, CANCELLED);
+    }
 }
