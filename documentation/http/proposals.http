@@ -1,0 +1,25 @@
+### Submit a proposal
+POST http://localhost:8080/proposals
+Accept: application/json
+Content-Type: application/json
+
+{
+  "title": "Test Proposal",
+  "description": "This is a test proposal.",
+  "speakerId": "a82028f8-dea5-4bec-b436-407dfb87b211",
+  "status": "NEW"
+}
+
+### Get all proposals
+GET http://localhost:8080/proposals
+Accept: application/json
+
+### Get a specific proposal by ID
+GET http://localhost:8080/proposals/a2d7610a-f1fc-4f3b-80d5-15b242a62b47
+Accept: application/json
+
+### Approve a proposal
+PATCH http://localhost:8080/proposals/a2d7610a-f1fc-4f3b-80d5-15b242a62b47/approve
+
+### Reject a proposal
+PATCH http://localhost:8080/proposals/a2d7610a-f1fc-4f3b-80d5-15b242a62b47/reject

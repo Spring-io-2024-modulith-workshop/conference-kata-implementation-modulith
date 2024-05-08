@@ -1,0 +1,55 @@
+### Create a SPEAKER
+POST http://localhost:8080/users
+Content-Type: application/json
+
+{
+  "name": "John Doe",
+  "email": "john@example.com",
+  "phone": "(555) 555-5551",
+  "role": "SPEAKER"
+}
+
+### Create a ATTENDEE
+POST http://localhost:8080/users
+Content-Type: application/json
+
+{
+  "name": "Jane Smith",
+  "email": "jane@example.com",
+  "phone": "(555) 555-5552",
+  "role": "ATTENDEE"
+}
+
+### Create an ORGANIZER
+POST http://localhost:8080/users
+Content-Type: application/json
+
+{
+  "name": "Michael Johnson",
+  "email": "michael@example.com",
+  "phone": "(555) 555-5553",
+  "role": "ORGANIZER"
+}
+
+### Create a SPONSOR
+POST http://localhost:8080/users
+Content-Type: application/json
+
+{
+  "name": "Emily Davis",
+  "email": "emily@example.com",
+  "phone": "(555) 555-5554",
+  "role": "SPONSOR"
+}
+
+### Get all users
+GET http://localhost:8080/users
+Accept: application/json
+
+### Get all users by role
+GET http://localhost:8080/users?role=ORGANIZER
+Accept: application/json
+
+### Get a specific user by ID
+GET http://localhost:8080/users/5768d8a7-bdb0-4022-9fb0-fa7c68491287
+Accept: application/json
