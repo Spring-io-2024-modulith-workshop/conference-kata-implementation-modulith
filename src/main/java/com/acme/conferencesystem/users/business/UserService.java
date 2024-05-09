@@ -19,7 +19,7 @@ public class UserService implements UserInternalAPI {
     private final UsersRepository repository;
     private final UserMapper mapper;
 
-    public UserService(UsersRepository repository, UserMapper mapper) {
+    UserService(UsersRepository repository, UserMapper mapper) {
         this.repository = repository;
         this.mapper = mapper;
     }

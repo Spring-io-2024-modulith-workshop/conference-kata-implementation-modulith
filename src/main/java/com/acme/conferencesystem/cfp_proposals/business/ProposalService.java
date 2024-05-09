@@ -21,7 +21,7 @@ public class ProposalService implements ProposalInternalAPI {
     private final ProposalMapper mapper;
     private final UserInternalAPI userInternalAPI;
 
-    public ProposalService(ProposalRepository repository, ProposalMapper mapper, UserInternalAPI userInternalAPI) {
+    ProposalService(ProposalRepository repository, ProposalMapper mapper, UserInternalAPI userInternalAPI) {
         this.repository = repository;
         this.mapper = mapper;
         this.userInternalAPI = userInternalAPI;
@@ -69,7 +69,7 @@ public class ProposalService implements ProposalInternalAPI {
     public Proposal approveProposal(UUID id) {
         return repository
                 .findById(id)
-                .map(ProposalEntity::ofAccepted)
+                .map(ProposalEntity::createWithAcceptedStatus)
                 .map(repository::save)
                 .map(mapper::entityToProposal)
                 .orElseThrow();
@@ -78,7 +78,7 @@ public class ProposalService implements ProposalInternalAPI {
     public Proposal rejectProposal(UUID id) {
         return repository
                 .findById(id)
-                .map(ProposalEntity::ofRejected)
+                .map(ProposalEntity::createWithRejectedStatus)
                 .map(repository::save)
                 .map(mapper::entityToProposal)
                 .orElseThrow();

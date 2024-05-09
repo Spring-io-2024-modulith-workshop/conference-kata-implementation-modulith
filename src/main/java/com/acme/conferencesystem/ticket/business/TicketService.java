@@ -10,7 +10,6 @@ import java.util.UUID;
 import java.util.stream.StreamSupport;
 
 import static com.acme.conferencesystem.ticket.business.TicketStatus.CONFIRMED;
-import static com.acme.conferencesystem.ticket.business.TicketStatus.RESERVED;
 
 @Service
 public class TicketService {
@@ -19,7 +18,7 @@ public class TicketService {
 
     private final TicketMapper ticketMapper;
 
-    public TicketService(TicketRepository ticketRepository, TicketMapper ticketMapper) {
+    TicketService(TicketRepository ticketRepository, TicketMapper ticketMapper) {
         this.ticketRepository = ticketRepository;
         this.ticketMapper = ticketMapper;
     }
@@ -38,7 +37,7 @@ public class TicketService {
     }
 
     public Ticket bookTicket(Ticket ticket) {
-        TicketEntity ticketEntity = new TicketEntity(null, ticket.category(), ticket.date(), ticket.price(), RESERVED);
+        TicketEntity ticketEntity = TicketEntity.createWithReservedStatus(ticket.category(), ticket.date(), ticket.price());
         TicketEntity persisted = ticketRepository.save(ticketEntity);
         return ticketMapper.ticket(persisted);
     }
@@ -46,14 +45,14 @@ public class TicketService {
     public void cancelTicket(UUID ticket) {
         ticketRepository
                 .findById(ticket)
-                .map(TicketEntity::ofCancelled)
+                .map(TicketEntity::createWithCancelledStatus)
                 .ifPresent(ticketRepository::save);
     }
 
     public void confirmTicket(UUID ticket) {
         ticketRepository
                 .findById(ticket)
-                .map(TicketEntity::ofConfirmed)
+                .map(TicketEntity::createWithConfirmedStatus)
                 .ifPresent(ticketRepository::save);
     }
 
