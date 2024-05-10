@@ -11,6 +11,7 @@ import java.util.UUID;
 
 import static com.acme.conferencesystem.ticket.business.TicketStatus.CANCELLED;
 import static com.acme.conferencesystem.ticket.business.TicketStatus.CONFIRMED;
+import static com.acme.conferencesystem.ticket.business.TicketStatus.RESERVED;
 
 @Table("tickets")
 public record TicketEntity(@Id UUID id,
@@ -20,11 +21,17 @@ public record TicketEntity(@Id UUID id,
                            Double price,
                            TicketStatus status) {
 
-    public TicketEntity ofConfirmed() {
+    public static TicketEntity createWithReservedStatus(TicketCategory category, LocalDateTime date, Double price) {
+
+        return new TicketEntity(null, category, date, price, RESERVED);
+    }
+
+    public TicketEntity createWithConfirmedStatus() {
         return new TicketEntity(id, category, date, price, CONFIRMED);
     }
 
-    public TicketEntity ofCancelled() {
+    public TicketEntity createWithCancelledStatus() {
+
         return new TicketEntity(id, category, date, price, CANCELLED);
     }
 }
