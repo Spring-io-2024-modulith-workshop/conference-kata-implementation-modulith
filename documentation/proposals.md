@@ -21,3 +21,15 @@ curl -X GET "http://localhost:8080/proposals" | jq
 ```bash
 curl -X GET "http://localhost:8080/proposals/a2d7610a-f1fc-4f3b-80d5-15b242a62b47" | jq
 ```
+
+## Approve a proposal
+
+```bash
+curl -X PATCH "http://localhost:8080/proposals/a2d7610a-f1fc-4f3b-80d5-15b242a62b47/approve"
+```
+
+## Reject a proposal
+
+```bash
+curl -X PATCH "http://localhost:8080/proposals/a2d7610a-f1fc-4f3b-80d5-15b242a62b47/reject"
+```

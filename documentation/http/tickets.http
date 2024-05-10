@@ -1,13 +1,12 @@
+### Get all tickets
 GET http://localhost:8080/tickets
 Accept: application/json
 
-###
-
+### Get a single ticket
 GET http://localhost:8080/tickets/84b5b680-cefc-4e0a-bace-55c679066c23
 Accept: application/json
 
-###
-
+### Buy a ticket
 POST http://localhost:8080/tickets/buy
 Accept: application/json
 Content-Type: application/json
@@ -19,8 +18,7 @@ Content-Type: application/json
   "status": "PENDING"
 }
 
-###
-
+### Book a ticket
 POST http://localhost:8080/tickets/book
 Content-Type: application/json
 
@@ -30,12 +28,12 @@ Content-Type: application/json
   "status": "PENDING"
 }
 
-###
+### Cancel a ticket
 PATCH http://localhost:8080/tickets/84b5b680-cefc-4e0a-bace-55c679066c23/cancel
 Content-Type: application/x-www-form-urlencoded
 Accept: application/json
 
-###
+### Confirm a ticket
 PATCH http://localhost:8080/tickets/b605c861-4514-42ef-884d-0e136636586c/confirm
 Content-Type: application/x-www-form-urlencoded
 Accept: application/json
