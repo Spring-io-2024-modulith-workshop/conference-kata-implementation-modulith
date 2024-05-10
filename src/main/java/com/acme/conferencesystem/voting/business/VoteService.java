@@ -14,7 +14,7 @@ public class VoteService {
     private final UserInternalAPI userInternalAPI;
     private final VoteMapper voteMapper;
 
-    public VoteService(VoteRepository voteRepository, VoteMapper voteMapper, ProposalInternalAPI proposalInternalAPI, UserInternalAPI userInternalAPI) {
+    VoteService(VoteRepository voteRepository, VoteMapper voteMapper, ProposalInternalAPI proposalInternalAPI, UserInternalAPI userInternalAPI) {
         this.voteRepository = voteRepository;
         this.voteMapper = voteMapper;
         this.proposalInternalAPI = proposalInternalAPI;

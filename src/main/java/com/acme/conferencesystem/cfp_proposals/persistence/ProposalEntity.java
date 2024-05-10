@@ -25,11 +25,11 @@ public record ProposalEntity(
         @CreatedDate LocalDateTime creationDateTime,
         @LastModifiedDate LocalDateTime lastModifiedDateTime
 ) {
-    public ProposalEntity ofAccepted() {
+    public ProposalEntity createWithAcceptedStatus() {
         return new ProposalEntity(id, title, description, speakerId, ACCEPTED, creationDateTime, now());
     }
 
-    public ProposalEntity ofRejected() {
+    public ProposalEntity createWithRejectedStatus() {
         return new ProposalEntity(id, title, description, speakerId, REJECTED, creationDateTime, now());
     }
 }
