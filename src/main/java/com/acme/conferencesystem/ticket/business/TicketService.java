@@ -1,15 +1,14 @@
 package com.acme.conferencesystem.ticket.business;
 
+import static com.acme.conferencesystem.ticket.business.TicketStatus.CONFIRMED;
+
 import com.acme.conferencesystem.ticket.persistence.TicketEntity;
 import com.acme.conferencesystem.ticket.persistence.TicketRepository;
-import org.springframework.stereotype.Service;
-
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 import java.util.stream.StreamSupport;
-
-import static com.acme.conferencesystem.ticket.business.TicketStatus.CONFIRMED;
+import org.springframework.stereotype.Service;
 
 @Service
 public class TicketService {
