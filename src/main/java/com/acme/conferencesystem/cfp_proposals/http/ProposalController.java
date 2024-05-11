@@ -3,6 +3,8 @@ package com.acme.conferencesystem.cfp_proposals.http;
 import com.acme.conferencesystem.cfp_proposals.business.Proposal;
 import com.acme.conferencesystem.cfp_proposals.business.ProposalService;
 import jakarta.validation.Valid;
+import java.util.List;
+import java.util.UUID;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -14,27 +16,24 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.server.ResponseStatusException;
 
-import java.util.List;
-import java.util.UUID;
-
 @RestController
 @RequestMapping("/proposals")
-public class ProposalController {
+class ProposalController {
 
     private final ProposalService proposalService;
 
-    public ProposalController(ProposalService proposalService) {
+    ProposalController(ProposalService proposalService) {
         this.proposalService = proposalService;
     }
 
     @GetMapping
-    public ResponseEntity<List<Proposal>> getAllProposals() {
+    ResponseEntity<List<Proposal>> getAllProposals() {
         List<Proposal> proposals = proposalService.getAllProposals();
         return ResponseEntity.ok(proposals);
     }
 
     @PostMapping
-    public ResponseEntity<Proposal> submitProposal(@Valid @RequestBody Proposal proposal) {
+    ResponseEntity<Proposal> submitProposal(@Valid @RequestBody Proposal proposal) {
         try {
             Proposal submittedProposal = proposalService.submitProposal(proposal);
             return new ResponseEntity<>(submittedProposal, HttpStatus.CREATED);
@@ -44,17 +43,17 @@ public class ProposalController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Proposal> getProposalById(@PathVariable UUID id) {
+    ResponseEntity<Proposal> getProposalById(@PathVariable UUID id) {
         return ResponseEntity.ok(proposalService.getProposalById(id));
     }
 
     @PatchMapping("/{id}/approve")
-    public ResponseEntity<Proposal> approveProposal(@PathVariable UUID id) {
+    ResponseEntity<Proposal> approveProposal(@PathVariable UUID id) {
         return ResponseEntity.ok(proposalService.approveProposal(id));
     }
 
     @PatchMapping("/{id}/reject")
-    public ResponseEntity<Proposal> rejectProposal(@PathVariable UUID id) {
+    ResponseEntity<Proposal> rejectProposal(@PathVariable UUID id) {
         return ResponseEntity.ok(proposalService.rejectProposal(id));
     }
 

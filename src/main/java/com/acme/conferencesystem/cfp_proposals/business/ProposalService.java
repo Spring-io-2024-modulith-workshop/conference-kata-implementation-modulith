@@ -1,18 +1,17 @@
 package com.acme.conferencesystem.cfp_proposals.business;
 
+import static com.acme.conferencesystem.cfp_proposals.business.ProposalStatus.ACCEPTED;
+import static com.acme.conferencesystem.cfp_proposals.business.ProposalStatus.NEW;
+
 import com.acme.conferencesystem.cfp_proposals.ProposalInternalAPI;
 import com.acme.conferencesystem.cfp_proposals.persistence.ProposalEntity;
 import com.acme.conferencesystem.cfp_proposals.persistence.ProposalRepository;
 import com.acme.conferencesystem.users.UserInternalAPI;
-import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
-
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
-
-import static com.acme.conferencesystem.cfp_proposals.business.ProposalStatus.ACCEPTED;
-import static com.acme.conferencesystem.cfp_proposals.business.ProposalStatus.NEW;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service
 public class ProposalService implements ProposalInternalAPI {

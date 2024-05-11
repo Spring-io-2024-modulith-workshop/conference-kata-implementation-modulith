@@ -11,21 +11,21 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequestMapping("/voting")
-public class VoteController {
+class VoteController {
 
     private final VoteService voteService;
 
-    public VoteController(VoteService voteService) {
+    VoteController(VoteService voteService) {
         this.voteService = voteService;
     }
 
     @PostMapping("/proposal")
-    public ResponseEntity<Vote> voteProposal(@Valid @RequestBody Vote vote) {
+    ResponseEntity<Vote> voteProposal(@Valid @RequestBody Vote vote) {
         return ResponseEntity.ok(voteService.voteProposal(vote));
     }
 
     @PostMapping("/talk")
-    public ResponseEntity<Vote> voteTalk(@Valid @RequestBody Vote vote) {
+    ResponseEntity<Vote> voteTalk(@Valid @RequestBody Vote vote) {
         return ResponseEntity.ok(voteService.voteTalk(vote));
     }
 
