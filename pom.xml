@@ -22,7 +22,7 @@
   <properties>
     <java.version>21</java.version>
     <spring-modulith.version>1.1.4</spring-modulith.version>
-    <testcontainers-bom.version>1.19.7</testcontainers-bom.version>
+    <testcontainers-bom.version>1.19.8</testcontainers-bom.version>
     <jakarta.validation-api.version>3.1.0-M2</jakarta.validation-api.version>
     <mapstruct.version>1.6.0.Beta1</mapstruct.version>
     <instancio-junit.version>4.5.1</instancio-junit.version>
