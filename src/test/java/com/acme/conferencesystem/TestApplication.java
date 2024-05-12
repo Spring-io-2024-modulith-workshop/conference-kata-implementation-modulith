@@ -2,7 +2,8 @@ package com.acme.conferencesystem;
 
 import org.springframework.boot.SpringApplication;
 
-public class TestApplication {
+class TestApplication {
+
     public static void main(String[] args) {
         SpringApplication.
                 from(Application::main)
