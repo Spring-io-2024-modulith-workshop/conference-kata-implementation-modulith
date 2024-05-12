@@ -17,7 +17,7 @@ curl -X GET "http://localhost:8080/tickets/84b5b680-cefc-4e0a-bace-55c679066c23"
 ## Buy a ticket
 
 ```bash
-curl -X POST --location "http://localhost:8080/tickets/buy" \
+curl -X POST "http://localhost:8080/tickets/buy" \
     -H "Accept: application/json" \
     -H "Content-Type: application/json" \
     -d '{
@@ -31,7 +31,7 @@ curl -X POST --location "http://localhost:8080/tickets/buy" \
 ## Book a ticket
 
 ```bash
-curl -X POST --location "http://localhost:8080/tickets/book" \
+curl -X POST "http://localhost:8080/tickets/book" \
     -H "Content-Type: application/json" \
     -d '{
           "category": "BLIND",

@@ -15,7 +15,7 @@ curl -X POST "http://localhost:8080/voting/proposal" \
 ### Voting for a talk
 
 ```shell
-curl -X POST --location "http://localhost:8080/voting/talk" \
+curl -X POST "http://localhost:8080/voting/talk" \
     -H "Content-Type: application/json" \
     -d '{
           "userId": "51d205e8-d274-4923-9623-c4f23aea0ce5",
