@@ -16,6 +16,12 @@ curl -X POST "http://localhost:8080/proposals" -H "Content-Type: application/jso
 curl -X GET "http://localhost:8080/proposals" | jq
 ```
 
+## Get all talks (Accepted Proposals)
+
+```shell
+curl -X GET "http://localhost:8080/talks" 
+```
+
 ## Get a specific proposal by ID
 
 ```bash

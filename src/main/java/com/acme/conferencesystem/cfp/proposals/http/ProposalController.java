@@ -1,7 +1,7 @@
-package com.acme.conferencesystem.cfp_proposals.http;
+package com.acme.conferencesystem.cfp.proposals.http;
 
-import com.acme.conferencesystem.cfp_proposals.business.Proposal;
-import com.acme.conferencesystem.cfp_proposals.business.ProposalService;
+import com.acme.conferencesystem.cfp.proposals.business.Proposal;
+import com.acme.conferencesystem.cfp.proposals.business.ProposalService;
 import jakarta.validation.Valid;
 import java.util.List;
 import java.util.UUID;

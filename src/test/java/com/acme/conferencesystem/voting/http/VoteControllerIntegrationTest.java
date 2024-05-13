@@ -1,23 +1,22 @@
 package com.acme.conferencesystem.voting.http;
 
+import static com.acme.conferencesystem.cfp.proposals.business.ProposalStatus.NEW;
+import static io.restassured.RestAssured.given;
+import static org.instancio.Select.field;
+
 import com.acme.conferencesystem.AbstractIntegrationTest;
 import com.acme.conferencesystem.ContainerConfig;
-import com.acme.conferencesystem.cfp_proposals.business.Proposal;
+import com.acme.conferencesystem.cfp.proposals.business.Proposal;
 import com.acme.conferencesystem.users.business.User;
 import com.acme.conferencesystem.users.business.UserRole;
 import com.acme.conferencesystem.voting.business.Vote;
 import io.restassured.http.ContentType;
+import java.util.UUID;
 import org.instancio.Instancio;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.context.annotation.Import;
 import org.springframework.modulith.test.ApplicationModuleTest;
-
-import java.util.UUID;
-
-import static com.acme.conferencesystem.cfp_proposals.business.ProposalStatus.NEW;
-import static io.restassured.RestAssured.given;
-import static org.instancio.Select.field;
 
 @ApplicationModuleTest(
         mode = ApplicationModuleTest.BootstrapMode.DIRECT_DEPENDENCIES,

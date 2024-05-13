@@ -1,4 +1,4 @@
-package com.acme.conferencesystem.cfp_proposals.business;
+package com.acme.conferencesystem.cfp.proposals.business;
 
 import java.util.UUID;
 
@@ -7,4 +7,5 @@ public record Proposal(UUID id,
                        String description,
                        UUID speakerId,
                        ProposalStatus status) {
+
 }

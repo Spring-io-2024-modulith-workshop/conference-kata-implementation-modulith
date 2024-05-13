@@ -1,6 +1,6 @@
 package com.acme.conferencesystem.voting.business;
 
-import com.acme.conferencesystem.cfp_proposals.ProposalInternalAPI;
+import com.acme.conferencesystem.cfp.ProposalInternalAPI;
 import com.acme.conferencesystem.users.UserInternalAPI;
 import com.acme.conferencesystem.voting.persistence.VoteRepository;
 import jakarta.validation.constraints.NotNull;

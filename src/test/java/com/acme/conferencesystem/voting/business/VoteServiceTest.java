@@ -1,11 +1,18 @@
 package com.acme.conferencesystem.voting.business;
 
-import com.acme.conferencesystem.cfp_proposals.ProposalInternalAPI;
-import com.acme.conferencesystem.cfp_proposals.business.Proposal;
-import com.acme.conferencesystem.cfp_proposals.business.ProposalStatus;
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThatIllegalArgumentException;
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.BDDMockito.given;
+import static org.mockito.Mockito.doThrow;
+
+import com.acme.conferencesystem.cfp.ProposalInternalAPI;
+import com.acme.conferencesystem.cfp.proposals.business.Proposal;
+import com.acme.conferencesystem.cfp.proposals.business.ProposalStatus;
 import com.acme.conferencesystem.users.UserInternalAPI;
 import com.acme.conferencesystem.voting.persistence.VoteEntity;
 import com.acme.conferencesystem.voting.persistence.VoteRepository;
+import java.util.UUID;
 import org.instancio.Instancio;
 import org.instancio.Select;
 import org.junit.jupiter.api.Test;
@@ -14,14 +21,6 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Spy;
 import org.mockito.junit.jupiter.MockitoExtension;
-
-import java.util.UUID;
-
-import static org.assertj.core.api.Assertions.assertThat;
-import static org.assertj.core.api.Assertions.assertThatIllegalArgumentException;
-import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.BDDMockito.given;
-import static org.mockito.Mockito.doThrow;
 
 @ExtendWith(MockitoExtension.class)
 class VoteServiceTest {
