@@ -6,12 +6,16 @@ Content-Type: application/json
 {
   "title": "Test Proposal",
   "description": "This is a test proposal.",
-  "speakerId": "a82028f8-dea5-4bec-b436-407dfb87b211",
-  "status": "NEW"
+  "speakerId": "a5257187-140a-4ca5-8cea-e25491148d59",
+  "status": "ACCEPTED"
 }
 
 ### Get all proposals
 GET http://localhost:8080/proposals
+Accept: application/json
+
+### Get all talks (Accepted Proposals)
+GET http://localhost:8080/talks
 Accept: application/json
 
 ### Get a specific proposal by ID

@@ -1,10 +1,12 @@
-package com.acme.conferencesystem.cfp_proposals;
+package com.acme.conferencesystem.cfp;
 
-import com.acme.conferencesystem.cfp_proposals.business.Proposal;
-
+import com.acme.conferencesystem.cfp.proposals.business.Proposal;
+import java.util.List;
 import java.util.UUID;
 
 public interface ProposalInternalAPI {
+
+    List<Proposal> getAcceptedProposals();
 
     Proposal getProposalById(UUID id);
 

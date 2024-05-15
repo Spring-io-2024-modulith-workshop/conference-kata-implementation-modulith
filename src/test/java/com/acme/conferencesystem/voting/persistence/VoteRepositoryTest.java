@@ -1,8 +1,10 @@
 package com.acme.conferencesystem.voting.persistence;
 
+import static org.instancio.Select.field;
+
 import com.acme.conferencesystem.ContainerConfig;
-import com.acme.conferencesystem.cfp_proposals.persistence.ProposalEntity;
-import com.acme.conferencesystem.cfp_proposals.persistence.ProposalRepository;
+import com.acme.conferencesystem.cfp.proposals.persistence.ProposalEntity;
+import com.acme.conferencesystem.cfp.proposals.persistence.ProposalRepository;
 import com.acme.conferencesystem.users.persistence.UserEntity;
 import com.acme.conferencesystem.users.persistence.UsersRepository;
 import org.assertj.core.api.Assertions;
@@ -13,8 +15,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Import;
 import org.springframework.modulith.test.ApplicationModuleTest;
 import org.springframework.transaction.annotation.Transactional;
-
-import static org.instancio.Select.field;
 
 @ApplicationModuleTest(mode = ApplicationModuleTest.BootstrapMode.DIRECT_DEPENDENCIES)
 @Import(ContainerConfig.class)

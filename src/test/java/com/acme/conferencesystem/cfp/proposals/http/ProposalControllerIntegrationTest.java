@@ -1,24 +1,24 @@
-package com.acme.conferencesystem.cfp_proposals.http;
-
-import com.acme.conferencesystem.AbstractIntegrationTest;
-import com.acme.conferencesystem.ContainerConfig;
-import com.acme.conferencesystem.cfp_proposals.business.Proposal;
-import io.restassured.http.ContentType;
-import org.instancio.Instancio;
-import org.junit.jupiter.api.Test;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.context.ApplicationEventPublisher;
-import org.springframework.context.annotation.Import;
-import org.springframework.modulith.test.ApplicationModuleTest;
-
-import java.util.List;
-import java.util.UUID;
+package com.acme.conferencesystem.cfp.proposals.http;
 
 import static io.restassured.RestAssured.given;
 import static org.hamcrest.Matchers.equalTo;
 import static org.hamcrest.Matchers.instanceOf;
 import static org.instancio.Select.field;
+
+import com.acme.conferencesystem.AbstractIntegrationTest;
+import com.acme.conferencesystem.ContainerConfig;
+import com.acme.conferencesystem.cfp.proposals.business.Proposal;
+import com.acme.conferencesystem.cfp.proposals.persistence.ProposalRepository;
+import com.acme.conferencesystem.users.UsersTestAPI;
+import io.restassured.http.ContentType;
+import java.util.List;
+import java.util.UUID;
+import org.instancio.Instancio;
+import org.junit.jupiter.api.Test;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.context.annotation.Import;
+import org.springframework.modulith.test.ApplicationModuleTest;
 
 @ApplicationModuleTest(
         mode = ApplicationModuleTest.BootstrapMode.DIRECT_DEPENDENCIES,
@@ -28,19 +28,18 @@ import static org.instancio.Select.field;
 class ProposalControllerIntegrationTest extends AbstractIntegrationTest {
 
     @Autowired
-    ApplicationEventPublisher publisher;
-
+    ProposalRepository repository;
 
     @Test
     void endToEndTest() {
-        UUID speakerId = createSpeaker();
+        UUID speakerId = UsersTestAPI.createSpeaker(requestSpecification);
         Proposal proposal = Instancio.of(Proposal.class)
                 .ignore(field(Proposal::id))
                 .set(field(Proposal::speakerId), speakerId)
                 .create();
 
         // Submit proposal
-        var newProposalId = given(requestSpecification)
+        String newProposalId = given(requestSpecification)
                 .contentType(ContentType.JSON)
                 .body(proposal)
                 .when()
@@ -68,26 +67,6 @@ class ProposalControllerIntegrationTest extends AbstractIntegrationTest {
                 .body("title", equalTo(proposal.title()))
                 .body("description", equalTo(proposal.description()))
                 .body("speakerId", equalTo(proposal.speakerId().toString()));
-    }
-
-    private UUID createSpeaker() {
-        String speakerIdString = given(requestSpecification)
-                .contentType(ContentType.JSON)
-                .body("""
-                        {
-                             "name": "John Doe",
-                             "email": "john@example.com",
-                             "phone": "(555) 555-5551",
-                             "role": "SPEAKER"
-                         }""")
-                .when()
-                .post("/users")
-                .then()
-                .statusCode(201)
-                .extract()
-                .path("id");
-
-        return UUID.fromString(speakerIdString);
     }
 
     @Test

@@ -1,2 +1,2 @@
-alter table proposals
-    add last_modified_date_time timestamp default CURRENT_TIMESTAMP;
+ALTER TABLE proposals
+    ADD last_modified_date_time TIMESTAMP DEFAULT CURRENT_TIMESTAMP;

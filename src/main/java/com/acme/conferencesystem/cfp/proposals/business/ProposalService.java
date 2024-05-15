@@ -1,15 +1,12 @@
-package com.acme.conferencesystem.cfp_proposals.business;
+package com.acme.conferencesystem.cfp.proposals.business;
 
-import static com.acme.conferencesystem.cfp_proposals.business.ProposalStatus.ACCEPTED;
-import static com.acme.conferencesystem.cfp_proposals.business.ProposalStatus.NEW;
-
-import com.acme.conferencesystem.cfp_proposals.ProposalInternalAPI;
-import com.acme.conferencesystem.cfp_proposals.persistence.ProposalEntity;
-import com.acme.conferencesystem.cfp_proposals.persistence.ProposalRepository;
+import com.acme.conferencesystem.cfp.ProposalInternalAPI;
+import com.acme.conferencesystem.cfp.proposals.persistence.ProposalEntity;
+import com.acme.conferencesystem.cfp.proposals.persistence.ProposalRepository;
 import com.acme.conferencesystem.users.UserInternalAPI;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
+import java.util.stream.StreamSupport;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -27,12 +24,15 @@ public class ProposalService implements ProposalInternalAPI {
     }
 
     public List<Proposal> getAllProposals() {
-        List<Proposal> list = new ArrayList<>();
-        for (ProposalEntity proposalEntity : repository.findAll()) {
-            Proposal proposal = mapper.entityToProposal(proposalEntity);
-            list.add(proposal);
-        }
-        return list;
+        return StreamSupport.stream(repository.findAll().spliterator(), false)
+                .map(mapper::entityToProposal)
+                .toList();
+    }
+
+    public List<Proposal> getAcceptedProposals() {
+        return repository.getProposalEntityByStatus(ProposalStatus.ACCEPTED).stream()
+                .map(mapper::entityToProposal)
+                .toList();
     }
 
     @Transactional
@@ -53,14 +53,14 @@ public class ProposalService implements ProposalInternalAPI {
 
     @Override
     public void validateProposalIsAccepted(UUID proposalId) {
-        if (getProposalById(proposalId).status() != ACCEPTED) {
+        if (getProposalById(proposalId).status() != ProposalStatus.ACCEPTED) {
             throw new IllegalArgumentException("Proposal %s is not accepted".formatted(proposalId));
         }
     }
 
     @Override
     public void validateProposalIsNew(UUID proposalId) {
-        if (getProposalById(proposalId).status() != NEW) {
+        if (getProposalById(proposalId).status() != ProposalStatus.NEW) {
             throw new IllegalArgumentException("Proposal %s is not accepted".formatted(proposalId));
         }
     }

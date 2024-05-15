@@ -1,24 +1,8 @@
-package com.acme.conferencesystem.cfp_proposals.business;
+package com.acme.conferencesystem.cfp.proposals.business;
 
-import com.acme.conferencesystem.cfp_proposals.persistence.ProposalEntity;
-import com.acme.conferencesystem.cfp_proposals.persistence.ProposalRepository;
-import com.acme.conferencesystem.users.UserInternalAPI;
-import org.instancio.Instancio;
-import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
-import org.mockito.InjectMocks;
-import org.mockito.Mock;
-import org.mockito.Mockito;
-import org.mockito.Spy;
-import org.mockito.junit.jupiter.MockitoExtension;
-
-import java.util.List;
-import java.util.Optional;
-import java.util.UUID;
-
-import static com.acme.conferencesystem.cfp_proposals.business.ProposalStatus.ACCEPTED;
-import static com.acme.conferencesystem.cfp_proposals.business.ProposalStatus.NEW;
-import static com.acme.conferencesystem.cfp_proposals.business.ProposalStatus.REJECTED;
+import static com.acme.conferencesystem.cfp.proposals.business.ProposalStatus.ACCEPTED;
+import static com.acme.conferencesystem.cfp.proposals.business.ProposalStatus.NEW;
+import static com.acme.conferencesystem.cfp.proposals.business.ProposalStatus.REJECTED;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatIllegalArgumentException;
 import static org.assertj.core.api.Assertions.assertThatNoException;
@@ -32,6 +16,21 @@ import static org.mockito.BDDMockito.then;
 import static org.mockito.BDDMockito.willThrow;
 import static org.mockito.Mockito.atMostOnce;
 import static org.mockito.Mockito.verify;
+
+import com.acme.conferencesystem.cfp.proposals.persistence.ProposalEntity;
+import com.acme.conferencesystem.cfp.proposals.persistence.ProposalRepository;
+import com.acme.conferencesystem.users.UserInternalAPI;
+import java.util.List;
+import java.util.Optional;
+import java.util.UUID;
+import org.instancio.Instancio;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
+import org.mockito.Mockito;
+import org.mockito.Spy;
+import org.mockito.junit.jupiter.MockitoExtension;
 
 @ExtendWith(MockitoExtension.class)
 class ProposalServiceTest {
