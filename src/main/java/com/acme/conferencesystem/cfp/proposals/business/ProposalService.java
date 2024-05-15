@@ -30,7 +30,9 @@ public class ProposalService implements ProposalInternalAPI {
     }
 
     public List<Proposal> getAcceptedProposals() {
-        return repository.getProposalEntityByStatus(ProposalStatus.ACCEPTED).stream().map(mapper::entityToProposal).toList();
+        return repository.getProposalEntityByStatus(ProposalStatus.ACCEPTED).stream()
+                .map(mapper::entityToProposal)
+                .toList();
     }
 
     @Transactional
