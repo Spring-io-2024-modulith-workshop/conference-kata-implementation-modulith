@@ -25,13 +25,14 @@ class TalkControllerIntegrationTest extends AbstractIntegrationTest {
 
     @Test
     void retrieveTalks() {
+        // Speaker 1 = 1 Talk
         UUID speakerId1 = UsersTestAPI.createSpeaker(requestSpecification);
-        UUID acceptedProposalId1_1 = ProposalTestAPI.createAcceptedProposal(speakerId1, requestSpecification);
-
+        ProposalTestAPI.createAcceptedProposal(speakerId1, requestSpecification);
+        // Speaker 2 = 2 Talks
         UUID speakerId2 = UsersTestAPI.createSpeaker(requestSpecification);
-        UUID acceptedProposalId2_1 = ProposalTestAPI.createAcceptedProposal(speakerId2, requestSpecification);
-        UUID acceptedProposalId2_2 = ProposalTestAPI.createAcceptedProposal(speakerId2, requestSpecification);
-        UUID notAcceptedProposalId2_3 = ProposalTestAPI.createProposal(speakerId2, requestSpecification);
+        ProposalTestAPI.createAcceptedProposal(speakerId2, requestSpecification);
+        ProposalTestAPI.createAcceptedProposal(speakerId2, requestSpecification);
+        ProposalTestAPI.createProposal(speakerId2, requestSpecification);
 
         // Get all talks
         given(requestSpecification)
