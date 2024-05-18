@@ -6,7 +6,7 @@ import static org.instancio.Select.field;
 
 import com.acme.conferencesystem.AbstractIntegrationTest;
 import com.acme.conferencesystem.ContainerConfig;
-import com.acme.conferencesystem.cfp.proposals.business.Proposal;
+import com.acme.conferencesystem.cfp.Proposal;
 import com.acme.conferencesystem.users.business.User;
 import com.acme.conferencesystem.users.business.UserRole;
 import com.acme.conferencesystem.voting.business.Vote;

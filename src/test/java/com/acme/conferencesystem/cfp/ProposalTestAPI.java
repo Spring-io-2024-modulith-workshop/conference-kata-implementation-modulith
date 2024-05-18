@@ -3,15 +3,26 @@ package com.acme.conferencesystem.cfp;
 import static io.restassured.RestAssured.given;
 import static org.instancio.Select.field;
 
-import com.acme.conferencesystem.cfp.proposals.business.Proposal;
+import io.restassured.common.mapper.TypeRef;
 import io.restassured.http.ContentType;
 import io.restassured.specification.RequestSpecification;
+import java.util.List;
 import java.util.UUID;
 import org.instancio.Instancio;
 import org.springframework.stereotype.Component;
 
 @Component
 public class ProposalTestAPI {
+
+    public static List<Proposal> getAllProposals(RequestSpecification requestSpecification) {
+        return given(requestSpecification)
+                .when()
+                .get("/proposals")
+                .then()
+                .statusCode(200)
+                .extract().as(new TypeRef<>() {
+                });
+    }
 
     public static UUID createAcceptedProposal(UUID speakerId, RequestSpecification requestSpecification) {
         UUID proposalId = createProposal(speakerId, requestSpecification);
