@@ -13,7 +13,8 @@ public class ContainerConfig {
     @ServiceConnection
     @RestartScope
     public PostgreSQLContainer<?> postgreSQLContainer() {
-        return new PostgreSQLContainer<>("postgres:16-alpine");
+        return new PostgreSQLContainer<>("postgres:16-alpine")
+                .withCommand("postgres", "-c", "max_connections=200");
     }
 
 }

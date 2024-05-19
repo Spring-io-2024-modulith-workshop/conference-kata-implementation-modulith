@@ -17,6 +17,8 @@ import static org.mockito.BDDMockito.willThrow;
 import static org.mockito.Mockito.atMostOnce;
 import static org.mockito.Mockito.verify;
 
+import com.acme.conferencesystem.cfp.Proposal;
+import com.acme.conferencesystem.cfp.ProposalAcceptedEvent;
 import com.acme.conferencesystem.cfp.proposals.persistence.ProposalEntity;
 import com.acme.conferencesystem.cfp.proposals.persistence.ProposalRepository;
 import com.acme.conferencesystem.users.UserInternalAPI;
@@ -31,6 +33,7 @@ import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.Spy;
 import org.mockito.junit.jupiter.MockitoExtension;
+import org.springframework.context.ApplicationEventPublisher;
 
 @ExtendWith(MockitoExtension.class)
 class ProposalServiceTest {
@@ -47,6 +50,8 @@ class ProposalServiceTest {
     @Mock
     UserInternalAPI userInternalAPI;
 
+    @Mock
+    ApplicationEventPublisher eventPublisher;
 
     @Test
     void get_all_proposals() {
@@ -149,8 +154,8 @@ class ProposalServiceTest {
         given(repository.save(Mockito.any())).willReturn(entity);
 
         service.rejectProposal(proposal.id());
-        verify(repository, atMostOnce()).save(any(ProposalEntity.class));
 
+        verify(repository, atMostOnce()).save(any(ProposalEntity.class));
     }
 
     @Test
@@ -161,6 +166,9 @@ class ProposalServiceTest {
         given(repository.save(Mockito.any())).willReturn(entity);
 
         service.approveProposal(proposal.id());
+
         verify(repository, atMostOnce()).save(any(ProposalEntity.class));
+        verify(eventPublisher, atMostOnce()).publishEvent(ProposalAcceptedEvent.class);
     }
+
 }

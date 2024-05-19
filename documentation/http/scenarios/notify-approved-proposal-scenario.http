@@ -1,0 +1,36 @@
+### Create a SPEAKER
+POST http://localhost:8080/users
+Content-Type: application/json
+
+{
+  "name": "John Doe",
+  "email": "john@example.com",
+  "phone": "(555) 555-5551",
+  "role": "SPEAKER"
+}
+
+> {%
+  client.global.set("speakerId", response.body.id)
+%}
+
+### Submit a proposal
+POST http://localhost:8080/proposals
+Accept: application/json
+Content-Type: application/json
+
+{
+  "title": "Test Proposal",
+  "description": "This is a test proposal.",
+  "speakerId": "{{speakerId}}",
+  "status": "NEW"
+}
+
+> {%
+  client.global.set("proposalId", response.body.id)
+%}
+
+### Approve a proposal
+PATCH http://localhost:8080/proposals/{{proposalId}}/approve
+
+### Reject a proposal
+#PATCH http://localhost:8080/proposals/{{proposalId}}/reject
