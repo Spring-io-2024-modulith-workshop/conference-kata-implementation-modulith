@@ -1,6 +1,5 @@
 package com.acme.conferencesystem;
 
-import org.springframework.boot.devtools.restart.RestartScope;
 import org.springframework.boot.test.context.TestConfiguration;
 import org.springframework.boot.testcontainers.service.connection.ServiceConnection;
 import org.springframework.context.annotation.Bean;
@@ -11,10 +10,8 @@ public class ContainerConfig {
 
     @Bean
     @ServiceConnection
-    @RestartScope
     public PostgreSQLContainer<?> postgreSQLContainer() {
-        return new PostgreSQLContainer<>("postgres:16-alpine")
-                .withCommand("postgres", "-c", "max_connections=200");
+        return new PostgreSQLContainer<>("postgres:16-alpine");
     }
 
 }
