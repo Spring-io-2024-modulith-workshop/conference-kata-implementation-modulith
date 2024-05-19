@@ -10,11 +10,9 @@ import org.springframework.context.annotation.Import;
 import org.springframework.modulith.test.ApplicationModuleTest;
 import org.springframework.modulith.test.ApplicationModuleTest.BootstrapMode;
 import org.springframework.modulith.test.Scenario;
-import org.springframework.test.annotation.DirtiesContext;
 
 @ApplicationModuleTest(value = BootstrapMode.STANDALONE)
 @Import(ContainerConfig.class)
-@DirtiesContext
 class NotificationServiceTest {
 
     @Test

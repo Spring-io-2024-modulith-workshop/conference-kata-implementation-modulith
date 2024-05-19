@@ -78,6 +78,7 @@ public class ProposalService implements ProposalInternalAPI {
         }
     }
 
+    @Transactional
     public Proposal approveProposal(UUID id) {
         return repository.findById(id)
                 .map(ProposalEntity::createWithAcceptedStatus)
