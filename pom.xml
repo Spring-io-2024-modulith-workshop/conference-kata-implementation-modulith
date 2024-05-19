@@ -1,160 +1,24 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-         xmlns="http://maven.apache.org/POM/4.0.0"
-         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
-  <modelVersion>4.0.0</modelVersion>
+  xmlns="http://maven.apache.org/POM/4.0.0"
+  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <artifactId>conference-system</artifactId>
 
   <!-- Project Information -->
-  <groupId>com.acme</groupId>
-  <artifactId>conference-system</artifactId>
-  <version>0.0.1-SNAPSHOT</version>
-  <name>conference-system</name>
-  <description>Conference Kata Implementation with Spring Modulith</description>
-
-  <!-- Parent POM -->
-  <parent>
-    <groupId>org.springframework.boot</groupId>
-    <artifactId>spring-boot-starter-parent</artifactId>
-    <version>3.2.5</version>
-    <relativePath/> <!-- lookup parent from repository -->
-  </parent>
-
-  <properties>
-    <java.version>21</java.version>
-    <spring-modulith.version>1.1.4</spring-modulith.version>
-    <testcontainers-bom.version>1.19.8</testcontainers-bom.version>
-    <jakarta.validation-api.version>3.1.0-M2</jakarta.validation-api.version>
-    <mapstruct.version>1.6.0.Beta2</mapstruct.version>
-    <instancio-junit.version>4.5.1</instancio-junit.version>
-    <rest-assured.version>5.4.0</rest-assured.version>
-  </properties>
-
-  <dependencies>
-    <!-- Spring Modulith -->
-    <dependency>
-      <groupId>org.springframework.modulith</groupId>
-      <artifactId>spring-modulith-starter-core</artifactId>
-    </dependency>
-    <!-- WEB -->
-    <dependency>
-      <groupId>org.springframework.boot</groupId>
-      <artifactId>spring-boot-starter-web</artifactId>
-    </dependency>
-    <dependency>
-      <groupId>jakarta.validation</groupId>
-      <artifactId>jakarta.validation-api</artifactId>
-      <version>${jakarta.validation-api.version}</version>
-    </dependency>
-    <dependency>
-      <groupId>org.springframework.modulith</groupId>
-      <artifactId>spring-modulith-events-api</artifactId>
-    </dependency>
-    <!-- Persistence -->
-    <dependency>
-      <groupId>org.springframework.boot</groupId>
-      <artifactId>spring-boot-starter-data-jdbc</artifactId>
-    </dependency>
-    <dependency>
-      <groupId>org.postgresql</groupId>
-      <artifactId>postgresql</artifactId>
-      <scope>runtime</scope>
-    </dependency>
-    <dependency>
-      <groupId>org.mapstruct</groupId>
-      <artifactId>mapstruct</artifactId>
-      <version>${mapstruct.version}</version>
-    </dependency>
-    <dependency>
-      <groupId>org.flywaydb</groupId>
-      <artifactId>flyway-core</artifactId>
-    </dependency>
-    <!-- Testing -->
-    <dependency>
-      <groupId>org.springframework.modulith</groupId>
-      <artifactId>spring-modulith-starter-test</artifactId>
-      <scope>test</scope>
-    </dependency>
-    <dependency>
-      <groupId>org.springframework.boot</groupId>
-      <artifactId>spring-boot-starter-test</artifactId>
-      <scope>test</scope>
-    </dependency>
-    <dependency>
-      <groupId>org.springframework.boot</groupId>
-      <artifactId>spring-boot-test</artifactId>
-      <scope>test</scope>
-    </dependency>
-    <dependency>
-      <groupId>org.springframework.boot</groupId>
-      <artifactId>spring-boot-devtools</artifactId>
-      <scope>runtime</scope>
-      <optional>true</optional>
-    </dependency>
-    <dependency>
-      <groupId>org.springframework.boot</groupId>
-      <artifactId>spring-boot-testcontainers</artifactId>
-    </dependency>
-    <dependency>
-      <groupId>org.testcontainers</groupId>
-      <artifactId>postgresql</artifactId>
-      <scope>test</scope>
-    </dependency>
-    <dependency>
-      <groupId>org.testcontainers</groupId>
-      <artifactId>junit-jupiter</artifactId>
-      <scope>test</scope>
-    </dependency>
-    <dependency>
-      <groupId>org.instancio</groupId>
-      <artifactId>instancio-junit</artifactId>
-      <version>${instancio-junit.version}</version>
-      <scope>test</scope>
-    </dependency>
-    <dependency>
-      <groupId>io.rest-assured</groupId>
-      <artifactId>rest-assured</artifactId>
-      <version>${rest-assured.version}</version>
-      <scope>test</scope>
-    </dependency>
-  </dependencies>
-
-  <dependencyManagement>
-    <dependencies>
-      <dependency>
-        <groupId>org.testcontainers</groupId>
-        <artifactId>testcontainers-bom</artifactId>
-        <version>${testcontainers-bom.version}</version>
-        <type>pom</type>
-        <scope>import</scope>
-      </dependency>
-      <dependency>
-        <groupId>org.springframework.modulith</groupId>
-        <artifactId>spring-modulith-bom</artifactId>
-        <version>${spring-modulith.version}</version>
-        <type>pom</type>
-        <scope>import</scope>
-      </dependency>
-    </dependencies>
-  </dependencyManagement>
-
   <build>
     <plugins>
       <plugin>
-        <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-compiler-plugin</artifactId>
-        <version>3.13.0</version>
         <configuration>
-          <release>${java.version}</release>
-          <encoding>UTF-8</encoding>
           <annotationProcessorPaths>
             <path>
-              <groupId>org.mapstruct</groupId>
               <artifactId>mapstruct-processor</artifactId>
+              <groupId>org.mapstruct</groupId>
               <version>${mapstruct.version}</version>
             </path>
             <path>
-              <groupId>com.google.errorprone</groupId>
               <artifactId>error_prone_core</artifactId>
+              <groupId>com.google.errorprone</groupId>
               <version>2.27.1</version>
             </path>
           </annotationProcessorPaths>
@@ -162,16 +26,18 @@
             <arg>-XDcompilePolicy=simple</arg>
             <arg>-Xplugin:ErrorProne</arg>
           </compilerArgs>
+          <encoding>UTF-8</encoding>
+          <release>${java.version}</release>
         </configuration>
+        <groupId>org.apache.maven.plugins</groupId>
+        <version>3.13.0</version>
       </plugin>
       <plugin>
-        <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-maven-plugin</artifactId>
+        <groupId>org.springframework.boot</groupId>
       </plugin>
       <plugin>
-        <groupId>org.jacoco</groupId>
         <artifactId>jacoco-maven-plugin</artifactId>
-        <version>0.8.12</version>
         <executions>
           <execution>
             <goals>
@@ -179,22 +45,158 @@
             </goals>
           </execution>
           <execution>
-            <id>report</id>
-            <phase>prepare-package</phase>
             <goals>
               <goal>report</goal>
             </goals>
+            <id>report</id>
+            <phase>prepare-package</phase>
           </execution>
         </executions>
+        <groupId>org.jacoco</groupId>
+        <version>0.8.12</version>
       </plugin>
     </plugins>
   </build>
+  <dependencies>
+    <!-- Spring Modulith -->
+    <dependency>
+      <artifactId>spring-modulith-starter-core</artifactId>
+      <groupId>org.springframework.modulith</groupId>
+    </dependency>
+    <!-- WEB -->
+    <dependency>
+      <artifactId>spring-boot-starter-web</artifactId>
+      <groupId>org.springframework.boot</groupId>
+    </dependency>
+    <dependency>
+      <artifactId>jakarta.validation-api</artifactId>
+      <groupId>jakarta.validation</groupId>
+      <version>${jakarta.validation-api.version}</version>
+    </dependency>
+    <dependency>
+      <artifactId>spring-modulith-events-api</artifactId>
+      <groupId>org.springframework.modulith</groupId>
+    </dependency>
+    <!-- Persistence -->
+    <dependency>
+      <artifactId>spring-boot-starter-data-jdbc</artifactId>
+      <groupId>org.springframework.boot</groupId>
+    </dependency>
+    <dependency>
+      <artifactId>spring-modulith-starter-jdbc</artifactId>
+      <groupId>org.springframework.modulith</groupId>
+    </dependency>
+    <dependency>
+      <artifactId>postgresql</artifactId>
+      <groupId>org.postgresql</groupId>
+      <scope>runtime</scope>
+    </dependency>
+    <dependency>
+      <artifactId>mapstruct</artifactId>
+      <groupId>org.mapstruct</groupId>
+      <version>${mapstruct.version}</version>
+    </dependency>
+    <dependency>
+      <artifactId>flyway-core</artifactId>
+      <groupId>org.flywaydb</groupId>
+    </dependency>
+    <!-- Testing -->
+    <dependency>
+      <artifactId>spring-modulith-starter-test</artifactId>
+      <groupId>org.springframework.modulith</groupId>
+      <scope>test</scope>
+    </dependency>
+    <dependency>
+      <artifactId>spring-boot-starter-test</artifactId>
+      <groupId>org.springframework.boot</groupId>
+      <scope>test</scope>
+    </dependency>
+    <dependency>
+      <artifactId>spring-boot-test</artifactId>
+      <groupId>org.springframework.boot</groupId>
+      <scope>test</scope>
+    </dependency>
+    <dependency>
+      <artifactId>spring-boot-devtools</artifactId>
+      <groupId>org.springframework.boot</groupId>
+      <optional>true</optional>
+      <scope>runtime</scope>
+    </dependency>
+    <dependency>
+      <artifactId>spring-boot-testcontainers</artifactId>
+      <groupId>org.springframework.boot</groupId>
+    </dependency>
+    <dependency>
+      <artifactId>postgresql</artifactId>
+      <groupId>org.testcontainers</groupId>
+      <scope>test</scope>
+    </dependency>
+    <dependency>
+      <artifactId>junit-jupiter</artifactId>
+      <groupId>org.testcontainers</groupId>
+      <scope>test</scope>
+    </dependency>
+    <dependency>
+      <artifactId>instancio-junit</artifactId>
+      <groupId>org.instancio</groupId>
+      <scope>test</scope>
+      <version>${instancio-junit.version}</version>
+    </dependency>
+    <dependency>
+      <artifactId>rest-assured</artifactId>
+      <groupId>io.rest-assured</groupId>
+      <scope>test</scope>
+      <version>${rest-assured.version}</version>
+    </dependency>
+  </dependencies>
+  <dependencyManagement>
+    <dependencies>
+      <dependency>
+        <artifactId>testcontainers-bom</artifactId>
+        <groupId>org.testcontainers</groupId>
+        <scope>import</scope>
+        <type>pom</type>
+        <version>${testcontainers-bom.version}</version>
+      </dependency>
+      <dependency>
+        <artifactId>spring-modulith-bom</artifactId>
+        <groupId>org.springframework.modulith</groupId>
+        <scope>import</scope>
+        <type>pom</type>
+        <version>${spring-modulith.version}</version>
+      </dependency>
+    </dependencies>
+  </dependencyManagement>
+  <description>Conference Kata Implementation with Spring Modulith</description>
+  <groupId>com.acme</groupId>
+
+  <!-- Parent POM -->
+  <modelVersion>4.0.0</modelVersion>
+
+  <name>conference-system</name>
+
+  <parent>
+    <artifactId>spring-boot-starter-parent</artifactId>
+    <groupId>org.springframework.boot</groupId>
+    <relativePath/>
+    <version>3.2.5</version> <!-- lookup parent from repository -->
+  </parent>
+
+  <properties>
+    <instancio-junit.version>4.5.1</instancio-junit.version>
+    <jakarta.validation-api.version>3.1.0-M2</jakarta.validation-api.version>
+    <java.version>21</java.version>
+    <mapstruct.version>1.6.0.Beta2</mapstruct.version>
+    <rest-assured.version>5.4.0</rest-assured.version>
+    <spring-modulith.version>1.1.4</spring-modulith.version>
+    <testcontainers-bom.version>1.19.8</testcontainers-bom.version>
+  </properties>
 
   <reporting>
     <plugins>
       <plugin>
-        <groupId>org.jacoco</groupId>
         <artifactId>jacoco-maven-plugin</artifactId>
+        <groupId>org.jacoco</groupId>
         <reportSets>
           <reportSet>
             <reports>
@@ -206,5 +208,7 @@
       </plugin>
     </plugins>
   </reporting>
+
+  <version>0.0.1-SNAPSHOT</version>
 
 </project>
