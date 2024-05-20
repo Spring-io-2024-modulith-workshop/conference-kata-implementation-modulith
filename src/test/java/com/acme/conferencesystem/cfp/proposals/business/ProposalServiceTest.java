@@ -7,7 +7,6 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatIllegalArgumentException;
 import static org.assertj.core.api.Assertions.assertThatNoException;
 import static org.assertj.core.api.Assertions.assertThatRuntimeException;
-import static org.instancio.Instancio.create;
 import static org.instancio.Select.field;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.BDDMockito.given;
@@ -55,7 +54,8 @@ class ProposalServiceTest {
 
     @Test
     void get_all_proposals() {
-        List<ProposalEntity> entities = Instancio.ofList(ProposalEntity.class).size(2).create();
+        List<ProposalEntity> entities = Instancio.ofList(ProposalEntity.class)
+                .size(2).create();
         given(repository.findAll()).willReturn(entities);
 
         List<Proposal> proposals = service.getAllProposals();
@@ -65,7 +65,7 @@ class ProposalServiceTest {
 
     @Test
     void submit_proposal() {
-        var proposal = create(Proposal.class);
+        var proposal = Instancio.create(Proposal.class);
         var proposalEntity = mapper.proposalToEntity(proposal);
         given(repository.save(proposalEntity)).willReturn(proposalEntity);
 
@@ -77,7 +77,7 @@ class ProposalServiceTest {
 
     @Test
     void reject_proposals_when_invalid_speaker() {
-        var proposal = create(Proposal.class);
+        var proposal = Instancio.create(Proposal.class);
 
         willThrow(new RuntimeException())
                 .given(userInternalAPI).validateUser(proposal.speakerId());
@@ -91,7 +91,7 @@ class ProposalServiceTest {
 
     @Test
     void get_proposal_by_id() {
-        var entity = create(ProposalEntity.class);
+        var entity = Instancio.create(ProposalEntity.class);
         var id = entity.id();
         given(repository.findById(id)).willReturn(Optional.of(entity));
 
@@ -148,7 +148,7 @@ class ProposalServiceTest {
 
     @Test
     void reject_proposal() {
-        var proposal = create(Proposal.class);
+        var proposal = Instancio.create(Proposal.class);
         var entity = mapper.proposalToEntity(proposal);
         given(repository.findById(entity.id())).willReturn(Optional.of(entity));
         given(repository.save(Mockito.any())).willReturn(entity);
@@ -160,7 +160,7 @@ class ProposalServiceTest {
 
     @Test
     void approve_proposal() {
-        var proposal = create(Proposal.class);
+        var proposal = Instancio.create(Proposal.class);
         var entity = mapper.proposalToEntity(proposal);
         given(repository.findById(entity.id())).willReturn(Optional.of(entity));
         given(repository.save(Mockito.any())).willReturn(entity);
