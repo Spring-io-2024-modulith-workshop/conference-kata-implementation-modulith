@@ -17,7 +17,7 @@ class TestApplication {
     }
 
     @TestConfiguration(proxyBeanMethods = false)
-    public class LocalContainerConfig {
+    static class LocalContainerConfig {
 
         @Bean
         @ServiceConnection
