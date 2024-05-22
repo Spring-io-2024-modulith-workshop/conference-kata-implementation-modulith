@@ -1,10 +1,9 @@
 package com.acme.conferencesystem.notifications;
 
-import static org.instancio.Instancio.create;
-
 import com.acme.conferencesystem.ContainerConfig;
 import com.acme.conferencesystem.cfp.Proposal;
 import com.acme.conferencesystem.cfp.ProposalAcceptedEvent;
+import org.instancio.Instancio;
 import org.junit.jupiter.api.Test;
 import org.springframework.context.annotation.Import;
 import org.springframework.modulith.test.ApplicationModuleTest;
@@ -17,7 +16,7 @@ class NotificationServiceTest {
 
     @Test
     void receiveProposalAcceptedEvent(Scenario scenario) {
-        var proposal = create(Proposal.class);
+        var proposal = Instancio.create(Proposal.class);
 
         scenario.publish(new ProposalAcceptedEvent(proposal))
                 .andWaitForEventOfType(ProposalAcceptedEvent.class)
