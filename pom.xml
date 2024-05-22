@@ -58,11 +58,6 @@
     </plugins>
   </build>
   <dependencies>
-    <!-- Spring Modulith -->
-    <dependency>
-      <artifactId>spring-modulith-starter-core</artifactId>
-      <groupId>org.springframework.modulith</groupId>
-    </dependency>
     <!-- WEB -->
     <dependency>
       <artifactId>spring-boot-starter-web</artifactId>
@@ -73,18 +68,10 @@
       <groupId>jakarta.validation</groupId>
       <version>${jakarta.validation-api.version}</version>
     </dependency>
-    <dependency>
-      <artifactId>spring-modulith-events-api</artifactId>
-      <groupId>org.springframework.modulith</groupId>
-    </dependency>
     <!-- Persistence -->
     <dependency>
       <artifactId>spring-boot-starter-data-jdbc</artifactId>
       <groupId>org.springframework.boot</groupId>
-    </dependency>
-    <dependency>
-      <artifactId>spring-modulith-starter-jdbc</artifactId>
-      <groupId>org.springframework.modulith</groupId>
     </dependency>
     <dependency>
       <artifactId>postgresql</artifactId>
@@ -101,11 +88,6 @@
       <groupId>org.flywaydb</groupId>
     </dependency>
     <!-- Testing -->
-    <dependency>
-      <artifactId>spring-modulith-starter-test</artifactId>
-      <groupId>org.springframework.modulith</groupId>
-      <scope>test</scope>
-    </dependency>
     <dependency>
       <artifactId>spring-boot-starter-test</artifactId>
       <groupId>org.springframework.boot</groupId>
@@ -158,13 +140,6 @@
         <type>pom</type>
         <version>${testcontainers-bom.version}</version>
       </dependency>
-      <dependency>
-        <artifactId>spring-modulith-bom</artifactId>
-        <groupId>org.springframework.modulith</groupId>
-        <scope>import</scope>
-        <type>pom</type>
-        <version>${spring-modulith.version}</version>
-      </dependency>
     </dependencies>
   </dependencyManagement>
   <description>Conference Kata Implementation with Spring Modulith</description>
@@ -188,7 +163,6 @@
     <java.version>21</java.version>
     <mapstruct.version>1.6.0.Beta2</mapstruct.version>
     <rest-assured.version>5.4.0</rest-assured.version>
-    <spring-modulith.version>1.1.4</spring-modulith.version>
     <testcontainers-bom.version>1.19.8</testcontainers-bom.version>
   </properties>
 

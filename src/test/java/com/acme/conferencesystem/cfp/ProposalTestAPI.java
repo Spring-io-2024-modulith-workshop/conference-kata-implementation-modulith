@@ -3,6 +3,7 @@ package com.acme.conferencesystem.cfp;
 import static io.restassured.RestAssured.given;
 import static org.instancio.Select.field;
 
+import com.acme.conferencesystem.cfp.proposals.business.Proposal;
 import com.acme.conferencesystem.cfp.proposals.business.ProposalStatus;
 import io.restassured.common.mapper.TypeRef;
 import io.restassured.http.ContentType;

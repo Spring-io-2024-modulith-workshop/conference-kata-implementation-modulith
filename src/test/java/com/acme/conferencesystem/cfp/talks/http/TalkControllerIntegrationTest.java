@@ -13,13 +13,8 @@ import java.util.UUID;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.context.annotation.Import;
-import org.springframework.modulith.test.ApplicationModuleTest;
-import org.springframework.modulith.test.ApplicationModuleTest.BootstrapMode;
 
-@ApplicationModuleTest(
-        mode = BootstrapMode.ALL_DEPENDENCIES,
-        webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT
-)
+@SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 @Import(ContainerConfig.class)
 class TalkControllerIntegrationTest extends AbstractIntegrationTest {
 
@@ -35,7 +30,7 @@ class TalkControllerIntegrationTest extends AbstractIntegrationTest {
         ProposalTestAPI.createAcceptedProposal(speakerId2, requestSpecification);
         ProposalTestAPI.createAcceptedProposal(speakerId2, requestSpecification);
         ProposalTestAPI.createProposal(speakerId2, requestSpecification);
-        
+
         // Get all talks
         given(requestSpecification)
                 .when()
