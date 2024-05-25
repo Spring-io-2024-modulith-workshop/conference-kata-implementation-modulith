@@ -6,8 +6,8 @@ import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.BDDMockito.given;
 import static org.mockito.Mockito.doThrow;
 
-import com.acme.conferencesystem.cfp.Proposal;
 import com.acme.conferencesystem.cfp.ProposalInternalAPI;
+import com.acme.conferencesystem.cfp.proposals.business.Proposal;
 import com.acme.conferencesystem.cfp.proposals.business.ProposalStatus;
 import com.acme.conferencesystem.users.UserInternalAPI;
 import com.acme.conferencesystem.voting.persistence.VoteEntity;

@@ -1,5 +1,8 @@
 package com.acme.conferencesystem.users.http;
 
+import static io.restassured.RestAssured.given;
+import static org.hamcrest.Matchers.equalTo;
+
 import com.acme.conferencesystem.AbstractIntegrationTest;
 import com.acme.conferencesystem.ContainerConfig;
 import com.acme.conferencesystem.users.business.User;
@@ -10,12 +13,8 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.context.annotation.Import;
-import org.springframework.modulith.test.ApplicationModuleTest;
 
-import static io.restassured.RestAssured.given;
-import static org.hamcrest.Matchers.equalTo;
-
-@ApplicationModuleTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
+@SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 @Import(ContainerConfig.class)
 class UserControllerIntegrationTest extends AbstractIntegrationTest {
 

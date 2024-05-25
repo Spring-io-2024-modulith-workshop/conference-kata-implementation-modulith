@@ -1,5 +1,6 @@
 package com.acme.conferencesystem.cfp;
 
+import com.acme.conferencesystem.cfp.proposals.business.Proposal;
 import java.util.List;
 import java.util.UUID;
 
