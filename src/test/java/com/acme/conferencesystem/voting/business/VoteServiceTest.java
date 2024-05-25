@@ -6,10 +6,10 @@ import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.BDDMockito.given;
 import static org.mockito.Mockito.doThrow;
 
-import com.acme.conferencesystem.cfp.ProposalInternalAPI;
 import com.acme.conferencesystem.cfp.proposals.business.Proposal;
+import com.acme.conferencesystem.cfp.proposals.business.ProposalService;
 import com.acme.conferencesystem.cfp.proposals.business.ProposalStatus;
-import com.acme.conferencesystem.users.UserInternalAPI;
+import com.acme.conferencesystem.users.business.UserService;
 import com.acme.conferencesystem.voting.persistence.VoteEntity;
 import com.acme.conferencesystem.voting.persistence.VoteRepository;
 import java.util.UUID;
@@ -29,10 +29,10 @@ class VoteServiceTest {
     VoteRepository voteRepository;
 
     @Mock
-    UserInternalAPI userInternalAPI;
+    UserService userService;
 
     @Mock
-    ProposalInternalAPI proposalInternalAPI;
+    ProposalService proposalService;
 
     @InjectMocks
     VoteService voteService;
@@ -69,7 +69,7 @@ class VoteServiceTest {
                 .set(Select.field("proposalId"), proposal.id())
                 .create();
         doThrow(new IllegalArgumentException("User is not allowed to vote"))
-                .when(userInternalAPI).validateUserIsOrganizer(any(UUID.class));
+                .when(userService).validateUserIsOrganizer(any(UUID.class));
 
         assertThatIllegalArgumentException().isThrownBy(() -> voteService.voteProposal(vote));
     }
@@ -85,7 +85,7 @@ class VoteServiceTest {
                 .create();
 
         doThrow(new IllegalArgumentException("Proposal is not allowed to be voted"))
-                .when(proposalInternalAPI)
+                .when(proposalService)
                 .validateProposalIsNew(vote.proposalId());
 
         assertThatIllegalArgumentException().isThrownBy(() -> voteService.voteProposal(vote));
@@ -118,7 +118,7 @@ class VoteServiceTest {
                 .create();
 
         doThrow(new IllegalArgumentException("Proposal is not allowed to be voted"))
-                .when(proposalInternalAPI).validateProposalIsAccepted(vote.proposalId());
+                .when(proposalService).validateProposalIsAccepted(vote.proposalId());
 
         assertThatIllegalArgumentException().isThrownBy(() -> voteService.voteTalk(vote));
     }

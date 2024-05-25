@@ -16,10 +16,10 @@ import static org.mockito.BDDMockito.willThrow;
 import static org.mockito.Mockito.atMostOnce;
 import static org.mockito.Mockito.verify;
 
-import com.acme.conferencesystem.cfp.ProposalAcceptedEvent;
+import com.acme.conferencesystem.cfp.proposals.events.ProposalAcceptedEvent;
 import com.acme.conferencesystem.cfp.proposals.persistence.ProposalEntity;
 import com.acme.conferencesystem.cfp.proposals.persistence.ProposalRepository;
-import com.acme.conferencesystem.users.UserInternalAPI;
+import com.acme.conferencesystem.users.business.UserService;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
@@ -46,7 +46,7 @@ class ProposalServiceTest {
     ProposalMapper mapper = new ProposalMapperImpl();
 
     @Mock
-    UserInternalAPI userInternalAPI;
+    UserService userInternalAPI;
 
     @Mock
     ApplicationEventPublisher eventPublisher;

@@ -1,23 +1,22 @@
 package com.acme.conferencesystem.cfp.talks.business;
 
-import com.acme.conferencesystem.cfp.ProposalInternalAPI;
-import com.acme.conferencesystem.cfp.TalkInternalAPI;
+import com.acme.conferencesystem.cfp.proposals.business.ProposalService;
 import java.util.List;
 import org.springframework.stereotype.Service;
 
 @Service
-public class TalkService implements TalkInternalAPI {
+public class TalkService {
 
-    private final ProposalInternalAPI proposalInternalAPI;
+    private final ProposalService proposalService;
     private final TalkMapper mapper;
 
-    TalkService(ProposalInternalAPI proposalInternalAPI, TalkMapper mapper) {
-        this.proposalInternalAPI = proposalInternalAPI;
+    TalkService(ProposalService proposalService, TalkMapper mapper) {
+        this.proposalService = proposalService;
         this.mapper = mapper;
     }
 
     public List<Talk> getTalks() {
-        return proposalInternalAPI.getAcceptedProposals()
+        return proposalService.getAcceptedProposals()
                 .stream()
                 .map(mapper::proposalToTalk)
                 .toList();
