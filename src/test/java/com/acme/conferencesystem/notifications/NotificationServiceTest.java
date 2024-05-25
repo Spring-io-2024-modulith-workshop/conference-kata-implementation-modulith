@@ -3,8 +3,8 @@ package com.acme.conferencesystem.notifications;
 import static org.assertj.core.api.Assertions.assertThat;
 
 import com.acme.conferencesystem.ContainerConfig;
-import com.acme.conferencesystem.cfp.ProposalAcceptedEvent;
 import com.acme.conferencesystem.cfp.proposals.business.Proposal;
+import com.acme.conferencesystem.cfp.proposals.events.ProposalAcceptedEvent;
 import com.acme.conferencesystem.notifications.NotificationServiceTest.TestNotificationService;
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.TimeUnit;

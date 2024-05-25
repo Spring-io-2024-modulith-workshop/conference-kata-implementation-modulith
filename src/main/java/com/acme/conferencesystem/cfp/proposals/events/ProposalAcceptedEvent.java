@@ -1,4 +1,4 @@
-package com.acme.conferencesystem.cfp;
+package com.acme.conferencesystem.cfp.proposals.events;
 
 import com.acme.conferencesystem.cfp.proposals.business.Proposal;
 
