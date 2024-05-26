@@ -86,6 +86,13 @@
     <dependency>
       <artifactId>flyway-core</artifactId>
       <groupId>org.flywaydb</groupId>
+      <version>${flyway.version}</version>
+    </dependency>
+    <dependency>
+      <artifactId>flyway-database-postgresql</artifactId>
+      <groupId>org.flywaydb</groupId>
+      <scope>runtime</scope>
+      <version>${flyway.version}</version>
     </dependency>
     <!-- Testing -->
     <dependency>
@@ -158,6 +165,7 @@
   </parent>
 
   <properties>
+    <flyway.version>10.13.0</flyway.version>
     <instancio-junit.version>4.6.0</instancio-junit.version>
     <jakarta.validation-api.version>3.1.0-M2</jakarta.validation-api.version>
     <java.version>21</java.version>
