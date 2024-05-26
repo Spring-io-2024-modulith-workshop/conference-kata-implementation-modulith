@@ -186,7 +186,7 @@
     <artifactId>spring-boot-starter-parent</artifactId>
     <groupId>org.springframework.boot</groupId>
     <relativePath/>
-    <version>3.2.5</version> <!-- lookup parent from repository -->
+    <version>3.3.0</version> <!-- lookup parent from repository -->
   </parent>
 
   <properties>
@@ -196,7 +196,7 @@
     <java.version>21</java.version>
     <mapstruct.version>1.6.0.Beta2</mapstruct.version>
     <rest-assured.version>5.4.0</rest-assured.version>
-    <spring-modulith.version>1.1.4</spring-modulith.version>
+    <spring-modulith.version>1.2.0</spring-modulith.version>
     <testcontainers-bom.version>1.19.8</testcontainers-bom.version>
   </properties>
 
