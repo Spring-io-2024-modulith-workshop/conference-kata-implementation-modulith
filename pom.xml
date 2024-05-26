@@ -58,6 +58,11 @@
     </plugins>
   </build>
   <dependencies>
+    <!-- Spring Modulith -->
+    <dependency>
+      <artifactId>spring-modulith-starter-core</artifactId>
+      <groupId>org.springframework.modulith</groupId>
+    </dependency>
     <!-- WEB -->
     <dependency>
       <artifactId>spring-boot-starter-web</artifactId>
@@ -141,6 +146,13 @@
   <dependencyManagement>
     <dependencies>
       <dependency>
+        <artifactId>spring-modulith-bom</artifactId>
+        <groupId>org.springframework.modulith</groupId>
+        <scope>import</scope>
+        <type>pom</type>
+        <version>${spring-modulith.version}</version>
+      </dependency>
+      <dependency>
         <artifactId>testcontainers-bom</artifactId>
         <groupId>org.testcontainers</groupId>
         <scope>import</scope>
@@ -171,6 +183,7 @@
     <java.version>21</java.version>
     <mapstruct.version>1.6.0.Beta2</mapstruct.version>
     <rest-assured.version>5.4.0</rest-assured.version>
+    <spring-modulith.version>1.2.0</spring-modulith.version>
     <testcontainers-bom.version>1.19.8</testcontainers-bom.version>
   </properties>
 
