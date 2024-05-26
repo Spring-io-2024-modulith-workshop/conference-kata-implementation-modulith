@@ -161,7 +161,7 @@
     <artifactId>spring-boot-starter-parent</artifactId>
     <groupId>org.springframework.boot</groupId>
     <relativePath/>
-    <version>3.2.5</version> <!-- lookup parent from repository -->
+    <version>3.3.0</version> <!-- lookup parent from repository -->
   </parent>
 
   <properties>
