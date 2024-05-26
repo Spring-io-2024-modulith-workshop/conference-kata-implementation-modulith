@@ -192,7 +192,7 @@
   <properties>
     <flyway.version>10.13.0</flyway.version>
     <instancio-junit.version>4.6.0</instancio-junit.version>
-    <jakarta.validation-api.version>3.1.0-M2</jakarta.validation-api.version>
+    <jakarta.validation-api.version>3.1.0</jakarta.validation-api.version>
     <java.version>21</java.version>
     <mapstruct.version>1.6.0.Beta2</mapstruct.version>
     <rest-assured.version>5.4.0</rest-assured.version>
