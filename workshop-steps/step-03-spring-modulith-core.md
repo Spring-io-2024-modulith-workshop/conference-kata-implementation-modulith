@@ -2,12 +2,15 @@
 
 ## Replace @SpringBootApplication with @Modulith
 
+- [ ] In the `Application.java` class, replace `@SpringBootApplication`
+  with `@Modulith`
+
 Go to Application.java and replace `@SpringBootApplication` with `@Modulith`
 to tell spring modulith that this is a modular application.
 
 ## Add Bom and core dependency
 
-Add the following to the `pom.xml` file:
+- [ ] Add the following to the `pom.xml` file:
 
 ```xml
 
@@ -35,13 +38,3 @@ Add the following to the `pom.xml` file:
 </dependencies>
 </dependencyManagement>
 ```
-
-## Spring Modulith documentation
-
-For further information, you can visit the spring-modulith reference.
-
-[https://docs.spring.io/spring-modulith/reference/](https://docs.spring.io/spring-modulith/reference/)
-
-[https://docs.spring.io/spring-modulith/docs/current-SNAPSHOT/reference/html/](https://docs.spring.io/spring-modulith/docs/current-SNAPSHOT/reference/html/)
-
-[https://github.com/spring-projects/spring-modulith](https://github.com/spring-projects/spring-modulith)

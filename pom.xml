@@ -101,6 +101,11 @@
     </dependency>
     <!-- Testing -->
     <dependency>
+      <artifactId>spring-modulith-starter-test</artifactId>
+      <groupId>org.springframework.modulith</groupId>
+      <scope>test</scope>
+    </dependency>
+    <dependency>
       <artifactId>spring-boot-starter-test</artifactId>
       <groupId>org.springframework.boot</groupId>
       <scope>test</scope>
