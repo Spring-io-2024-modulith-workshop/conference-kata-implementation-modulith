@@ -12,13 +12,13 @@ import org.instancio.Instancio;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.context.annotation.Import;
 import org.springframework.context.annotation.Primary;
+import org.springframework.modulith.test.ApplicationModuleTest;
 import org.springframework.stereotype.Service;
 
-@SpringBootTest
+@ApplicationModuleTest
 @Import({ContainerConfig.class, TestNotificationService.class})
 class NotificationServiceTest {
 
