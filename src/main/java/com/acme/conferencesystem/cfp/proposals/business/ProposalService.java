@@ -1,7 +1,8 @@
 package com.acme.conferencesystem.cfp.proposals.business;
 
+import com.acme.conferencesystem.cfp.Proposal;
+import com.acme.conferencesystem.cfp.ProposalAcceptedEvent;
 import com.acme.conferencesystem.cfp.ProposalInternalAPI;
-import com.acme.conferencesystem.cfp.proposals.events.ProposalAcceptedEvent;
 import com.acme.conferencesystem.cfp.proposals.persistence.ProposalEntity;
 import com.acme.conferencesystem.cfp.proposals.persistence.ProposalRepository;
 import com.acme.conferencesystem.users.UserInternalAPI;

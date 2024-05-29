@@ -1,6 +1,6 @@
 package com.acme.conferencesystem.notifications;
 
-import com.acme.conferencesystem.cfp.proposals.events.ProposalAcceptedEvent;
+import com.acme.conferencesystem.cfp.ProposalAcceptedEvent;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.context.event.EventListener;

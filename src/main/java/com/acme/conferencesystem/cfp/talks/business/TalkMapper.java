@@ -1,6 +1,6 @@
 package com.acme.conferencesystem.cfp.talks.business;
 
-import com.acme.conferencesystem.cfp.proposals.business.Proposal;
+import com.acme.conferencesystem.cfp.Proposal;
 import org.mapstruct.Mapper;
 import org.mapstruct.MappingConstants;
 

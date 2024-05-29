@@ -16,7 +16,8 @@ import static org.mockito.BDDMockito.willThrow;
 import static org.mockito.Mockito.atMostOnce;
 import static org.mockito.Mockito.verify;
 
-import com.acme.conferencesystem.cfp.proposals.events.ProposalAcceptedEvent;
+import com.acme.conferencesystem.cfp.Proposal;
+import com.acme.conferencesystem.cfp.ProposalAcceptedEvent;
 import com.acme.conferencesystem.cfp.proposals.persistence.ProposalEntity;
 import com.acme.conferencesystem.cfp.proposals.persistence.ProposalRepository;
 import com.acme.conferencesystem.users.business.UserService;

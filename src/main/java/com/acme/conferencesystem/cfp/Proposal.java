@@ -1,5 +1,6 @@
-package com.acme.conferencesystem.cfp.proposals.business;
+package com.acme.conferencesystem.cfp;
 
+import com.acme.conferencesystem.cfp.proposals.business.ProposalStatus;
 import java.util.UUID;
 
 public record Proposal(UUID id,
