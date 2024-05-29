@@ -1,9 +1,10 @@
 package com.acme.conferencesystem.cfp.proposals.business;
 
+import com.acme.conferencesystem.cfp.ProposalInternalAPI;
 import com.acme.conferencesystem.cfp.proposals.events.ProposalAcceptedEvent;
 import com.acme.conferencesystem.cfp.proposals.persistence.ProposalEntity;
 import com.acme.conferencesystem.cfp.proposals.persistence.ProposalRepository;
-import com.acme.conferencesystem.users.business.UserService;
+import com.acme.conferencesystem.users.UserInternalAPI;
 import java.util.List;
 import java.util.UUID;
 import java.util.stream.StreamSupport;
@@ -14,17 +15,17 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 @Service
-public class ProposalService {
+public class ProposalService implements ProposalInternalAPI {
 
     private static final Logger LOG = LoggerFactory.getLogger(ProposalService.class);
     private final ProposalRepository repository;
     private final ProposalMapper mapper;
-    private final UserService userService;
+    private final UserInternalAPI userService;
     private final ApplicationEventPublisher eventPublisher;
 
     ProposalService(ProposalRepository repository,
             ProposalMapper mapper,
-            UserService userService,
+            UserInternalAPI userService,
             ApplicationEventPublisher eventPublisher) {
         this.repository = repository;
         this.mapper = mapper;

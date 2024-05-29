@@ -1,5 +1,6 @@
 package com.acme.conferencesystem.users.business;
 
+import com.acme.conferencesystem.users.UserInternalAPI;
 import com.acme.conferencesystem.users.persistence.UsersRepository;
 import java.util.List;
 import java.util.Optional;
@@ -10,7 +11,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
 @Service
-public class UserService {
+public class UserService implements UserInternalAPI {
 
     private static final Logger log = LoggerFactory.getLogger(UserService.class);
 

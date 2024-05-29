@@ -19,7 +19,7 @@ you replace all at the same time, you will replace also SpringBootTest.
 WebEnvironment.RANDOM_PORT, and we still need that.
 
 In a more agile environment, you can go module by module changing the
-annotation is executing the test with @ApplicationModuleTest
+annotation and executing the tests annotated with @ApplicationModuleTest
 
 This annotation by default uses (STANDALONE mode) to indicate spring
 modulith to only load the

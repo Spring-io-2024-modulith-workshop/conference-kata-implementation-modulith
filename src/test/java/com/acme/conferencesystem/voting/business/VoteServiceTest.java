@@ -6,8 +6,8 @@ import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.BDDMockito.given;
 import static org.mockito.Mockito.doThrow;
 
+import com.acme.conferencesystem.cfp.ProposalInternalAPI;
 import com.acme.conferencesystem.cfp.proposals.business.Proposal;
-import com.acme.conferencesystem.cfp.proposals.business.ProposalService;
 import com.acme.conferencesystem.cfp.proposals.business.ProposalStatus;
 import com.acme.conferencesystem.users.business.UserService;
 import com.acme.conferencesystem.voting.persistence.VoteEntity;
@@ -32,7 +32,7 @@ class VoteServiceTest {
     UserService userService;
 
     @Mock
-    ProposalService proposalService;
+    ProposalInternalAPI proposalService;
 
     @InjectMocks
     VoteService voteService;

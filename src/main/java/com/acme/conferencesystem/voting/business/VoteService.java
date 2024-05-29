@@ -1,7 +1,7 @@
 package com.acme.conferencesystem.voting.business;
 
-import com.acme.conferencesystem.cfp.proposals.business.ProposalService;
-import com.acme.conferencesystem.users.business.UserService;
+import com.acme.conferencesystem.cfp.ProposalInternalAPI;
+import com.acme.conferencesystem.users.UserInternalAPI;
 import com.acme.conferencesystem.voting.persistence.VoteRepository;
 import jakarta.validation.constraints.NotNull;
 import org.springframework.stereotype.Service;
@@ -10,11 +10,11 @@ import org.springframework.stereotype.Service;
 public class VoteService {
 
     private final VoteRepository voteRepository;
-    private final ProposalService proposalService;
-    private final UserService userService;
+    private final ProposalInternalAPI proposalService;
+    private final UserInternalAPI userService;
     private final VoteMapper voteMapper;
 
-    VoteService(VoteRepository voteRepository, VoteMapper voteMapper, ProposalService proposalService, UserService userService) {
+    VoteService(VoteRepository voteRepository, VoteMapper voteMapper, ProposalInternalAPI proposalService, UserInternalAPI userService) {
         this.voteRepository = voteRepository;
         this.voteMapper = voteMapper;
         this.proposalService = proposalService;
