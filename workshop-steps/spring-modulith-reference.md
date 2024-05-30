@@ -8,7 +8,7 @@ For further information, you can visit the spring-modulith reference.
 
 ## Libraries used by Spring Modulith
 
-### Jmolecules
+### JMolecules
 
 Same developer (Oliver Drotbohm) behind Spring Modulith
 

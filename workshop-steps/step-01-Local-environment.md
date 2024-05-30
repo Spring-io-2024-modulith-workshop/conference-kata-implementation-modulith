@@ -23,10 +23,11 @@ docker engine, please do it to be able to run the local environment.
 N.B. If you don't want to use containers, with some modifications on the
 project, you could use a local Postgresql database.
 
-## \(optionally\) Download test containers desktop
+## \(optionally\) Download Testcontainers desktop
 
-In this workshop we are using test containers, it's very recommended to
-install test containers desktop because it brings with some useful features
+In this workshop we are using [Testcontainers](https://testcontainers.com),
+it's very recommended to install test containers desktop because it brings with
+some useful features,
 like select a container runtime or freeze containers shutdown...
 
 FYI, You need to create a free account to use it.
@@ -44,10 +45,12 @@ Clone the following project from GitHub to your computer:
 With Maven:
 
 ```shell
-./mvnw clean compile -DskipTests
+./mvnw clean compile
+```
 
-or 
+or
 
+```shell
 ./mvnw dependency:go-offline
 ```
 
@@ -62,5 +65,6 @@ docker pull postgres:16-alpine
 
 ## This projects runs with Java 21
 
-Be sure that you have Java 21 installed in your system. We personally use
-SDKMAN to mana jvm installations for MacOs.
+Be sure that you have **Java 21** installed in your system.
+We personally use [SDKMAN](https://sdkman.io/)
+to manage JVM installations for macOS.
