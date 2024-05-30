@@ -1,6 +1,6 @@
 # Spring modulith events
 
-## Reference about : Application Module Listener
+## Reference: Application Module Listener
 
 To run a transactional event listener in a transaction itself, it would need to
 be annotated with `@Transactional` in turn.
@@ -8,7 +8,6 @@ be annotated with `@Transactional` in turn.
 An async, transactional event listener running in a transaction itself
 
 ```java
-
 @Component
 class InventoryManagement {
 
@@ -21,7 +20,7 @@ class InventoryManagement {
 
 To ease the declaration of what is supposed to describe the default way of
 integrating modules via events, Spring Modulith provides
-@ApplicationModuleListener to shortcut the declaration
+`@ApplicationModuleListener` to shortcut the declaration.
 
 An application module listener
 
