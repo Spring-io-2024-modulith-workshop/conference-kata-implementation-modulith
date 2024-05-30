@@ -10,12 +10,39 @@
    Parameter 2 of constructor in com.acme.conferencesystem.cfp.proposals.business.ProposalService required a bean of type 'com.acme.conferencesystem.users.UserInternalAPI' that could not be found.
     ```
 3. Change the `@ApplicationModuleTest` annotation to:
-    ```java
-   @ApplicationModuleTest(mode = BootstrapMode.DIRECT_DEPENDENCIES, webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
-   ```
+
+```java
+
+@ApplicationModuleTest(mode = BootstrapMode.DIRECT_DEPENDENCIES, webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
+@Import(ContainerConfig.class)
+class ProposalControllerIntegrationTest extends AbstractIntegrationTest {
+}
+```
+
+### Example 2
+
+```java
+
+@ApplicationModuleTest(mode = ApplicationModuleTest.BootstrapMode.DIRECT_DEPENDENCIES)
+@Import(ContainerConfig.class)
+class ProposalRepositoryTest {
+}
+```
+
+### Example 3
+
+```java 
+
+@ApplicationModuleTest(mode = ApplicationModuleTest.BootstrapMode.
+        DIRECT_DEPENDENCIES, webEnvironment = SpringBootTest.WebEnvironment.
+        RANDOM_PORT)
+@Import(ContainerConfig.class)
+class VoteControllerIntegrationTest extends AbstractIntegrationTest {
+}
+```
+
    That will bootstrap `proposals` module with their direct dependencies.
 4. Run the tests again.
-
 
 ## Repeat the same steps with the following tests
 
@@ -28,14 +55,4 @@
 7. [UserControllerIntegrationTest](../src/test/java/com/acme/conferencesystem/users/http/UserControllerIntegrationTest.java)
 8. [NotificationServiceTest](../src/test/java/com/acme/conferencesystem/notifications/NotificationServiceTest.java)
 
-```java
-@ApplicationModuleTest(mode = ApplicationModuleTest.BootstrapMode.DIRECT_DEPENDENCIES)
-```
 
-or
-
-```java 
-@ApplicationModuleTest(mode = ApplicationModuleTest.BootstrapMode.
-        DIRECT_DEPENDENCIES, webEnvironment = SpringBootTest.WebEnvironment.
-        RANDOM_PORT)
-```
