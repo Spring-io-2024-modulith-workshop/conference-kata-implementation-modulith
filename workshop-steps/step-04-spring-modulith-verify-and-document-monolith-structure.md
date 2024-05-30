@@ -7,8 +7,8 @@ application.
 
 - [ ] Add ApplicationStructure.java
 
-Let's add this class into our /src/test/com/acme/conferencesystem/
-ApplicationStructure.java
+Let's add this class into our `/src/test/com/acme/conferencesystem/
+ApplicationStructure.java`
 
 ```java
 package com.acme.conferencesystem;
@@ -43,7 +43,7 @@ class ArchitectureTests {
 
 ## Execute the three tests one by one
 
-- [ ] Execute printModuleArrangement()
+- [ ] Execute `printModuleArrangement()`
 
 `modules.forEach(System.out::println);`
 
@@ -97,22 +97,24 @@ that they use, and their logical name.
   + ….NotificationService
 ```
 
-- [ ] Execute verifyModularStructure() you are going to lunch the jMolecules
+- [ ] Execute `verifyModularStructure()` you are going to lunch the jMolecules
   verification
 
 `modules.verify();`
 
-You will see that we found modules that are not don't correctly expose the
-dependencies to the other
-modules. We will fix that later.
+You will see that we found modules that don't correctly expose the
+dependencies to the other modules.
+We will fix that later.
 
 ```text
 org.springframework.modulith.core.Violations: - Module 'voting' depends on non-exposed type com.acme.conferencesystem.cfp.proposals.business.ProposalService within module 'cfp'!
 VoteService declares constructor VoteService(VoteRepository, VoteMapper, ProposalService, UserService) in (VoteService.java:0)
 ```
 
-- [ ] Execute writeDocumentation() you are going to write the
-  documentation that you can find in /target/spring-modulith-docs/components.
-  puml with the diagrams c4 model.
+- [ ] Execute `writeDocumentation()` it will automatically write the
+  documentation
+  that can be found
+  at [components.puml](/target/spring-modulith-docs/components.puml) with the C4
+  model diagrams.
 
 ![step-04-c4.png](img/step-04-c4.png)
