@@ -18,7 +18,7 @@ import org.springframework.context.annotation.Primary;
 import org.springframework.modulith.test.ApplicationModuleTest;
 import org.springframework.stereotype.Service;
 
-@ApplicationModuleTest
+@ApplicationModuleTest(mode = ApplicationModuleTest.BootstrapMode.DIRECT_DEPENDENCIES)
 @Import({ContainerConfig.class, TestNotificationService.class})
 class NotificationServiceTest {
 

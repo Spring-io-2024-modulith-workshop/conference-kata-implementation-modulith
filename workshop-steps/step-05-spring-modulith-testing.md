@@ -11,7 +11,7 @@
 </dependency>
 ```
 
-## Replace @ApplicationModuleTest with @ApplicationModuleTest
+## Replace @SpringBootTest with @ApplicationModuleTest
 
 As this is not production, as is a save environment, let's replace all
 @SpringBootTest with @ApplicationModuleTest, please go one by one because if
