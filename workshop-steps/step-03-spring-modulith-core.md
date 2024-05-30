@@ -2,15 +2,26 @@
 
 ## Replace @SpringBootApplication with @Modulith
 
-- [ ] In the `Application.java` class, replace `@SpringBootApplication`
-  with `@Modulith`
+- [ ] In
+  the [`Application.java`](../src/main/java/com/acme/conferencesystem/Application.java)
+  class, replace `@SpringBootApplication`
+  with `@Modulith` to tell spring modulith that this is a modular application.
 
-Go to Application.java and replace `@SpringBootApplication` with `@Modulith`
-to tell spring modulith that this is a modular application.
+```java
+
+@Modulith
+public class Application {
+
+  public static void main(String[] args) {
+    SpringApplication.run(Application.class, args);
+  }
+
+}
+```
 
 ## Add Bom and core dependency
 
-- [ ] Add the following to the `pom.xml` file:
+- [ ] Add the following dependencies to the [`pom.xml`](../pom.xml) file:
 
 ```xml
 
