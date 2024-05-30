@@ -25,27 +25,29 @@ public class Application {
 
 ```xml
 
-<properties>
-  <spring-modulith.version>1.2.0</spring-modulith.version>
-</properties>
+<project>
+  <properties>
+    <spring-modulith.version>1.2.0</spring-modulith.version>
+  </properties>
 
-<dependencies>
-<!-- Spring Modulith -->
-<dependency>
-  <artifactId>spring-modulith-starter-core</artifactId>
-  <groupId>org.springframework.modulith</groupId>
-</dependency>
-</dependencies>
+  <dependencies>
+    <!-- Spring Modulith -->
+    <dependency>
+      <artifactId>spring-modulith-starter-core</artifactId>
+      <groupId>org.springframework.modulith</groupId>
+    </dependency>
+  </dependencies>
 
-<dependencyManagement>
-<dependencies>
-  <dependency>
-    <artifactId>spring-modulith-bom</artifactId>
-    <groupId>org.springframework.modulith</groupId>
-    <scope>import</scope>
-    <type>pom</type>
-    <version>${spring-modulith.version}</version>
-  </dependency>
-</dependencies>
-</dependencyManagement>
+  <dependencyManagement>
+    <dependencies>
+      <dependency>
+        <artifactId>spring-modulith-bom</artifactId>
+        <groupId>org.springframework.modulith</groupId>
+        <scope>import</scope>
+        <type>pom</type>
+        <version>${spring-modulith.version}</version>
+      </dependency>
+    </dependencies>
+  </dependencyManagement>
+</project>
 ```
