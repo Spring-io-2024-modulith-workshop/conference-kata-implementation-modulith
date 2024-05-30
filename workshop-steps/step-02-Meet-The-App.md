@@ -8,22 +8,16 @@
 
 Rest reference and requests in http format:
 
-[proposals](./documentation/http/proposals.http)
-
-[tickets](./documentation/http/tickets.http)
-
-[users](./documentation/http/users.http)
-
-[votes](./documentation/http/votes.http)
+* [Proposals](./documentation/http/proposals.http)
+* [Tickets](./documentation/http/tickets.http)
+* [Users](./documentation/http/users.http)
+* [Votes](./documentation/http/votes.http)
 
 ## Rest reference in curl format
 
 Rest reference and requests in curl format:
 
-[proposals](./documentation/proposals.md)
-
-[tickets](./documentation/tickets.md)
-
-[users](./documentation/users.md)
-
-[votes](./documentation/votes.md)
+* [Proposals](./documentation/proposals.md)
+* [Tickets](./documentation/tickets.md)
+* [Users](./documentation/users.md)
+* [Votes](./documentation/votes.md)
