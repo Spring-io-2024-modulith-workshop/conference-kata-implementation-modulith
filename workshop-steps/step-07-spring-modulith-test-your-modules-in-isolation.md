@@ -1,9 +1,9 @@
 # Test your modules in isolation
 
-## Let's start by `proposals` module
+## Let's start with the `proposals` module
 
 1. Run the tests within this java file
-   `ProposalControllerIntegrationTest.java`:
+   [`ProposalControllerIntegrationTest.java`](../src/test/java/com/acme/conferencesystem/cfp/proposals/http/ProposalControllerIntegrationTest.java).
 2. And you'll get the following error:
 
     ```text
@@ -16,16 +16,17 @@
    That will bootstrap `proposals` module with their direct dependencies.
 4. Run the tests again.
 
+
 ## Repeat the same steps with the following tests
 
-1. ProposalRepositoryTest
-2. UserRepositoryTest
-3. TicketRepository
-4. VoteControllerIntegrationTest
-5. VoteRepositoryTest
-6. TalkContollerIntegrationTest
-7. UserControllerIntegrationTest
-8. NotificationServiceTest
+1. [ProposalRepositoryTest](../src/test/java/com/acme/conferencesystem/cfp/proposals/persistence/ProposalRepositoryTest.java)
+2. [UserRepositoryTest](../src/test/java/com/acme/conferencesystem/users/persistence/UserRepositoryTest.java)
+3. [TicketRepository](../src/test/java/com/acme/conferencesystem/users/persistence/UserRepositoryTest.java)
+4. [VoteControllerIntegrationTest](../src/test/java/com/acme/conferencesystem/users/persistence/UserRepositoryTest.java)
+5. [VoteRepositoryTest](../src/test/java/com/acme/conferencesystem/voting/persistence/VoteRepositoryTest.java)
+6. [TalkControllerIntegrationTest](../src/test/java/com/acme/conferencesystem/cfp/talks/http/TalkControllerIntegrationTest.java)
+7. [UserControllerIntegrationTest](../src/test/java/com/acme/conferencesystem/users/http/UserControllerIntegrationTest.java)
+8. [NotificationServiceTest](../src/test/java/com/acme/conferencesystem/notifications/NotificationServiceTest.java)
 
 ```java
 @ApplicationModuleTest(mode = ApplicationModuleTest.BootstrapMode.DIRECT_DEPENDENCIES)
