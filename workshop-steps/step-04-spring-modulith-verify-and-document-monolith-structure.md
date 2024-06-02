@@ -1,14 +1,26 @@
-# Spring modulith Verify Application module structure
+# Spring Modulith Verify Application module structure
 
-Spring modulith internally uses jMolecules to verify the module structure of an
+Spring Modulith internally uses jMolecules to verify the module structure of an
 application.
 
 ## The module / architecture test
 
-- [ ] Add ApplicationStructure.java
+- [ ] Add `spring-modulith-starter-test` dependency to the pom that contains
+  `Documenter`.
+
+```xml
+    <!-- Testing -->
+<dependency>
+  <artifactId>spring-modulith-starter-test</artifactId>
+  <groupId>org.springframework.modulith</groupId>
+  <scope>test</scope>
+</dependency>
+```
+
+- [ ] Add ArchitectureTests.java
 
 Let's add this class into our `/src/test/com/acme/conferencesystem/
-ApplicationStructure.java`
+ArchitectureTests.java`
 
 ```java
 package com.acme.conferencesystem;
@@ -33,9 +45,7 @@ class ArchitectureTests {
 
     @Test
     void writeDocumentation() {
-        new Documenter(modules)
-                .writeDocumentation()
-                .writeIndividualModulesAsPlantUml();
+        new Documenter(modules).writeDocumentation();
     }
 
 }
