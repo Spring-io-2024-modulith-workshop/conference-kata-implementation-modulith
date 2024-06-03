@@ -12,6 +12,7 @@ import org.springframework.context.annotation.Import;
 import org.springframework.modulith.test.ApplicationModuleTest;
 
 import java.time.LocalDateTime;
+import java.time.ZoneId;
 
 import static io.restassured.RestAssured.given;
 import static org.hamcrest.Matchers.equalTo;
@@ -28,7 +29,7 @@ class TicketControllerIntegrationTest extends AbstractIntegrationTest {
         Ticket ticket = new Ticket(
                 null,
                 TicketCategory.BLIND,
-                LocalDateTime.now(),
+                LocalDateTime.now(ZoneId.of("UTC")),
                 100D,
                 TicketStatus.PENDING
         );
@@ -69,7 +70,7 @@ class TicketControllerIntegrationTest extends AbstractIntegrationTest {
         Ticket ticket = new Ticket(
                 null,
                 TicketCategory.REGULAR,
-                LocalDateTime.now(),
+                LocalDateTime.now(ZoneId.of("UTC")),
                 100D,
                 TicketStatus.PENDING
         );
@@ -98,7 +99,7 @@ class TicketControllerIntegrationTest extends AbstractIntegrationTest {
         Ticket ticket = new Ticket(
                 null,
                 TicketCategory.REGULAR,
-                LocalDateTime.now(),
+                LocalDateTime.now(ZoneId.of("UTC")),
                 100D,
                 TicketStatus.PENDING
         );

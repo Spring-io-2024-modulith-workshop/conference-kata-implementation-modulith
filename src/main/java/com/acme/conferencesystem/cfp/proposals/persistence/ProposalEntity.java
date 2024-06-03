@@ -1,19 +1,21 @@
 package com.acme.conferencesystem.cfp.proposals.persistence;
 
 
-import static com.acme.conferencesystem.cfp.proposals.business.ProposalStatus.ACCEPTED;
-import static com.acme.conferencesystem.cfp.proposals.business.ProposalStatus.REJECTED;
-import static java.time.LocalDateTime.now;
-
 import com.acme.conferencesystem.cfp.proposals.business.ProposalStatus;
-import java.time.LocalDateTime;
-import java.util.UUID;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.annotation.ReadOnlyProperty;
 import org.springframework.data.relational.core.mapping.Column;
 import org.springframework.data.relational.core.mapping.Table;
+
+import java.time.LocalDateTime;
+import java.time.ZoneId;
+import java.util.UUID;
+
+import static com.acme.conferencesystem.cfp.proposals.business.ProposalStatus.ACCEPTED;
+import static com.acme.conferencesystem.cfp.proposals.business.ProposalStatus.REJECTED;
+import static java.time.LocalDateTime.now;
 
 @Table("proposals")
 public record ProposalEntity(
@@ -27,10 +29,10 @@ public record ProposalEntity(
 ) {
 
     public ProposalEntity createWithAcceptedStatus() {
-        return new ProposalEntity(id, title, description, speakerId, ACCEPTED, creationDateTime, now());
+        return new ProposalEntity(id, title, description, speakerId, ACCEPTED, creationDateTime, now(ZoneId.systemDefault()));
     }
 
     public ProposalEntity createWithRejectedStatus() {
-        return new ProposalEntity(id, title, description, speakerId, REJECTED, creationDateTime, now());
+        return new ProposalEntity(id, title, description, speakerId, REJECTED, creationDateTime, now(ZoneId.systemDefault()));
     }
 }

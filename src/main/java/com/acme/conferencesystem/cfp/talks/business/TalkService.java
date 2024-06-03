@@ -2,8 +2,9 @@ package com.acme.conferencesystem.cfp.talks.business;
 
 import com.acme.conferencesystem.cfp.ProposalInternalAPI;
 import com.acme.conferencesystem.cfp.TalkInternalAPI;
-import java.util.List;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 @Service
 public class TalkService implements TalkInternalAPI {
@@ -16,6 +17,7 @@ public class TalkService implements TalkInternalAPI {
         this.mapper = mapper;
     }
 
+    @Override
     public List<Talk> getTalks() {
         return proposalInternalAPI.getAcceptedProposals()
                 .stream()

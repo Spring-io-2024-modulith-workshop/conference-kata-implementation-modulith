@@ -36,11 +36,13 @@ public class UserService implements UserInternalAPI {
         return mapper.entityToUser(registeredUserEntity);
     }
 
+    @Override
     public Optional<User> getUserById(UUID id) {
         return repository.findById(id)
                 .map(mapper::entityToUser);
     }
 
+    @Override
     public void validateUser(UUID userId) {
         if (!isUserValid(userId)) {
             log.error("User with ID {}, is not valid.", userId);
@@ -52,6 +54,7 @@ public class UserService implements UserInternalAPI {
         return repository.existsById(userId);
     }
 
+    @Override
     public void validateUserIsOrganizer(UUID userId) {
         User userById = getUserById(userId)
                 .orElseThrow(() -> new IllegalArgumentException("User with ID %s, does not exist".formatted(userId)));

@@ -6,14 +6,15 @@ import com.acme.conferencesystem.cfp.ProposalInternalAPI;
 import com.acme.conferencesystem.cfp.proposals.persistence.ProposalEntity;
 import com.acme.conferencesystem.cfp.proposals.persistence.ProposalRepository;
 import com.acme.conferencesystem.users.UserInternalAPI;
-import java.util.List;
-import java.util.UUID;
-import java.util.stream.StreamSupport;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.List;
+import java.util.UUID;
+import java.util.stream.StreamSupport;
 
 @Service
 public class ProposalService implements ProposalInternalAPI {
@@ -40,6 +41,7 @@ public class ProposalService implements ProposalInternalAPI {
                 .toList();
     }
 
+    @Override
     public List<Proposal> getAcceptedProposals() {
         return repository.getProposalEntityByStatus(ProposalStatus.ACCEPTED)
                 .stream()
