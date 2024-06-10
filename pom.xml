@@ -155,6 +155,16 @@
       <scope>test</scope>
       <version>${rest-assured.version}</version>
     </dependency>
+    <dependency>
+      <groupId>org.jmolecules</groupId>
+      <artifactId>jmolecules-ddd</artifactId>
+      <version>${jmolecules.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>org.jmolecules</groupId>
+      <artifactId>jmolecules-layered-architecture</artifactId>
+      <version>${jmolecules.version}</version>
+    </dependency>
   </dependencies>
   <dependencyManagement>
     <dependencies>
@@ -198,6 +208,7 @@
     <rest-assured.version>5.4.0</rest-assured.version>
     <spring-modulith.version>1.2.0</spring-modulith.version>
     <testcontainers-bom.version>1.19.8</testcontainers-bom.version>
+    <jmolecules.version>1.9.0</jmolecules.version>
   </properties>
 
   <reporting>

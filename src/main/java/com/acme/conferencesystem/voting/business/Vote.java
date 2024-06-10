@@ -1,9 +1,13 @@
 package com.acme.conferencesystem.voting.business;
 
+import org.jmolecules.ddd.annotation.Entity;
+import org.jmolecules.ddd.annotation.Identity;
+
 import java.util.UUID;
 
+@Entity
 public record Vote(
-        UUID id,
+        @Identity UUID id,
         UUID userId,
         UUID proposalId,
         Integer rating
