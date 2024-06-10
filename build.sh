@@ -1,0 +1,1 @@
+mvn spring-boot:build-image -DskipTests -Pobservability -Dspring-boot.build-image.imageName=conference-system

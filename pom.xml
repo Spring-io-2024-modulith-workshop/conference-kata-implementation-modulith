@@ -219,4 +219,85 @@
 
   <version>0.0.1-SNAPSHOT</version>
 
+  <profiles>
+    <profile>
+
+      <id>default</id>
+
+      <activation>
+        <activeByDefault>true</activeByDefault>
+      </activation>
+
+      <dependencies>
+        <dependency>
+          <groupId>org.springframework.boot</groupId>
+          <artifactId>spring-boot-devtools</artifactId>
+          <optional>true</optional>
+        </dependency>
+      </dependencies>
+
+    </profile>
+    <profile>
+
+      <id>actuator</id>
+
+      <dependencies>
+
+        <dependency>
+          <groupId>org.springframework.modulith</groupId>
+          <artifactId>spring-modulith-actuator</artifactId>
+        </dependency>
+        <dependency>
+          <groupId>org.springframework.boot</groupId>
+          <artifactId>spring-boot-starter-actuator</artifactId>
+        </dependency>
+
+      </dependencies>
+
+    </profile>
+    <profile>
+
+      <id>observability</id>
+
+      <dependencies>
+
+        <dependency>
+          <groupId>org.springframework.modulith</groupId>
+          <artifactId>spring-modulith-observability</artifactId>
+        </dependency>
+
+        <dependency>
+          <groupId>org.springframework.boot</groupId>
+          <artifactId>spring-boot-starter-actuator</artifactId>
+        </dependency>
+
+        <dependency>
+          <groupId>io.micrometer</groupId>
+          <artifactId>micrometer-tracing-bridge-otel</artifactId>
+        </dependency>
+
+        <dependency>
+          <groupId>io.opentelemetry</groupId>
+          <artifactId>opentelemetry-exporter-zipkin</artifactId>
+        </dependency>
+
+        <!-- Comment in to produce database spans -->
+        <!--				<dependency>-->
+        <!--					<groupId>net.ttddyy.observation</groupId>-->
+        <!--					<artifactId>datasource-micrometer-spring-boot</artifactId>-->
+        <!--					<version>${datasourceMicrometerSpringBootVersion}</version>-->
+        <!--				</dependency>-->
+
+        <dependency>
+          <groupId>org.springframework.boot</groupId>
+          <artifactId>spring-boot-docker-compose</artifactId>
+          <scope>runtime</scope>
+          <optional>true</optional>
+        </dependency>
+
+      </dependencies>
+    </profile>
+
+  </profiles>
+
 </project>

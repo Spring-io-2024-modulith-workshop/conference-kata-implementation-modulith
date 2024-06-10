@@ -1,0 +1,28 @@
+version: "3"
+services:
+  zipkin:
+    image: openzipkin/zipkin:latest
+    container_name: zipkin
+    ports:
+      - 9411:9411
+  postgres:
+    image: postgres:16-alpine
+    container_name: postgres
+    ports:
+      - "5432:5432"
+    environment:
+      POSTGRES_PASSWORD: password
+      POSTGRES_DB: postgres
+      POSTGRES_USER: postgres
+  conference-system:
+    image: docker.io/library/conference-system:latest
+    container_name: conference-system
+    depends_on:
+      - postgres
+      - zipkin
+    ports:
+      - "8080:8080"
+
+networks:
+  default:
+    driver: bridge
