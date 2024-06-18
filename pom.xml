@@ -165,7 +165,7 @@
   </parent>
 
   <properties>
-    <flyway.version>10.14.0</flyway.version>
+    <flyway.version>10.15.0</flyway.version>
     <instancio-junit.version>4.8.0</instancio-junit.version>
     <jakarta.validation-api.version>3.1.0</jakarta.validation-api.version>
     <java.version>21</java.version>
