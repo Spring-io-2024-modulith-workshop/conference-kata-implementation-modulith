@@ -8,6 +8,7 @@ be annotated with `@Transactional` in turn.
 An async, transactional event listener running in a transaction itself
 
 ```java
+
 @Component
 class InventoryManagement {
 
@@ -36,7 +37,7 @@ class InventoryManagement {
 
 ## Replace @EventListener with @ApplicationModuleListener
 
-1. Go to `NotificacionService` and replace `@EventListener` for
+1. Go to `NotificationService` and replace `@EventListener` for
    `@ApplicationModuleListener`
 
 ## Testing your module events with Spring Modulith test Scenario
