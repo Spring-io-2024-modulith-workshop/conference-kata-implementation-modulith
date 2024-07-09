@@ -68,7 +68,7 @@ public class ProposalService implements ProposalInternalAPI {
 
    And that for the moment submodules / subpackages are not exposed.
 
-## Run the test again to continue solving structural exceptions.
+## Run the test again to continue solving structural exceptions
 
 And now let's get focus with UserService
 
@@ -118,7 +118,7 @@ org.springframework.modulith.core.Violations: - Module 'notifications' depends o
 
 4. Run the test again.
 
-## Run the test again and fix the nex exception
+## Run the test again and fix the next exception
 
 1. Run the test again. Then you'll get the following exception:
 
