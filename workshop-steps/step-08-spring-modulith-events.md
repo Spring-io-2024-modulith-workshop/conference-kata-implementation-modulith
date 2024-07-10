@@ -8,6 +8,7 @@ be annotated with `@Transactional` in turn.
 An async, transactional event listener running in a transaction itself
 
 ```java
+
 @Component
 class InventoryManagement {
 
@@ -34,9 +35,23 @@ class InventoryManagement {
 }
 ```
 
+## Add spring-modulith-events-api to access to @ApplicationModuleListener
+
+1. Go to your [pom.xml](../pom.xml)
+
+And add the following to your `pom.xml`:
+
+```xml
+
+<dependency>
+  <artifactId>spring-modulith-events-api</artifactId>
+  <groupId>org.springframework.modulith</groupId>
+</dependency>
+```
+
 ## Replace @EventListener with @ApplicationModuleListener
 
-1. Go to `NotificacionService` and replace `@EventListener` for
+1. Go to `NotificationService` and replace `@EventListener` for
    `@ApplicationModuleListener`
 
 ## Testing your module events with Spring Modulith test Scenario
