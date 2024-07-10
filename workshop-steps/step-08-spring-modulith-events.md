@@ -35,6 +35,20 @@ class InventoryManagement {
 }
 ```
 
+## Add spring-modulith-events-api to access to @ApplicationModuleListener
+
+1. Go to your [pom.xml](../pom.xml)
+
+And add the following to your `pom.xml`:
+
+```xml
+
+<dependency>
+  <artifactId>spring-modulith-events-api</artifactId>
+  <groupId>org.springframework.modulith</groupId>
+</dependency>
+```
+
 ## Replace @EventListener with @ApplicationModuleListener
 
 1. Go to `NotificationService` and replace `@EventListener` for

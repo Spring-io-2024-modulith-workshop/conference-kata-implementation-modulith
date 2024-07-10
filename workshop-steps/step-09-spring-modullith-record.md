@@ -7,13 +7,8 @@ And add the following to your `pom.xml`:
 ```xml
 
 <dependency>
-  <artifactId>spring-modulith-events-api</artifactId>
+  <artifactId>spring-modulith-starter-jdbc</artifactId>
   <groupId>org.springframework.modulith</groupId>
-</dependency>
-
-<dependency>
-<artifactId>spring-modulith-starter-jdbc</artifactId>
-<groupId>org.springframework.modulith</groupId>
 </dependency>
 ```
 
