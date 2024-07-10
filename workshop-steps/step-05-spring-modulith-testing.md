@@ -60,7 +60,7 @@ to
         mode = BootstrapMode.ALL_DEPENDENCIES,
         webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT
 )
-@Import(ContainerConfig.class
+@Import(ContainerConfig.class)
 
 ```
 

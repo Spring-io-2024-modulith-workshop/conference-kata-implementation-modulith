@@ -1,6 +1,7 @@
 # Spring Modulith Verify Application module structure
 
-Spring Modulith internally uses jMolecules to verify the module structure of an
+Spring Modulith internally uses jMolecules and ArchUnit to verify the module
+structure of an
 application.
 
 ## The module / architecture test
