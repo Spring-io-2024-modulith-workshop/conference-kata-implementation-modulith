@@ -171,7 +171,7 @@
     <java.version>21</java.version>
     <mapstruct.version>1.6.0.RC1</mapstruct.version>
     <rest-assured.version>5.5.0</rest-assured.version>
-    <testcontainers-bom.version>1.19.8</testcontainers-bom.version>
+    <testcontainers-bom.version>1.20.1</testcontainers-bom.version>
   </properties>
 
   <reporting>
